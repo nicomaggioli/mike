@@ -1,0 +1,1913 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Freelance Data Engineer in Boston · Snowflake, dbt &amp; AI-ready data · Michael Gold Maggioli</title>
+<meta name="description" content="Michael Gold Maggioli is a freelance data engineer in Boston with 12 years of experience. Snowflake, dbt and CDC pipelines, agreed metric definitions, and data that Claude answers correctly. Fixed scope, fixed price.">
+<meta property="og:title" content="Michael Gold Maggioli · Freelance Data Engineer, Boston">
+<meta property="og:description" content="Numbers your team agrees on, and your AI gets right. Snowflake, dbt, AWS. Greater Boston, remote or on-site.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nicomaggioli.github.io/mike/vscode.html">
+<meta property="og:image" content="https://nicomaggioli.github.io/mike/images/michael.jpg">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://nicomaggioli.github.io/mike/">
+<meta name="theme-color" content="#181818">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232F7BF5'/%3E%3Cpath d='M9 22V10l7 7 7-7v12' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Michael Gold Maggioli, Freelance Data Engineer",
+  "description": "Freelance data engineering in Boston: Data Trust Audits, Snowflake and dbt source-of-truth builds, Claude-ready analytics, and fractional data lead support.",
+  "areaServed": ["Boston", "Cambridge", "Greater Boston", "Massachusetts", "United States (remote)"],
+  "address": { "@type": "PostalAddress", "addressRegion": "MA", "addressCountry": "US" },
+  "founder": {
+    "@type": "Person",
+    "name": "Michael Gold Maggioli",
+    "jobTitle": "Data Engineer",
+    "alumniOf": "University of Connecticut",
+    "sameAs": ["https://www.linkedin.com/in/michael-maggioli/"],
+    "knowsAbout": ["Snowflake", "dbt", "SQL", "Python", "AWS", "Airflow", "Terraform", "Tableau", "Looker", "Data engineering", "Analytics engineering"]
+  }
+}
+</script>
+<style>
+  :root {
+    color-scheme: dark;
+    --title: #181818;
+    --side: #181818;
+    --edit: #1F1F1F;
+    --raised: #252526;
+    --raised-2: #2B2B2B;
+    --line: #2B2B2B;
+    --line-2: #3C3C3C;
+    --hover: #2A2D2E;
+    --sel: #04395E;
+    --focus: #0078D4;
+    --fg: #CCCCCC;
+    --fg-hi: #F0F0F0;
+    --fg-dim: #9D9D9D;
+    --fg-mute: #8B949E;
+    --blue: #2F6BF5;
+    --link: #4DAAFC;
+    --green: #3FB950;
+    --yellow: #E2C08D;
+
+    --k-kw: #569CD6;
+    --k-ctl: #C586C0;
+    --k-str: #CE9178;
+    --k-num: #B5CEA8;
+    --k-fn: #DCDCAA;
+    --k-type: #4EC9B0;
+    --k-com: #6A9955;
+    --k-var: #9CDCFE;
+
+    --ui: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--edit);
+    color: var(--fg);
+    font-family: var(--ui);
+    font-size: 13px;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+  button { font: inherit; color: inherit; }
+  a { color: var(--link); }
+  :focus-visible { outline: 1px solid var(--focus); outline-offset: -1px; }
+  .btn-primary:focus-visible, .btn-hire:focus-visible { outline: 2px solid #FFF; outline-offset: 2px; }
+  .sb .remote:focus-visible, .hire :focus-visible { outline: 2px solid #FFF; outline-offset: -3px; }
+  .hire .h-bar .strong:focus-visible { outline-color: #0B2A6F; }
+  .tq .opts button:focus-visible { outline: 2px solid #FFF; outline-offset: 1px; }
+  .skip { position: fixed; left: 8px; top: -48px; z-index: 200; padding: 8px 12px; background: var(--blue); color: #FFF; border: 0; border-radius: 6px; font-weight: 600; cursor: pointer; }
+  .skip:focus { top: 8px; }
+  [hidden] { display: none !important; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  svg.i { width: 16px; height: 16px; flex: none; }
+
+  /* Boot screen: the name gets "selected" like text in an editor */
+  #boot {
+    position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+    background: var(--edit);
+    animation: boot-out .2s ease .6s forwards;
+  }
+  #boot span { position: relative; z-index: 0; font: 600 22px var(--mono); color: var(--fg-hi); padding: 2px 4px; }
+  #boot span::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--blue); transform: scaleX(0); transform-origin: left; animation: sel-in .4s cubic-bezier(.7,0,.3,1) .1s forwards; }
+  #boot span::after { content: ""; position: absolute; right: -3px; top: 3px; bottom: 3px; width: 2px; background: var(--fg-hi); animation: caret 1s steps(1) infinite; }
+  @keyframes sel-in { to { transform: scaleX(1); } }
+  @keyframes caret { 50% { opacity: 0; } }
+  @keyframes boot-out { to { opacity: 0; visibility: hidden; } }
+  @media (prefers-reduced-motion: reduce) { #boot { display: none; } }
+
+  /* App frame */
+  .app { height: 100%; display: grid; grid-template-rows: calc(38px + env(safe-area-inset-top, 0px)) minmax(0, 1fr) calc(24px + env(safe-area-inset-bottom, 0px)); padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
+
+  .titlebar {
+    display: grid; grid-template-columns: 1fr minmax(0, 520px) 1fr; align-items: center; gap: 12px;
+    padding: 0 10px; padding-top: env(safe-area-inset-top, 0px);
+    background: var(--title); border-bottom: 1px solid var(--line);
+  }
+  .tb-left, .tb-right { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .tb-right { justify-content: flex-end; }
+  .lights { display: flex; gap: 8px; margin-right: 8px; }
+  .lights i { width: 12px; height: 12px; border-radius: 50%; background: #FF5F57; }
+  .lights i:nth-child(2) { background: #FEBC2E; }
+  .lights i:nth-child(3) { background: #28C840; }
+  .icon-btn { width: 28px; height: 28px; display: grid; place-items: center; border: 0; background: none; color: var(--fg-dim); border-radius: 5px; cursor: pointer; }
+  .icon-btn:hover { background: var(--hover); color: var(--fg-hi); }
+  .icon-btn[aria-pressed="true"] { color: var(--fg-hi); }
+  .cmd {
+    height: 26px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+    border: 1px solid var(--line-2); border-radius: 6px; background: #222; color: var(--fg-dim);
+    font-size: 12.5px; cursor: pointer; white-space: nowrap; overflow: hidden;
+  }
+  .cmd:hover { border-color: #4A4A4A; color: var(--fg); }
+  .cmd kbd { font: 11px var(--mono); color: var(--fg-mute); }
+  .menu-btn { display: none; }
+  .nav-arrows { display: flex; gap: 2px; color: var(--fg-mute); }
+  .btn-hire {
+    height: 26px; padding: 0 12px; border: 0; border-radius: 6px; background: var(--blue); color: #FFF;
+    font-weight: 600; font-size: 12.5px; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-hire:hover { background: #2559D6; }
+  .btn-hire .dot { width: 7px; height: 7px; border-radius: 50%; background: #9CF5AE; }
+
+  .main { display: grid; grid-template-columns: 48px var(--side-w, 248px) minmax(0, 1fr) var(--chat-w, 340px); min-height: 0; }
+  .main.no-side { --side-w: 0px; }
+  .main.no-chat { --chat-w: 0px; }
+  .main.no-side .sidebar, .main.no-chat .chat { display: none; }
+  .main > .activity { grid-column: 1; grid-row: 1; }
+  .main > .sidebar { grid-column: 2; grid-row: 1; }
+  .main > .editor { grid-column: 3; grid-row: 1; }
+  .main > .chat { grid-column: 4; grid-row: 1; }
+  .sec-h[aria-expanded="false"] svg { transform: rotate(-90deg); }
+  .sec-h.static { cursor: default; }
+
+  /* Activity bar */
+  .activity { display: flex; flex-direction: column; align-items: center; background: var(--side); border-right: 1px solid var(--line); }
+  .activity button {
+    position: relative; width: 48px; height: 48px; display: grid; place-items: center;
+    border: 0; border-left: 2px solid transparent; background: none; color: var(--fg-mute); cursor: pointer;
+  }
+  .activity button:hover { color: var(--fg-hi); }
+  .activity button[aria-pressed="true"] { color: var(--fg-hi); border-left-color: var(--fg-hi); }
+  .activity svg.i { width: 24px; height: 24px; }
+  .activity .badge { position: absolute; right: 7px; bottom: 9px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--blue); color: #FFF; font-size: 10px; line-height: 16px; font-weight: 600; }
+  .activity .spacer { margin-top: auto; }
+  .activity .me img { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line-2); }
+
+  /* Sidebar / explorer */
+  .sidebar { background: var(--side); border-right: 1px solid var(--line); overflow: auto; min-width: 0; display: flex; flex-direction: column; }
+  .side-h { height: 35px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0 12px 0 20px; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--fg-dim); }
+  .sec-h { display: flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--fg); background: none; border: 0; width: 100%; cursor: pointer; text-align: left; }
+  .sec-h svg { width: 14px; height: 14px; }
+  .tree { list-style: none; margin: 0; padding: 0 0 8px; }
+  .tree button {
+    display: flex; align-items: center; gap: 6px; width: 100%; height: 22px;
+    padding: 0 0 0 calc(10px + var(--d, 0) * 14px); border: 0; background: none; cursor: pointer;
+    font-size: 13px; color: var(--fg); text-align: left; white-space: nowrap;
+  }
+  .tree button:hover { background: var(--hover); }
+  .tree button.active { background: var(--sel); box-shadow: inset 0 0 0 1px var(--focus); }
+  .tree .chev { width: 14px; height: 14px; color: var(--fg-dim); flex: none; transition: transform .1s; }
+  .tree .folder[aria-expanded="false"] .chev { transform: rotate(-90deg); }
+  .tree .spc { width: 14px; flex: none; }
+  .git { margin-left: auto; padding-right: 14px; font-size: 11px; font-weight: 600; }
+  .git.U { color: var(--green); }
+  .git.M { color: var(--yellow); }
+  .tree .lbl.U { color: #73C991; }
+  .tree .lbl.M { color: var(--yellow); }
+  .side-foot { margin-top: auto; border-top: 1px solid var(--line); }
+  .side-foot .sec-h { color: var(--fg-dim); height: 26px; }
+
+  /* File icons */
+  .fi { width: 16px; height: 16px; flex: none; display: inline-grid; place-items: center; font: 700 9px/1 var(--mono); border-radius: 3px; }
+  .fi.ft-md { color: #519ABA; font-size: 10px; }
+  .fi.ft-sql { color: #E37933; }
+  .fi.ft-json { color: #CBCB41; font-size: 10px; }
+  .fi.ft-yml { color: #A074C4; font-size: 11px; }
+  .fi.logo { background: #FFF; overflow: hidden; }
+  .fi.logo img { width: 14px; height: 14px; object-fit: contain; }
+
+  /* Editor */
+  .editor { display: grid; grid-template-rows: 35px 24px minmax(0, 1fr) auto; min-width: 0; min-height: 0; background: var(--edit); }
+  .tabs { display: flex; background: var(--side); border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    display: flex; align-items: center; gap: 6px; flex: none; height: 35px; padding: 0 6px 0 12px;
+    border: 0; border-right: 1px solid var(--line); border-top: 1px solid transparent;
+    background: var(--side); color: var(--fg-dim); font-size: 13px; cursor: pointer; white-space: nowrap;
+  }
+  .tab.on { background: var(--edit); color: var(--fg-hi); border-top-color: var(--focus); margin-bottom: -1px; height: 36px; }
+  .tab-btn { display: flex; align-items: center; gap: 6px; height: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+  .tab .x { width: 20px; height: 20px; display: grid; place-items: center; border: 0; padding: 0; background: none; cursor: pointer; border-radius: 4px; opacity: 0; color: var(--fg-dim); }
+  .tab:hover .x, .tab.on .x, .tab:focus-within .x { opacity: 1; }
+  @media (hover: none) { .tab .x { opacity: 1; } }
+  .tab .x:hover { background: var(--line-2); color: var(--fg-hi); }
+  .tab .pv { font-style: italic; }
+  .crumbs { display: flex; align-items: center; gap: 2px; padding: 0 16px; color: var(--fg-dim); font-size: 12.5px; white-space: nowrap; overflow: hidden; }
+  .crumbs svg { width: 14px; height: 14px; color: var(--fg-mute); }
+  .view { overflow: auto; position: relative; min-height: 0; }
+  .view:focus { outline: none; }
+
+  /* Markdown preview */
+  .md { max-width: 800px; margin: 0 auto; padding: 32px 44px 96px; font-size: 15px; line-height: 1.65; color: #D4D4D4; }
+  .md h1 { font-size: 34px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; color: var(--fg-hi); margin: 0 0 6px; }
+  .md h2 { font-size: 20px; font-weight: 600; color: var(--fg-hi); margin: 44px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); letter-spacing: -0.01em; }
+  .md h3 { font-size: 16px; font-weight: 600; color: var(--fg-hi); margin: 0 0 6px; }
+  .md p { margin: 0 0 14px; }
+  .md ul { margin: 0 0 14px; padding-left: 20px; }
+  .md li { margin: 4px 0; }
+  .md li::marker { color: var(--fg-mute); }
+  .md code { font: .88em var(--mono); background: var(--raised-2); color: var(--yellow); padding: 2px 6px; border-radius: 4px; }
+  .md strong { color: var(--fg-hi); font-weight: 600; }
+  .md hr { border: 0; border-top: 1px solid var(--line); margin: 36px 0; }
+  .md blockquote { margin: 0 0 14px; padding: 10px 16px; border-left: 4px solid rgba(47, 107, 245, .7); background: rgba(127, 127, 127, .08); color: #D4D4D4; }
+  .md .muted { color: var(--fg-dim); }
+  .md .small { font-size: 13px; }
+
+  .hero { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 24px; align-items: center; }
+  .hero img { width: 112px; height: 112px; border-radius: 50%; border: 2px solid var(--line-2); object-fit: cover; }
+  .hero .sub { color: var(--fg-dim); margin: 0 0 10px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; }
+  .badge { display: inline-flex; border-radius: 4px; overflow: hidden; font: 500 11px/1 var(--mono); }
+  .badge span { padding: 4px 7px; }
+  .badge span:first-child { background: #4A4A4A; color: #FFF; }
+  .badge span:last-child { color: #FFF; }
+  .b-green span:last-child { background: #2E7D32; }
+  .b-blue span:last-child { background: #1F5FBF; }
+  .b-purple span:last-child { background: #6F42C1; }
+  .b-orange span:last-child { background: #A8551F; }
+  .lede { font-size: 24px; line-height: 1.35; font-weight: 600; letter-spacing: -0.015em; color: var(--fg-hi); margin: 30px 0 14px; max-width: 30ch; text-wrap: balance; }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 6px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px;
+    border-radius: 6px; border: 1px solid transparent; font: 600 13.5px var(--ui); text-decoration: none; cursor: pointer; white-space: nowrap;
+  }
+  .btn-primary { background: var(--blue); color: #FFF; }
+  .btn-primary:hover { background: #2559D6; }
+  .btn-ghost { background: var(--raised); border-color: var(--line-2); color: var(--fg-hi); }
+  .btn-ghost:hover { background: var(--hover); border-color: #4A4A4A; }
+  .btn svg.i { width: 15px; height: 15px; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 8px; }
+  .card {
+    display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; text-align: left;
+    background: var(--raised); border: 1px solid var(--line-2); border-radius: 8px; color: inherit; cursor: pointer; font-size: 13.5px; line-height: 1.5;
+  }
+  .card:hover { border-color: var(--blue); }
+  .card .big { font: 600 26px/1.1 var(--mono); color: var(--fg-hi); letter-spacing: -0.02em; }
+  .card .who { display: flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 6px; font-size: 12px; color: var(--fg-dim); }
+  .card .who img { width: 16px; height: 16px; border-radius: 3px; background: #FFF; object-fit: contain; }
+
+  .offers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .offer { display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--raised); text-align: left; color: inherit; cursor: pointer; font-size: 13.5px; line-height: 1.5; }
+  .offer:hover { border-color: var(--blue); }
+  .offer .file { font: 11.5px var(--mono); color: var(--fg-mute); }
+  .offer .offer-title { display: block; margin: 0; font-size: 16px; font-weight: 600; color: var(--fg-hi); }
+  .offer .meta { margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line-2); display: flex; justify-content: space-between; gap: 8px; font: 12px var(--mono); color: var(--fg-dim); }
+  .offer .meta b { color: var(--fg-hi); font-weight: 500; }
+  .offer.pick { border-color: rgba(47, 107, 245, .8); box-shadow: 0 0 0 1px rgba(47, 107, 245, .35); }
+  .tag-pick { align-self: flex-start; font: 600 10.5px var(--mono); text-transform: uppercase; letter-spacing: .05em; color: #FFF; background: var(--blue); padding: 2px 6px; border-radius: 3px; }
+
+  .logos { display: flex; flex-wrap: wrap; gap: 8px; }
+  .logo-chip { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px 0 5px; background: var(--raised); border: 1px solid var(--line-2); border-radius: 6px; font-size: 13px; color: var(--fg-hi); }
+  .logo-chip img { width: 24px; height: 24px; border-radius: 4px; background: #FFF; object-fit: contain; }
+
+  .steps { list-style: none; padding: 0; margin: 0 0 14px; display: grid; gap: 10px; counter-reset: s; }
+  .steps li { counter-increment: s; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; margin: 0; }
+  .steps li::before { content: counter(s); width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line-2); font: 12px var(--mono); color: var(--fg-hi); margin-top: 1px; }
+
+  .quote { margin: 0 0 14px; padding: 16px 18px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--raised); }
+  .quote p { font-size: 16px; color: var(--fg-hi); margin: 0 0 10px; }
+  .quote footer { font-size: 13px; color: var(--fg-dim); }
+
+  .callout { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin-top: 40px; padding: 18px 20px; border-radius: 8px; background: linear-gradient(0deg, rgba(47,107,245,.14), rgba(47,107,245,.14)), var(--raised); border: 1px solid rgba(47,107,245,.5); }
+  .callout p { margin: 0; color: var(--fg-hi); font-weight: 500; }
+  .callout .cta-row { margin: 0; }
+
+  .doc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .doc-head img { width: 44px; height: 44px; border-radius: 8px; background: #FFF; object-fit: contain; padding: 3px; }
+  .doc-head .muted { font-size: 13px; }
+  .kv { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 4px 16px; margin: 0 0 14px; font-size: 14px; }
+  .kv dt { color: var(--fg-dim); font: 12px/1.9 var(--mono); }
+  .kv dd { margin: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips span { font: 12px var(--mono); padding: 3px 8px; border-radius: 4px; background: var(--raised-2); color: var(--fg); border: 1px solid var(--line-2); }
+
+  .name-line { font-size: 22px; font-weight: 700; color: var(--fg-hi); letter-spacing: -0.01em; margin: 0 0 2px; }
+  .md h1.headline { font-size: 40px; line-height: 1.1; margin: 30px 0 14px; max-width: 22ch; text-wrap: balance; }
+  .proof { font: 12.5px/1.7 var(--mono); color: var(--fg-dim); margin: 0 0 6px; }
+  .proof b { color: var(--yellow); font-weight: 500; }
+  .employee-tag { display: inline-block; font: 11.5px var(--mono); color: var(--fg-dim); border: 1px solid var(--line-2); border-radius: 4px; padding: 2px 7px; margin-bottom: 14px; }
+  .after { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; padding: 10px 14px; border: 1px dashed var(--line-2); border-radius: 8px; color: var(--fg-dim); font-size: 13.5px; background: none; width: 100%; text-align: left; cursor: pointer; }
+  .after:hover { border-color: var(--blue); color: var(--fg); }
+  .after b { color: var(--fg-hi); font-weight: 600; }
+
+  /* Before/after as a diff */
+  .diff { margin: 0 0 16px; border: 1px solid var(--line-2); border-radius: 6px; overflow: hidden; font: 13px/1.6 var(--mono); }
+  .diff .dh { padding: 6px 12px; background: var(--raised); border-bottom: 1px solid var(--line-2); color: var(--fg-dim); font-size: 12px; }
+  .diff div.l { padding: 3px 12px 3px 34px; position: relative; white-space: pre-wrap; }
+  .diff div.l::before { position: absolute; left: 14px; }
+  .diff .del { background: rgba(248, 81, 73, .13); color: #FFB3AE; }
+  .diff .del::before { content: "−"; color: #F85149; }
+  .diff .add { background: rgba(63, 185, 80, .14); color: #A6F0B5; }
+  .diff .add::before { content: "+"; color: var(--green); }
+
+  .fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .fit > div { padding: 12px 14px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--raised); font-size: 14px; }
+  .fit h3 { font-size: 13px; font-family: var(--mono); font-weight: 500; margin-bottom: 6px; }
+  .fit .yes h3 { color: #73C991; }
+  .fit .no h3 { color: #F48771; }
+  .fit ul { margin: 0; padding-left: 18px; }
+
+  /* Illustrative Claude exchange on the Claude-Ready page */
+  .demo { border: 1px solid var(--line-2); border-radius: 8px; background: var(--side); overflow: hidden; margin-bottom: 14px; font-size: 14px; }
+  .demo .dh { display: flex; justify-content: space-between; padding: 7px 12px; border-bottom: 1px solid var(--line-2); font: 12px var(--mono); color: var(--fg-dim); }
+  .demo .q { margin: 12px 12px 8px auto; max-width: 80%; width: fit-content; padding: 7px 11px; border-radius: 8px; background: var(--raised-2); border: 1px solid var(--line-2); color: var(--fg-hi); }
+  .demo .a { padding: 4px 14px 14px; }
+  .demo .a p { margin: 0 0 8px; }
+  .demo .cert { display: inline-flex; align-items: center; gap: 6px; font: 11.5px var(--mono); color: #73C991; border: 1px solid rgba(63,185,80,.5); border-radius: 4px; padding: 2px 7px; }
+  .demo pre { margin: 8px 0 0; padding: 8px 10px; border-radius: 6px; background: var(--edit); border: 1px solid var(--line); font: 12px/1.55 var(--mono); overflow-x: auto; color: #D4D4D4; }
+
+  /* Metric Trust Check (lives in the Problems panel) */
+  .panel.tall { height: 340px; }
+  .trust { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px; }
+  .trust h3 { margin: 0 0 4px; font-size: 13px; color: var(--fg-hi); font-weight: 600; }
+  .trust .lead { margin: 0 0 10px; font-size: 12.5px; }
+  .tq { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); color: var(--fg); font-size: 13px; }
+  .tq .opts { display: flex; gap: 4px; flex: none; }
+  .tq .opts button { height: 24px; padding: 0 9px; border-radius: 4px; border: 1px solid var(--line-2); background: #232323; color: var(--fg-dim); font-size: 12px; cursor: pointer; }
+  .tq .opts button[aria-pressed="true"] { background: var(--sel); border-color: var(--focus); color: var(--fg-hi); }
+  .plist { list-style: none; margin: 0 0 10px; padding: 0; font-size: 13px; }
+  .plist li { display: flex; gap: 8px; padding: 4px 0; color: var(--fg); }
+  .plist .e { color: #F14C4C; } .plist .w { color: #CCA700; } .plist .ok { color: #73C991; }
+  .plist small { color: var(--fg-mute); margin-left: auto; font-family: var(--mono); white-space: nowrap; }
+  .sb .err { color: inherit; }
+
+  /* Project brief form */
+  .form { display: grid; gap: 14px; margin-top: 10px; }
+  .form .row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .form label { display: grid; gap: 6px; font-size: 13px; color: var(--fg-dim); }
+  .form input, .form select, .form textarea {
+    width: 100%; background: #2A2A2A; border: 1px solid var(--line-2); border-radius: 4px; color: var(--fg-hi);
+    font: 14px var(--ui); padding: 8px 10px; outline: none;
+  }
+  .form textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+  .form input:focus, .form select:focus, .form textarea:focus { border-color: var(--focus); }
+  .form-status { font-size: 13px; color: var(--fg-dim); min-height: 20px; }
+  .form-status.ok { color: #73C991; }
+  .form-status.err { color: #F48771; }
+  .form-status pre { white-space: pre-wrap; font: 12.5px/1.5 var(--mono); color: var(--fg); background: var(--raised); border: 1px solid var(--line-2); border-radius: 6px; padding: 10px; margin: 8px 0 0; }
+  .form [aria-invalid="true"] { border-color: #F48771; }
+
+  /* Code view */
+  .code { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); font: 13px/20px var(--mono); padding: 6px 0 40px; }
+  .gutter { margin: 0; padding: 0 18px 0 22px; text-align: right; color: #6E7681; user-select: none; }
+  .gutter .cur { color: #CCCCCC; }
+  .src { margin: 0; padding-right: 110px; white-space: pre; overflow-x: auto; color: #D4D4D4; tab-size: 2; }
+  .minimap { position: absolute; top: 6px; right: 14px; width: 64px; display: grid; gap: 2px; opacity: .55; pointer-events: none; }
+  .minimap i { display: block; height: 2px; border-radius: 1px; background: #5A5A5A; }
+  .tk-kw { color: var(--k-kw); } .tk-ctl { color: var(--k-ctl); } .tk-str { color: var(--k-str); } .tk-num { color: var(--k-num); }
+  .tk-fn { color: var(--k-fn); } .tk-type { color: var(--k-type); } .tk-com { color: var(--k-com); font-style: italic; } .tk-key { color: var(--k-var); }
+
+  /* SQL results grid (the project index) */
+  .results-pane { border-top: 1px solid var(--line); }
+  .rp-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; padding: 8px 16px; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--fg-dim); }
+  .rp-head b { color: var(--fg-hi); font-weight: 600; }
+  .rp-head .ok { color: #73C991; text-transform: none; letter-spacing: 0; font-size: 12px; }
+  .grid-wrap { overflow-x: auto; }
+  table.grid { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .grid th { position: sticky; top: 0; text-align: left; font-weight: 500; font-size: 12px; color: var(--fg-dim); background: var(--raised); padding: 7px 14px; border-bottom: 1px solid var(--line-2); border-right: 1px solid var(--line); white-space: nowrap; }
+  .grid td { padding: 8px 14px; border-right: 1px solid var(--line); white-space: nowrap; }
+  .grid td:nth-child(5) { white-space: normal; min-width: 200px; }
+  .grid td:first-child, .grid th:first-child { width: 1%; color: var(--fg-mute); font-family: var(--mono); font-size: 12px; text-align: right; }
+  .grid tbody tr { background: #1F1F1F; }
+  .grid tbody tr:nth-child(odd) { background: #242424; }
+  .grid tbody tr[data-row] { cursor: pointer; }
+  .grid tbody tr[data-row]:hover, .grid tbody tr[data-row]:focus-visible { background: var(--blue); color: #FFF; outline: none; }
+  .grid tbody tr[data-row]:hover td, .grid tbody tr[data-row]:focus-visible td, .grid tbody tr[data-row]:hover .co, .grid tbody tr[data-row]:focus-visible .co { color: #FFF; }
+  .grid .go { color: var(--link); font-family: var(--mono); font-size: 12px; }
+  .grid tr[data-row]:hover .go, .grid tr[data-row]:focus-visible .go { color: #FFF; }
+  .grid .co { display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--fg-hi); }
+  .grid .co img { width: 18px; height: 18px; border-radius: 3px; background: #FFF; object-fit: contain; }
+  .grid .co .blank { width: 18px; height: 18px; border-radius: 3px; border: 1px dashed #6E7681; }
+  .grid .status { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+  .grid .status i { width: 8px; height: 8px; border-radius: 50%; background: #8B949E; }
+  .grid .status.open i { background: var(--green); box-shadow: 0 0 0 0 rgba(63,185,80,.6); animation: pulse 2s infinite; }
+  .grid tr.you td { color: #73C991; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 6px rgba(63,185,80,0); } 100% { box-shadow: 0 0 0 0 rgba(63,185,80,0); } }
+  @media (prefers-reduced-motion: reduce) { .grid .status.open i { animation: none; } }
+
+  /* Welcome (no tabs open) */
+  .welcome { height: 100%; display: grid; place-items: center; text-align: center; color: var(--fg-dim); padding: 24px; }
+  .welcome .big { font: 600 30px var(--mono); color: #3A3A3A; margin-bottom: 18px; }
+  .welcome dl { display: grid; grid-template-columns: auto auto; gap: 8px 20px; margin: 0; text-align: left; }
+  .welcome dt { text-align: right; }
+  .welcome dd { margin: 0; }
+  .welcome button { background: none; border: 0; color: var(--link); cursor: pointer; padding: 0; }
+  kbd.k { font: 11px var(--mono); background: var(--raised-2); border: 1px solid var(--line-2); border-bottom-width: 2px; border-radius: 4px; padding: 1px 5px; color: var(--fg); }
+
+  /* Bottom panel: terminal + problems */
+  .panel { height: 172px; border-top: 1px solid var(--line); background: var(--side); display: grid; grid-template-rows: 32px minmax(0, 1fr); min-height: 0; }
+  .panel.closed { display: none; }
+  .panel-tabs { display: flex; align-items: center; gap: 4px; padding: 0 8px 0 12px; }
+  .panel-tabs .pt { height: 32px; padding: 0 8px; border: 0; border-bottom: 1px solid transparent; background: none; color: var(--fg-dim); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; cursor: pointer; }
+  .panel-tabs .pt.on { color: var(--fg-hi); border-bottom-color: var(--fg-hi); }
+  .panel-tabs .pt .n { display: inline-block; min-width: 16px; margin-left: 4px; padding: 0 4px; border-radius: 8px; background: var(--raised-2); font-size: 10px; text-align: center; }
+  .panel-tabs .push { margin-left: auto; }
+  .term { overflow: auto; padding: 4px 16px 12px; font: 12.5px/19px var(--mono); color: #CCCCCC; cursor: text; }
+  .term .ln { white-space: pre-wrap; word-break: break-word; }
+  .t-ok { color: var(--green); } .t-dim { color: var(--fg-mute); } .t-p { color: #3B8EEA; } .t-y { color: #E5E510; } .t-c { color: #29B8DB; } .t-r { color: #F14C4C; }
+  .term .prompt { display: flex; gap: 8px; }
+  .term input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--fg-hi); font: inherit; caret-color: var(--fg-hi); padding: 0; }
+  .term a { color: var(--link); }
+  .problems { padding: 10px 16px; overflow: auto; font-size: 13px; color: var(--fg-dim); }
+  .problems p { margin: 0 0 8px; }
+
+  /* Chat (Cursor-style) */
+  .chat { background: var(--side); border-left: 1px solid var(--line); display: grid; grid-template-rows: 35px minmax(0, 1fr) auto; min-width: 0; min-height: 0; }
+  .chat-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 6px 0 14px; border-bottom: 1px solid var(--line); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--fg-dim); }
+  .chat-h b { color: var(--fg-hi); font-weight: 600; }
+  .msgs { overflow: auto; padding: 14px 14px 6px; display: flex; flex-direction: column; gap: 14px; }
+  .msg { font-size: 13px; line-height: 1.55; }
+  .msg.user { align-self: flex-end; max-width: 88%; padding: 7px 11px; background: var(--raised-2); border: 1px solid var(--line-2); border-radius: 8px; color: var(--fg-hi); }
+  .msg.bot .who { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 11.5px; color: var(--fg-dim); }
+  .msg.bot .who img { width: 18px; height: 18px; border-radius: 50%; }
+  .msg.bot .txt { white-space: pre-wrap; color: var(--fg); }
+  .msg.bot .acts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .msg.bot .acts .btn { height: 28px; padding: 0 10px; font-size: 12px; }
+  .msg .file-ref { display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px; border-radius: 4px; background: var(--raised-2); border: 1px solid var(--line-2); font: 11.5px var(--mono); color: var(--fg); cursor: pointer; }
+  .sugs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sug { padding: 5px 10px; border: 1px solid var(--line-2); border-radius: 14px; background: #232323; color: var(--fg); font-size: 12px; cursor: pointer; text-align: left; }
+  .sug:hover { border-color: var(--blue); color: var(--fg-hi); }
+  .composer { margin: 8px 10px 10px; padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 8px; background: #232323; }
+  .composer:focus-within { border-color: var(--focus); }
+  .composer textarea { width: 100%; height: 40px; resize: none; border: 0; outline: none; background: none; color: var(--fg-hi); font: 13px/1.45 var(--ui); padding: 0; }
+  .composer-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--fg-mute); font-size: 11px; }
+  .send { width: 24px; height: 24px; border-radius: 50%; border: 0; background: var(--fg-hi); color: #111; display: grid; place-items: center; cursor: pointer; }
+
+  /* Status bar */
+  .statusbar { display: flex; align-items: center; justify-content: space-between; background: var(--side); border-top: 1px solid var(--line); font-size: 12px; color: var(--fg-dim); padding-bottom: env(safe-area-inset-bottom, 0px); min-width: 0; overflow: hidden; }
+  .sb { display: flex; align-items: center; height: 24px; min-width: 0; }
+  .sb > * { display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 8px; border: 0; background: none; color: inherit; font-size: 12px; white-space: nowrap; cursor: pointer; }
+  .sb > *:hover { background: var(--hover); color: var(--fg-hi); }
+  .sb > span { cursor: default; }
+  .sb > span:hover { background: none; color: inherit; }
+  .sb .remote { background: var(--blue); color: #FFF; padding: 0 10px; font-weight: 500; }
+  .sb .remote:hover { background: #2559D6; color: #FFF; }
+  .sb .avail i { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+  .sb svg.i { width: 14px; height: 14px; }
+
+  /* Command palette */
+  .overlay { position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, .4); display: flex; justify-content: center; align-items: flex-start; padding: 46px 12px 12px; }
+  .palette { width: min(600px, 100%); background: #222; border: 1px solid var(--line-2); border-radius: 8px; box-shadow: 0 16px 48px rgba(0, 0, 0, .55); overflow: hidden; }
+  .palette input { width: 100%; height: 38px; padding: 0 12px; background: #2A2A2A; border: 0; border-bottom: 1px solid var(--line-2); color: var(--fg-hi); font: 13.5px var(--ui); outline: none; }
+  #palette { z-index: 60; }
+  .pal-list { max-height: 360px; max-height: min(360px, 60dvh); overflow: auto; padding: 4px; margin: 0; list-style: none; }
+  .pal-item { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 4px; cursor: pointer; color: var(--fg); }
+  .pal-item .d { margin-left: auto; color: var(--fg-mute); font-size: 12px; white-space: nowrap; }
+  .pal-item:hover { background: var(--hover); }
+  .pal-item.on { background: var(--sel); box-shadow: inset 0 0 0 1px var(--focus); color: var(--fg-hi); }
+  .pal-item.on .d { color: var(--fg); }
+  .pal-sep { padding: 6px 10px 2px; font-size: 11px; color: var(--fg-mute); text-transform: uppercase; letter-spacing: .04em; }
+
+  /* Hire panel: a blue info sheet with label/value rows */
+  .hire-wrap { align-items: flex-end; padding: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)); }
+  .hire { width: min(880px, 100%); max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); overflow: auto; background: var(--blue); color: #FFF; font-size: 15px; line-height: 1.4; border-radius: 4px; box-shadow: 0 24px 60px rgba(0,0,0,.5); animation: rise .25s ease; }
+  @keyframes rise { from { transform: translateY(16px); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .hire { animation: none; } }
+  .hire a { color: #FFF; text-decoration: none; }
+  .h-sec { padding: 8px 14px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,.5); }
+  .h-sec.center { text-align: center; }
+  .h-p { padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,.5); }
+  .h-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .h-2 > div + div { border-left: 1px solid rgba(255,255,255,.5); }
+  .h-row { display: flex; justify-content: space-between; gap: 12px; padding: 7px 14px; border-bottom: 1px solid rgba(255,255,255,.5); }
+  .h-row span:last-child { text-align: right; }
+  a.h-row:hover, button.h-row:hover { background: rgba(0,0,0,.12); }
+  .h-row span:last-child { white-space: nowrap; }
+  button.h-row { width: 100%; border: 0; border-bottom: 1px solid rgba(255,255,255,.5); background: none; color: #FFF; font: inherit; text-align: left; cursor: pointer; }
+  .h-bar { position: sticky; bottom: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--blue); padding-top: 1px; }
+  .h-bar > * { height: 40px; display: flex; align-items: center; padding: 0 14px; border: 0; background: rgba(0,0,0,.18); color: #FFF; font: 600 15px var(--ui); cursor: pointer; }
+  .h-bar > button:hover { background: rgba(0,0,0,.28); }
+  .h-bar > span { cursor: default; }
+  .h-bar .strong { background: #FFF; color: var(--blue); justify-content: center; }
+  .h-bar .strong:hover { background: #E8EEFF; color: #1F4FC4; }
+
+  /* Mobile dock + scrim */
+  .dock { display: none; }
+  .scrim { display: none; }
+
+  /* Mid widths: drop the chat pane by default */
+  @media (max-width: 1180px) {
+    .main { --chat-w: 0px; }
+    .main .chat { display: none; }
+    .main.chat-open { --chat-w: 320px; }
+    .main.chat-open .chat { display: grid; }
+    .minimap { display: none; }
+    .src { padding-right: 24px; }
+    .sb .hide-mid { display: none; }
+    .titlebar { grid-template-columns: auto minmax(0, 1fr) auto; }
+  }
+
+  /* Phone / small tablet: editor only, everything else slides in */
+  @media (max-width: 820px) {
+    body { font-size: 14px; }
+    .app { grid-template-rows: calc(44px + env(safe-area-inset-top, 0px)) minmax(0, 1fr) auto; }
+    .main > .editor { grid-column: 1; }
+    .titlebar { grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; padding: 0 8px; }
+    .lights, .tb-left .nav-arrows, .tb-right .icon-btn, .cmd kbd { display: none; }
+    .menu-btn { display: grid; }
+    .cmd { height: 30px; justify-content: flex-start; padding: 0 10px; }
+    .btn-hire { height: 30px; }
+    .main { grid-template-columns: minmax(0, 1fr); }
+    .main .activity { display: none; }
+    .main .sidebar, .main .chat, .main.chat-open .chat { display: none; }
+    .main.side-open .sidebar, .main.chat-open .chat {
+      display: flex; position: fixed; z-index: 40; top: calc(44px + env(safe-area-inset-top, 0px)); bottom: calc(56px + env(safe-area-inset-bottom, 0px)); width: min(340px, 88vw);
+      box-shadow: 0 0 40px rgba(0,0,0,.6);
+    }
+    .main.side-open .sidebar { left: 0; }
+    .main.chat-open .chat { display: grid; right: 0; border-left: 1px solid var(--line-2); }
+    .tree button { height: 34px; font-size: 14px; }
+    .tabs { height: 35px; }
+    .crumbs { display: none; }
+    .editor { grid-template-rows: 35px minmax(0, 1fr) auto; }
+    .panel { position: fixed; z-index: 40; left: 0; right: 0; bottom: calc(56px + env(safe-area-inset-bottom, 0px)); height: 52dvh; box-shadow: 0 -10px 40px rgba(0,0,0,.6); }
+    .statusbar { display: none; }
+    .dock {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--side); border-top: 1px solid var(--line);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .dock button { height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: 0; background: none; color: var(--fg-dim); font-size: 11px; cursor: pointer; }
+    .dock button[aria-pressed="true"] { color: var(--fg-hi); }
+    .dock .hire-d { color: #FFF; }
+    .dock .hire-d span:first-child { width: 30px; height: 22px; display: grid; place-items: center; border-radius: 6px; background: var(--blue); }
+    .dock svg.i { width: 20px; height: 20px; }
+    .md { padding: 24px 18px 72px; font-size: 15.5px; }
+    .md h1 { font-size: 28px; }
+    .hero { grid-template-columns: 76px minmax(0, 1fr); gap: 16px; }
+    .hero img { width: 76px; height: 76px; }
+    .lede { font-size: 21px; }
+    .cards, .offers { grid-template-columns: minmax(0, 1fr); }
+    .form .row2 { grid-template-columns: minmax(0, 1fr); }
+    .kv { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .kv dd { margin-bottom: 8px; }
+    .code { font-size: 12px; line-height: 19px; }
+    .gutter { padding: 0 12px 0 10px; }
+    .h-2 { grid-template-columns: minmax(0, 1fr); }
+    .h-2 > div + div { border-left: 0; }
+    .h-bar > * { font-size: 13px; padding: 0 10px; }
+    .callout { flex-direction: column; align-items: flex-start; }
+    .md h1.headline { font-size: 29px; margin-top: 22px; }
+    .name-line { font-size: 19px; }
+    .fit, .trust { grid-template-columns: minmax(0, 1fr); }
+    .panel.tall { height: 72dvh; }
+    .tq { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .trust > div:last-child { order: -1; }
+    .form input, .form select, .form textarea, .composer textarea, .term input, .palette input { font-size: 16px; }
+    .scrim { display: block; position: fixed; left: 0; right: 0; top: calc(44px + env(safe-area-inset-top, 0px)); bottom: calc(56px + env(safe-area-inset-bottom, 0px)); z-index: 39; background: rgba(0, 0, 0, .5); }
+    .scrim[hidden] { display: none; }
+    .grid th:nth-child(3), .grid td:nth-child(3), .grid th:nth-child(4), .grid td:nth-child(4) { display: none; }
+    .grid td:nth-child(5) { min-width: 0; }
+    .badges .badge:not(.b-green) { display: none; }
+    .h-bar { grid-template-columns: 1fr 1fr; }
+    .h-bar > span { display: none; }
+    .tab .x { width: 26px; height: 26px; }
+    .tree .desc { margin-left: auto; padding-right: 14px; font-size: 12px; color: var(--fg-mute); }
+  }
+  @media (max-width: 380px) {
+    .btn-hire .lbl-long { display: none; }
+  }
+  @media (min-width: 381px) {
+    .btn-hire .lbl-short { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="boot" aria-hidden="true"><span>michael-maggioli</span></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-files" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M14 3H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7l-4-4Z M14 3v4h4 M9 21h9a2 2 0 0 0 2-2V9"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m15 15 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-git" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="8" r="2"/><path d="M6 7v10M18 10c0 5-8 3-11.2 7.3"/></g></symbol>
+    <symbol id="i-run" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M8 5v14l11-7L8 5Z"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1" transform="rotate(12 17 7)"/></g></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3Z M18.5 14l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"/></symbol>
+    <symbol id="i-term" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M12 15h5"/></g></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></g></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-right" viewBox="0 0 16 16"><path d="m6 4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 16 16"><path d="m4.5 4.5 7 7m0-7-7 7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+    <symbol id="i-arrow-l" viewBox="0 0 16 16"><path d="M10 3.5 5.5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow-r" viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-sidebar" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><path d="M6 2.5v11"/></g></symbol>
+    <symbol id="i-panel" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><path d="M1.5 9.5h13"/></g></symbol>
+    <symbol id="i-aside" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><path d="M10 2.5v11"/></g></symbol>
+    <symbol id="i-link" viewBox="0 0 16 16"><path d="M6 3.5h6.5V10M12.5 3.5 4 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 16 16"><path d="M4 11V7a4 4 0 0 1 8 0v4l1 1.5H3L4 11Zm2.5 3h3" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-send" viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<button class="skip" data-action="skip">Skip to content</button>
+
+<div class="app" id="app">
+
+  <header class="titlebar">
+    <div class="tb-left">
+      <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+      <button class="icon-btn menu-btn" data-action="side" aria-label="Show pages"><svg class="i"><use href="#i-menu"/></svg></button>
+      <span class="nav-arrows" aria-hidden="true"><svg class="i"><use href="#i-arrow-l"/></svg><svg class="i"><use href="#i-arrow-r"/></svg></span>
+    </div>
+    <button class="cmd" data-action="palette" aria-label="Search pages and commands">
+      <svg class="i"><use href="#i-search"/></svg><span id="cmd-label">michael-maggioli</span><kbd>⌘K</kbd>
+    </button>
+    <div class="tb-right">
+      <button class="icon-btn" data-action="side" aria-label="Toggle file explorer" aria-pressed="true" id="tb-side"><svg class="i"><use href="#i-sidebar"/></svg></button>
+      <button class="icon-btn" data-action="term" aria-label="Toggle terminal" aria-pressed="false" id="tb-term"><svg class="i"><use href="#i-panel"/></svg></button>
+      <button class="icon-btn" data-action="chat" aria-label="Toggle chat" aria-pressed="true" id="tb-chat"><svg class="i"><use href="#i-aside"/></svg></button>
+      <button class="btn-hire" data-action="hire"><span class="dot" aria-hidden="true"></span><span class="lbl-long">Hire Michael</span><span class="lbl-short">Hire</span></button>
+    </div>
+  </header>
+
+  <div class="main" id="main">
+
+    <nav class="activity" aria-label="Activity bar">
+      <button data-action="side" aria-label="Explorer" aria-pressed="true" id="ab-files" title="Explorer (⌘B)"><svg class="i"><use href="#i-files"/></svg></button>
+      <button data-action="palette" aria-label="Search" title="Search (⌘K)"><svg class="i"><use href="#i-search"/></svg></button>
+      <button data-open="experience" aria-label="Career history" title="Source control: career history"><svg class="i"><use href="#i-git"/></svg><span class="badge">8</span></button>
+      <button data-action="run" aria-label="Run career build in terminal" title="Run"><svg class="i"><use href="#i-run"/></svg></button>
+      <button data-open="stack" aria-label="Tech stack" title="Extensions: tech stack"><svg class="i"><use href="#i-ext"/></svg></button>
+      <button data-action="chat" aria-label="Ask about Michael" aria-pressed="true" id="ab-chat" title="Chat (⌘L)"><svg class="i"><use href="#i-chat"/></svg></button>
+      <span class="spacer"></span>
+      <button class="me" data-open="readme" aria-label="About Michael" title="Michael Gold Maggioli"><img data-img="me" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt=""></button>
+      <button data-action="palette" aria-label="All commands" title="Commands"><svg class="i"><use href="#i-gear"/></svg></button>
+    </nav>
+
+    <aside class="sidebar" aria-label="File explorer">
+      <div class="side-h"><span>Explorer</span></div>
+      <button class="sec-h" aria-expanded="true" data-action="tree" id="tree-root"><svg><use href="#i-chev"/></svg>michael-maggioli</button>
+      <ul class="tree" id="tree"></ul>
+      <div class="side-foot">
+        <button class="sec-h" data-open="experience"><svg><use href="#i-right"/></svg>Timeline</button>
+        <button class="sec-h" data-action="palette"><svg><use href="#i-right"/></svg>Outline</button>
+      </div>
+    </aside>
+
+    <section class="editor" aria-label="Editor">
+      <nav class="tabs" id="tabs" aria-label="Open files"></nav>
+      <div class="crumbs" id="crumbs"></div>
+      <div class="view" id="view" role="main" tabindex="-1" aria-label="README.md"><!--STATIC-README--></div>
+      <section class="panel closed" id="panel" aria-label="Panel">
+        <div class="panel-tabs">
+          <button class="pt" data-ptab="problems" aria-pressed="false">Problems <span class="n" id="pt-count">0</span></button>
+          <button class="pt on" data-ptab="terminal" aria-pressed="true">Terminal</button>
+          <button class="icon-btn push" data-action="term" aria-label="Close panel"><svg class="i"><use href="#i-x"/></svg></button>
+        </div>
+        <div class="term" id="term" role="log" aria-live="polite"></div>
+        <div class="problems" id="problems" hidden>
+          <div class="trust">
+            <div>
+              <h3>Metric Trust Check</h3>
+              <p class="lead">Six yes/no questions about your data. Your answers stay in your browser.</p>
+              <div id="tq-list"></div>
+            </div>
+            <div>
+              <h3>Problems</h3>
+              <ul class="plist" id="plist"></ul>
+              <div class="cta-row" style="margin:0" id="trust-cta"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <aside class="chat" aria-label="Ask about Michael">
+      <div class="chat-h"><span><b>Chat</b> · Ask about Michael</span><button class="icon-btn" data-action="chat" aria-label="Close chat"><svg class="i"><use href="#i-x"/></svg></button></div>
+      <div class="msgs" id="msgs"></div>
+      <div class="sr" id="chat-live" aria-live="polite"></div>
+      <form class="composer" id="composer">
+        <label class="sr" for="ask">Ask a question about Michael</label>
+        <textarea id="ask" placeholder="Ask about Michael… (⌘L)" rows="2"></textarea>
+        <div class="composer-foot"><span>Pre-written answers · no AI calls</span><button class="send" aria-label="Send question"><svg class="i" style="width:12px;height:12px"><use href="#i-send"/></svg></button></div>
+      </form>
+    </aside>
+  </div>
+
+  <footer class="statusbar">
+    <div class="sb">
+      <button class="remote" data-action="hire" title="Hire Michael">⟩⟨ Taking projects</button>
+      <button data-open="experience"><svg class="i"><use href="#i-git"/></svg>main</button>
+      <button class="avail" data-action="primary"><i></i><span id="sb-avail">Available now · Request a free 20-min call</span></button>
+      <button data-action="check" id="sb-problems" title="Run the Metric Trust Check" aria-label="Metric Trust Check: not run yet">⊗ 0 &nbsp;⚠ 0</button>
+    </div>
+    <div class="sb">
+      <span class="hide-mid">Cursor · Claude Code · v0 · 1,000+ hrs</span>
+      <span>Greater Boston · ET</span>
+      <span id="sb-pos" class="hide-mid">Ln 1, Col 1</span>
+      <span class="hide-mid">UTF-8</span>
+      <span id="sb-lang">Markdown</span>
+      <button data-action="chat" aria-label="Open chat"><svg class="i"><use href="#i-bell"/></svg></button>
+    </div>
+  </footer>
+
+  <div class="scrim" id="scrim" hidden></div>
+
+  <nav class="dock" aria-label="Quick actions">
+    <button data-action="side" id="dk-side" aria-pressed="false"><svg class="i"><use href="#i-files"/></svg><span>Pages</span></button>
+    <button data-action="chat" id="dk-chat" aria-pressed="false"><svg class="i"><use href="#i-chat"/></svg><span>Ask</span></button>
+    <button data-action="check" id="dk-term" aria-pressed="false"><svg class="i"><use href="#i-run"/></svg><span>Data check</span></button>
+    <button data-action="primary" class="hire-d"><span><svg class="i" style="width:14px;height:14px"><use href="#i-send"/></svg></span><span>Free call</span></button>
+  </nav>
+</div>
+
+<!-- Command palette -->
+<div class="overlay" id="palette" hidden>
+  <div class="palette" role="dialog" aria-modal="true" aria-label="Command palette">
+    <input id="pal-input" type="text" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-controls="pal-list" placeholder="Search pages, or type > for commands" autocomplete="off" aria-label="Search pages and commands">
+    <ul class="pal-list" id="pal-list" role="listbox" aria-label="Results"></ul>
+  </div>
+</div>
+
+<!-- Hire panel -->
+<div class="overlay hire-wrap" id="hire" hidden>
+  <div class="hire" role="dialog" aria-modal="true" aria-labelledby="hire-h">
+    <div class="h-sec" id="hire-h">Hire Michael</div>
+    <div class="h-p">Freelance data engineer in Greater Boston, working remote or on-site. I get your data into one place, settle what every number means, and make it ready for AI. The first 20-minute call is free.</div>
+    <div class="h-2">
+      <div>
+        <div class="h-sec">Contact</div>
+        <div id="hire-contact"></div>
+      </div>
+      <div>
+        <div class="h-sec">Details</div>
+        <div class="h-row"><span>Based in</span><span>Greater Boston</span></div>
+        <div class="h-row"><span>Works</span><span>Remote, hybrid or on-site</span></div>
+        <div class="h-row"><span>Availability</span><span>Taking new projects</span></div>
+        <div class="h-row"><span>Pricing</span><span>Fixed-price projects or a retainer</span></div>
+        <div class="h-row"><span>Experience</span><span>12 years</span></div>
+      </div>
+    </div>
+    <div class="h-sec center">Services</div>
+    <div id="hire-offers"></div>
+    <div class="h-bar">
+      <span>Michael Gold Maggioli</span>
+      <button data-action="close-hire">Close</button>
+      <button class="strong" data-action="primary" id="hire-cta">Request a free 20-min call</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ File contents (Markdown previews) ============ -->
+
+<template id="tpl-readme">
+  <article class="md">
+    <div class="hero">
+      <img data-img="me" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Michael Gold Maggioli" width="112" height="112">
+      <div>
+        <p class="name-line">Michael Gold Maggioli</p>
+        <p class="sub">Freelance data engineer · 12 years · M.S. actuarial science · Boston, remote or on-site</p>
+        <div class="badges" role="group" aria-label="Summary">
+          <span class="badge b-green"><span>status</span><span>taking projects</span></span>
+          <span class="badge b-blue"><span>experience</span><span>12 years</span></span>
+          <span class="badge b-purple"><span>stack</span><span>Snowflake · dbt · AWS</span></span>
+          <span class="badge b-orange"><span>ai tools</span><span>1,000+ hrs</span></span>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="headline">Numbers your team agrees on, and your AI gets right.</h1>
+    <p>For startups and PE-backed companies that have data, but no one whose job is to make it trustworthy. I get your data into one place, settle what every number means, and connect it to Claude so its answers match finance's. Fixed scope, fixed price. <a href="#who" data-open="who">Who I help →</a></p>
+    <div class="cta-row" data-cta="row"></div>
+    <p class="proof">Previously at <b>athenahealth</b> · <b>Enel Green Power</b> · <b>People's United Bank</b> (now M&amp;T)</p>
+
+    <h2>Results from my full-time roles</h2>
+    <div class="cards">
+      <button class="card" data-open="owneriq"><span class="big">$2M+</span><span>saved by finding and fixing errors in a company's pricing models</span><span class="who"><img data-img="owneriq" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">OwnerIQ · as an employee</span></button>
+      <button class="card" data-open="enel"><span class="big">~7 → 60</span><span>people on one Energy Management database as the team grew</span><span class="who"><img data-img="enel" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">Enel Green Power · as an employee</span></button>
+      <button class="card" data-open="athena"><span class="big">5 yrs</span><span>of pipelines bringing multiple teams' data into Snowflake</span><span class="who"><img data-img="athena" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">athenahealth · as an employee</span></button>
+    </div>
+
+    <h2>How I can help</h2>
+    <div class="offers" id="readme-offers"></div>
+    <button class="after" data-open="fractional"><span><b>After a build:</b> Fractional Data Lead, about a day a week</span><span id="readme-fractional-price"></span></button>
+
+    <h2>Is your data ready?</h2>
+    <p>Six yes/no questions about your data. See where your numbers are likely to go wrong.</p>
+    <div class="cta-row" style="margin-top:0"><button class="btn btn-ghost" data-action="check">Run the Metric Trust Check</button></div>
+
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><span><strong>Free 20-minute call.</strong> It's about fit: what's broken, and whether I'm the right person.</span></li>
+      <li><span><strong>A fixed-price start.</strong> Usually the Data Trust Audit. You get a written plan, and the fee counts toward a build.</span></li>
+      <li><span><strong>The work.</strong> Short weekly updates, and everything documented so your team can run it after I'm done.</span></li>
+    </ol>
+
+    <h2>Where I've worked</h2>
+    <p class="muted small">As an employee, 2014–2026. <a href="#projects" data-open="projects">Full list in projects.sql</a>.</p>
+    <div class="logos">
+      <span class="logo-chip"><img data-img="athena" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">athenahealth</span>
+      <span class="logo-chip"><img data-img="enel" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">Enel Green Power</span>
+      <span class="logo-chip"><img data-img="peoples" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">People's United Bank (now M&amp;T)</span>
+      <span class="logo-chip"><img data-img="fresenius" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">Fresenius Medical Care</span>
+      <span class="logo-chip"><img data-img="flipside" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">Flipside Crypto</span>
+      <span class="logo-chip"><img data-img="owneriq" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">OwnerIQ (now Inmar)</span>
+    </div>
+
+    <h2>What colleagues say</h2>
+    <figure class="quote">
+      <p>“Michael is a talented critical thinker and developer. … He approaches every project with ambition, curiosity and diligence.”</p>
+      <footer>Olivia Steinke · Renewable energy &amp; commodity trading · worked with Michael at Enel · July 2019</footer>
+    </figure>
+    <p class="small"><a href="#recs" data-open="recs">Read all recommendations →</a></p>
+
+    <div class="callout">
+      <p>Worked with me before, or have data your team argues about? Let's talk.</p>
+      <div class="cta-row" data-cta="row"></div>
+    </div>
+  </article>
+</template>
+
+<template id="tpl-athena">
+  <article class="md">
+    <div class="doc-head"><img data-img="athena" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="athenahealth logo"><div><h1 style="font-size:28px;margin:0">athenahealth</h1><div class="muted">Data Engineer · Jun 2021 – Aug 2026 · Boston</div></div></div>
+    <span class="employee-tag">// as an employee</span>
+    <p class="lede" style="margin-top:0">Five years helping multiple source teams get their data into Snowflake, and keeping it reliable.</p>
+    <div class="diff" role="group" aria-label="Before and after"><div class="dh">work/athenahealth.md · before → after</div>
+      <div class="l del">each source team's data in its own systems</div>
+      <div class="l add">CDC pipelines and Postgres → S3 → Snowflake, one warehouse</div>
+      <div class="l add">kept reliable for 5 years, with a lot of DevOps work</div>
+    </div>
+    <h2>The situation</h2>
+    <p>athenahealth is a healthcare technology company. Multiple source teams each owned their own data. The business needed it in one warehouse it could rely on.</p>
+    <h2>What I did</h2>
+    <ul>
+      <li>Helped multiple source teams get their data into Snowflake.</li>
+      <li>Used change data capture (CDC) pipelines, which copy changes from source databases as they happen.</li>
+      <li>Moved data from Postgres through Amazon S3 into Snowflake.</li>
+      <li>Kept everything reliable, which involved a lot of DevOps work with AWS, Terraform and GitHub.</li>
+    </ul>
+    <h2>Result</h2>
+    <p>Data from multiple source teams landing in Snowflake, maintained for <strong>five years</strong>.</p>
+    <dl class="kv"><dt>stack</dt><dd><div class="chips"><span>Snowflake</span><span>Postgres</span><span>AWS S3</span><span>CDC</span><span>dbt</span><span>Terraform</span><span>GitHub</span></div></dd></dl>
+    <div class="callout"><p>Need data from several teams in one place?</p><div class="cta-row" data-cta="row"></div></div>
+  </article>
+</template>
+
+<template id="tpl-enel">
+  <article class="md">
+    <div class="doc-head"><img data-img="enel" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Enel Green Power logo"><div><h1 style="font-size:28px;margin:0">Enel Green Power</h1><div class="muted">Global Digital Solutions Data Engineer · Jul 2016 – Dec 2019 · Andover, MA</div></div></div>
+    <span class="employee-tag">// as an employee</span>
+    <p class="lede" style="margin-top:0">Helped build the database an energy trading group ran on.</p>
+    <div class="diff" role="group" aria-label="Before and after"><div class="dh">work/enel-green-power.md · before → after</div>
+      <div class="l del">inconsistent calculations, no common definitions</div>
+      <div class="l add">one Energy Management database with agreed definitions</div>
+      <div class="l add">the source of truth as the team grew from ~7 to 60</div>
+    </div>
+    <h2>The situation</h2>
+    <p>The Energy Management and Global Trading group needed a critical database. Calculations were inconsistent, and there were no common definitions.</p>
+    <h2>What I did</h2>
+    <ul>
+      <li>Helped build the Energy Management database from the ground up, working as developer, analyst and DBA.</li>
+      <li>Worked with the team to find inconsistent calculations and agree on common definitions.</li>
+      <li>Built Tableau dashboards and tools for modeling and analytics.</li>
+      <li>Ran statistical simulations with the traders to help generate revenue.</li>
+      <li>Managed database security, and scheduled processes that freed up other departments' time.</li>
+    </ul>
+    <h2>Result</h2>
+    <p>It became the source of truth as the team grew from about <strong>7 to 60 people</strong>.</p>
+    <dl class="kv"><dt>stack</dt><dd><div class="chips"><span>SQL</span><span>Python</span><span>SAS</span><span>Excel</span><span>Tableau</span><span>database admin</span></div></dd></dl>
+    <figure class="quote"><p>“His ability to handle multiple projects and prioritize has made a dramatic increase in our [department's] productivity.”</p><footer>Olivia Steinke · worked with Michael at Enel</footer></figure>
+    <div class="callout"><p>Teams arguing over whose number is right?</p><div class="cta-row" data-cta="row"></div></div>
+  </article>
+</template>
+
+<template id="tpl-owneriq">
+  <article class="md">
+    <div class="doc-head"><img data-img="owneriq" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="OwnerIQ (now Inmar Intelligence) logo"><div><h1 style="font-size:28px;margin:0">OwnerIQ</h1><div class="muted">Business Data Analyst · Feb 2014 – Aug 2015 · Boston · ad tech, now part of Inmar</div></div></div>
+    <span class="employee-tag">// as an employee</span>
+    <p class="lede" style="margin-top:0">Found errors in the pricing models. Over $2,000,000 saved.</p>
+    <div class="diff" role="group" aria-label="Before and after"><div class="dh">work/owneriq.md · before → after</div>
+      <div class="l del">errors in the pricing models</div>
+      <div class="l del">billing data put together by hand</div>
+      <div class="l add">algorithms fixed: $2,000,000+ saved</div>
+      <div class="l add">billing automated: 2 days a month back for accounting</div>
+    </div>
+    <h2>What I did</h2>
+    <ul>
+      <li>Identified errors in the company's pricing models and changed the algorithms.</li>
+      <li>Replaced existing data-acquisition processes with improved custom tools.</li>
+      <li>Automated the billing data, which saved the accounting team two days every month.</li>
+    </ul>
+    <h2>Result</h2>
+    <p>A cumulative <strong>$2,000,000+</strong> saved, two days a month back for accounting, and a reputation as the company's efficiency expert.</p>
+    <div class="callout"><p>Not sure your numbers add up?</p><div class="cta-row" data-cta="row"></div></div>
+  </article>
+</template>
+
+<template id="tpl-recs">
+  <article class="md">
+    <h1>Recommendations</h1>
+    <p class="muted">From LinkedIn. Both worked with Michael at Enel Green Power.</p>
+    <figure class="quote">
+      <p>“Michael is a talented critical thinker and developer. I have had the pleasure to work on numerous projects with Michael at Enel. He approaches every project with ambition, curiosity and diligence. His ability to handle multiple projects and prioritize has made a dramatic increase in our [department's] productivity.”</p>
+      <footer>Olivia Steinke · Renewable energy &amp; commodity trading · July 2019</footer>
+    </figure>
+    <figure class="quote">
+      <p>“[Michael] is a very experienced database administrator and application developer. He has extensive knowledge of [the] energy market and skills to perform various enterprise level data through ETL. His curiosity and approach toward applying new techniques has helped to provide solutions to his team many times.”</p>
+      <footer>Shingo Ikeda · Senior software engineer &amp; computational scientist · June 2019</footer>
+    </figure>
+    <p class="small"><a href="https://www.linkedin.com/in/michael-maggioli/details/recommendations/" target="_blank" rel="noopener">Read them on LinkedIn ↗</a></p>
+  </article>
+</template>
+
+<template id="tpl-who">
+  <article class="md">
+    <h1>Who I help</h1>
+    <p class="muted">Teams that have data, but no one whose job is to make it trustworthy.</p>
+    <h2>Startups, Series A to C</h2>
+    <p>You have product data, a few dashboards, and maybe one analyst. Nobody is sure which numbers to trust, and you're not ready to hire a full-time data engineer.</p>
+    <p class="small"><strong>Usually starts with:</strong> <a href="#audit" data-open="audit">Data Trust Audit</a>, then a <a href="#build" data-open="build">Source-of-Truth Build</a>.</p>
+    <h2>Private equity portfolio companies</h2>
+    <p>You need a board KPI pack that finance, sales and operations all agree on, often in the first 100 days.</p>
+    <p class="small"><strong>Usually starts with:</strong> <a href="#build" data-open="build">Source-of-Truth Build</a>. Proof: <a href="#enel" data-open="enel">one database for a team that grew from ~7 to 60</a>.</p>
+    <h2>Healthtech and fintech in Boston</h2>
+    <p>Regulated data, many source systems, and little room for a wrong number. I spent five years at athenahealth and about a year at Fresenius Medical Care, and was Lead Analytics Engineer at People's United Bank.</p>
+    <p class="small"><strong>Usually starts with:</strong> <a href="#audit" data-open="audit">Data Trust Audit</a>. Proof: <a href="#athena" data-open="athena">5 years of multi-team pipelines into Snowflake</a>.</p>
+    <h2>Teams rolling out AI on their data</h2>
+    <p>Leadership wants to ask Claude about the business. You need the answers to match finance's numbers.</p>
+    <p class="small"><strong>Usually starts with:</strong> <a href="#claude" data-open="claude">Claude-Ready Analytics</a>.</p>
+    <div class="callout"><p>Sound like your team?</p><div class="cta-row" data-cta="row"></div></div>
+  </article>
+</template>
+
+<template id="tpl-start">
+  <article class="md">
+    <h1 id="brief-h">Request a free 20-min call</h1>
+    <p id="brief-intro">Tell me a little about what's going on. I'll reply with a time for a free 20-minute call.</p>
+    <p id="brief-book" hidden></p>
+    <form class="form" id="brief" novalidate>
+      <div class="row2">
+        <label>Your name<input id="f-name" name="name" autocomplete="name" required></label>
+        <label>Company<input id="f-company" name="company" autocomplete="organization"></label>
+      </div>
+      <label><span id="f-email-label">Your email</span><input id="f-email" name="email" type="email" autocomplete="email"></label>
+      <label>What's going on with your data?<textarea id="f-msg" name="message" placeholder="e.g. Our revenue dashboard and finance's spreadsheet never match. We use Snowflake and dbt." required></textarea></label>
+      <label>Stack (optional)<input id="f-stack" name="stack" placeholder="e.g. Snowflake, dbt, Looker"></label>
+      <div class="row2">
+        <label>What do you need?
+          <select id="f-need" name="need">
+            <option>Not sure yet</option>
+            <option>Data Trust Audit</option>
+            <option>Source-of-Truth Build</option>
+            <option>Claude-Ready Analytics</option>
+            <option>Fractional Data Lead</option>
+          </select>
+        </label>
+        <label>Timeline
+          <select id="f-when" name="when">
+            <option>As soon as possible</option>
+            <option>This month</option>
+            <option>This quarter</option>
+            <option>Just exploring</option>
+          </select>
+        </label>
+      </div>
+      <div class="cta-row" style="margin:4px 0 0"><button class="btn btn-primary" type="submit" id="brief-send">Send to Michael</button></div>
+      <div class="form-status" id="brief-status" role="status"></div>
+    </form>
+  </article>
+</template>
+
+<script>
+/* ===== Edit these to update the site ===== */
+const CONFIG = {
+  name: "Michael Gold Maggioli",
+  email: "michaelgmaggioli@gmail.com", // e.g. "michael@example.com"  (adds an Email button and makes the request form send an email)
+  bookingUrl: "",       // e.g. a Cal.com or Calendly link  (turns every main button into "Book a free 20-min call")
+  linkedin: "https://www.linkedin.com/in/michael-maggioli/",
+};
+
+// Starting prices are suggestions based on 2026 market research. Change them here.
+const OFFERS = [
+  {
+    id: "audit", file: "data-trust-audit.md", name: "Data Trust Audit", pick: true, main: true,
+    short: "Find out why your numbers don't match, and what to fix first.",
+    who: "Teams whose dashboards disagree, who inherited a messy Snowflake or dbt setup, or who are about to put AI on their data.",
+    duration: "2 weeks", price: "from $7,500", priceNote: "fixed price · credited in full toward a build booked within 30 days",
+    gets: [
+      "A read-only review of your warehouse, data models and pipelines (Snowflake, dbt)",
+      "Your top 10–15 business metrics checked: where each one is calculated more than one way, and why",
+      "A ranked list of what to fix, with rough effort and impact",
+      "Where your warehouse bill is leaking, and what to fix before you add AI",
+      "A 90-day plan and a 60-minute walkthrough with your team",
+    ],
+    fit: ["Two teams report different numbers for the same metric", "You're planning to let people ask Claude about your data", "Nobody is sure which tables to trust"],
+    notFit: ["You don't have a warehouse yet (start with the build)", "You need dashboards built by Friday"],
+  },
+  {
+    id: "build", file: "source-of-truth-build.md", name: "Source-of-Truth Build", main: true,
+    short: "Get your core data into Snowflake and agree on what every number means.",
+    who: "Companies with no data team or a single analyst, PE-backed companies that need a board KPI pack, and teams where finance, sales and product report different numbers.",
+    duration: "4–6 weeks", price: "from $20,000", priceNote: "fixed price · up to about 5 sources and 15 metrics",
+    gets: [
+      "Your 3–5 core systems copied into Snowflake automatically (managed connectors or CDC)",
+      "Tested data models your team can maintain (dbt, GitHub, Terraform)",
+      "A metric dictionary: an owner, formula and edge cases for each metric, agreed with your team",
+      "Those definitions built into the data, so every dashboard and AI tool gets the same number (semantic layer)",
+      "One certified dashboard, data-quality alerts, and handover docs",
+    ],
+    fit: ["Finance, sales and product each have their own 'revenue'", "You need a KPI pack the board will trust", "You're not ready for a full-time data hire"],
+    notFit: ["You need a 24/7 on-call platform team", "You want hourly staff augmentation"],
+  },
+  {
+    id: "claude", file: "claude-ready-analytics.md", name: "Claude-Ready Analytics", main: true,
+    short: "Let your team ask Claude about your data, and get the right number back.",
+    who: "Companies on Snowflake or dbt whose leadership wants to ask data questions in Claude or Slack without made-up numbers.",
+    duration: "3–4 weeks", price: "from $15,000", priceNote: "fixed price per business area · needs agreed metrics first (the audit or the build gets you there)",
+    gets: [
+      "One business area (e.g. sales or finance) set up so Claude reads your agreed metric definitions, not raw tables",
+      "25–40 real questions from your team, with answers checked against finance's numbers",
+      "Claude connected with read-only access and your company sign-in (MCP + OAuth)",
+      "Spending limits so AI questions don't run up your Snowflake bill",
+      "A 90-minute training for your team",
+    ],
+    fit: ["Leadership wants to 'just ask the data'", "You tried an AI tool and it made up numbers", "Your metrics already live in dbt or Snowflake"],
+    notFit: ["Your core metrics aren't agreed yet (start with the audit or the build)", "You want a chatbot for your customers"],
+    demo: true,
+  },
+  {
+    id: "fractional", file: "fractional-data-lead.md", name: "Fractional Data Lead",
+    short: "Senior help after the build, about a day a week.",
+    who: "Teams that finished a build and want someone senior to keep definitions, models and AI answers correct.",
+    duration: "monthly", price: "from $6,000 / mo", priceNote: "monthly retainer · about 1 day a week · 3-month minimum",
+    gets: [
+      "Keep metric definitions and data models up to date",
+      "Add new data sources as you need them",
+      "Review the SQL and dbt code your team writes with AI tools",
+      "A monthly report on which numbers you can trust",
+    ],
+    fit: ["You finished a build and want it to stay correct", "Your team writes SQL with AI tools and needs a reviewer"],
+    notFit: ["You need full-time capacity"],
+  },
+];
+/* ========================================= */
+
+const IMG = {
+  athena: "{{IMG:logo-athenahealth.png}}",
+  enel: "{{IMG:logo-enel.png}}",
+  owneriq: "{{IMG:logo-owneriq-inmar.png}}",
+  peoples: "{{IMG:logo-peoples-united.png}}",
+  flipside: "{{IMG:logo-flipside.png}}",
+  fresenius: "{{IMG:logo-fresenius.png}}",
+  uconn: "{{IMG:logo-uconn.png}}",
+  me: "{{IMG:michael.jpg}}",
+};
+
+const SRC = {
+  projects: `-- Every full-time role, newest first.
+-- Rows marked "open →" have a case study.
+SELECT company, role, years, result, status
+FROM michael.work
+ORDER BY started DESC;`,
+
+  experience: `{
+  "name": "Michael Gold Maggioli",
+  "location": "Greater Boston, MA",
+  "open_to": ["freelance", "remote", "hybrid", "on-site"],
+  "experience": [
+    { "company": "athenahealth", "role": "Data Engineer", "from": "2021-06", "to": "2026-08" },
+    { "company": "People's United Bank", "role": "Lead Analytics Engineer", "from": "2020-10", "to": "2021-05" },
+    { "company": "Flipside Crypto", "role": "Data Engineer", "from": "2020-01", "to": "2020-03" },
+    { "company": "Enel Green Power", "role": "Global Digital Solutions Data Engineer", "from": "2016-07", "to": "2019-12" },
+    { "company": "Fresenius Medical Care", "role": "Business Intelligence Solutions Analyst", "from": "2015-09", "to": "2016-07" },
+    { "company": "OwnerIQ", "role": "Business Data Analyst", "from": "2014-02", "to": "2015-08" },
+    { "company": "Towers Watson", "role": "Actuarial Intern", "from": "2012-05", "to": "2012-10" },
+    { "company": "University of Connecticut", "role": "Graduate Teaching Assistant", "from": "2011-09", "to": "2011-12" }
+  ],
+  "education": [
+    { "school": "University of Connecticut", "degree": "M.S., Actuarial Science", "years": "2011-2013" },
+    { "school": "University of Connecticut", "degree": "B.A., Actuarial Science", "years": "2006-2010" }
+  ]
+}`,
+
+  stack: `# What I work with
+warehouse:
+  - Snowflake
+  - Postgres
+pipelines:
+  - Change data capture (CDC)
+  - AWS S3
+  - Airflow
+  - Python
+modeling:
+  - dbt
+  - SQL
+infrastructure:
+  - AWS
+  - Terraform
+  - GitHub
+dashboards:
+  - Tableau
+  - Looker
+  - Excel
+statistics:
+  - SAS
+  - Python
+  - Actuarial science  # M.S., UConn
+ai_tools:             # 1,000+ hours across all three
+  - Claude Code
+  - Cursor
+  - v0`,
+};
+
+const ROWS = [
+  { id: "athena", co: "athenahealth", logo: "athena", role: "Data Engineer", years: "2021–26", result: "Multi-team pipelines into Snowflake", status: "Shipped" },
+  { id: null, co: "People's United Bank", logo: "peoples", role: "Lead Analytics Engineer", years: "2020–21", result: "Pipelines, ETL and Looker", status: "Shipped" },
+  { id: null, co: "Flipside Crypto", logo: "flipside", role: "Data Engineer", years: "2020", result: "Data pipelines with Airflow on AWS", status: "Shipped" },
+  { id: "enel", co: "Enel Green Power", logo: "enel", role: "Data Engineer", years: "2016–19", result: "Energy Management database, ~7 → 60 team", status: "Shipped" },
+  { id: null, co: "Fresenius Medical Care", logo: "fresenius", role: "BI Solutions Analyst", years: "2015–16", result: "Business analysis and performance metrics", status: "Shipped" },
+  { id: "owneriq", co: "OwnerIQ", logo: "owneriq", role: "Business Data Analyst", years: "2014–15", result: "Pricing-model fix, $2M+ saved", status: "Shipped" },
+  { id: "start", co: "your company", logo: null, role: "?", years: "2026–", result: "Let's find out", status: "Open", you: true },
+];
+
+/* ===== Files in the explorer ===== */
+const FILES = {
+  readme:     { name: "README.md", path: "README.md", icon: "md", git: "M", lang: "Markdown", kind: "tpl", preview: true, desc: "Home" },
+  audit:      { name: "data-trust-audit.md", path: "services/data-trust-audit.md", folder: "services", icon: "md", lang: "Markdown", kind: "offer", preview: true },
+  build:      { name: "source-of-truth-build.md", path: "services/source-of-truth-build.md", folder: "services", icon: "md", lang: "Markdown", kind: "offer", preview: true },
+  claude:     { name: "claude-ready-analytics.md", path: "services/claude-ready-analytics.md", folder: "services", icon: "md", lang: "Markdown", kind: "offer", preview: true },
+  fractional: { name: "fractional-data-lead.md", path: "services/fractional-data-lead.md", folder: "services", icon: "md", lang: "Markdown", kind: "offer", preview: true },
+  athena:     { name: "athenahealth.md", path: "work/athenahealth.md", folder: "work", logo: "athena", lang: "Markdown", kind: "tpl", preview: true },
+  enel:       { name: "enel-green-power.md", path: "work/enel-green-power.md", folder: "work", logo: "enel", lang: "Markdown", kind: "tpl", preview: true },
+  owneriq:    { name: "owneriq.md", path: "work/owneriq.md", folder: "work", logo: "owneriq", lang: "Markdown", kind: "tpl", preview: true },
+  experience: { name: "experience.json", path: "experience.json", icon: "json", lang: "JSON", kind: "code", src: "experience", syntax: "json", desc: "Career history" },
+  projects:   { name: "projects.sql", path: "projects.sql", icon: "sql", lang: "SQL", kind: "sql", desc: "Past work" },
+  recs:       { name: "recommendations.md", path: "recommendations.md", icon: "md", lang: "Markdown", kind: "tpl", preview: true, desc: "References" },
+  stack:      { name: "stack.yml", path: "stack.yml", icon: "yml", lang: "YAML", kind: "code", src: "stack", syntax: "yaml", desc: "Tools" },
+  start:      { name: "start-a-project.md", path: "start-a-project.md", icon: "md", git: "U", lang: "Markdown", kind: "tpl", preview: true, desc: "Contact" },
+  who:        { name: "who-i-help.md", path: "who-i-help.md", icon: "md", lang: "Markdown", kind: "tpl", preview: true, desc: "Who I help" },
+};
+const TREE = [
+  { folder: "services", files: ["audit", "build", "claude", "fractional"] },
+  { folder: "work", files: ["athena", "enel", "owneriq"] },
+  "experience", "projects", "readme", "recs", "stack", "start", "who",
+];
+
+/* ===== Helpers ===== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isPhone = () => matchMedia("(max-width: 820px)").matches;
+const isMid = () => matchMedia("(max-width: 1180px)").matches;
+const BASE_TITLE = document.title;
+const CTA_LABEL = () => CONFIG.bookingUrl ? "Book a free 20-min call" : "Request a free 20-min call";
+const PIXEL = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+
+function fileIcon(id) {
+  const f = FILES[id];
+  if (f.logo) return `<span class="fi logo"><img src="${IMG[f.logo]}" alt=""></span>`;
+  const glyph = { md: "M↓", sql: "▤", json: "{}", yml: "!" }[f.icon] || "•";
+  return `<span class="fi ft-${f.icon}" aria-hidden="true">${glyph}</span>`;
+}
+
+function ctaButtons() {
+  const out = [];
+  if (CONFIG.bookingUrl) out.push(`<a class="btn btn-primary" href="${esc(CONFIG.bookingUrl)}" target="_blank" rel="noopener">Book a free 20-min call</a>`);
+  else out.push(`<button class="btn btn-primary" data-open="start">Request a free 20-min call</button>`);
+  if (CONFIG.email) out.push(`<a class="btn btn-ghost" href="mailto:${esc(CONFIG.email)}">Email</a>`);
+  else if (!CONFIG.bookingUrl) out.push(`<a class="btn btn-ghost" href="${esc(CONFIG.linkedin)}" target="_blank" rel="noopener"><svg class="i"><use href="#i-in"/></svg>LinkedIn</a>`);
+  return out.join("");
+}
+
+function primaryAction() {
+  if (CONFIG.bookingUrl) { closeHire(); window.open(CONFIG.bookingUrl, "_blank", "noopener"); }
+  else actions.start();
+}
+
+/* ===== Syntax highlighting (small, purpose-built) ===== */
+function hl(text, lang) {
+  const e = esc(text).replace(/&quot;/g, '"');
+  if (lang === "json") {
+    return e.replace(/("(?:[^"\\]|\\.)*")(\s*:)?|\b(true|false|null)\b|(-?\d+(?:\.\d+)?)/g, (m, str, colon, kw, num) => {
+      if (str) return colon ? `<span class="tk-key">${str}</span>${colon}` : `<span class="tk-str">${str}</span>`;
+      if (kw) return `<span class="tk-kw">${kw}</span>`;
+      return `<span class="tk-num">${num}</span>`;
+    });
+  }
+  if (lang === "yaml") {
+    return e.split("\n").map(line => {
+      const c = line.indexOf("#");
+      let body = c >= 0 ? line.slice(0, c) : line;
+      const com = c >= 0 ? `<span class="tk-com">${line.slice(c)}</span>` : "";
+      body = body.replace(/^(\s*)([\w-]+)(:)/, '$1<span class="tk-key">$2</span>$3')
+                 .replace(/^(\s*-\s)(.+?)(\s*)$/, '$1<span class="tk-str">$2</span>$3');
+      return body + com;
+    }).join("\n");
+  }
+  if (lang === "sql") {
+    return e.split("\n").map(line => {
+      if (/^\s*--/.test(line)) return `<span class="tk-com">${line}</span>`;
+      return line.replace(/\b(SELECT|FROM|WHERE|ORDER|BY|DESC|ASC|AS|LIMIT|AND|OR)\b/g, '<span class="tk-kw">$1</span>')
+                 .replace(/\b(michael)\.(work)\b/g, '<span class="tk-type">$1</span>.<span class="tk-type">$2</span>');
+    }).join("\n");
+  }
+  return e;
+}
+
+function codeBlock(text, lang) {
+  const lines = text.split("\n");
+  const nums = lines.map((_, i) => i === 0 ? `<span class="cur">1</span>` : String(i + 1)).join("\n");
+  const mini = lines.map(l => `<i style="width:${Math.min(100, l.trimEnd().length * 1.4)}%;margin-left:${(l.length - l.trimStart().length) * 1.4}%"></i>`).join("");
+  return `<div class="code"><pre class="gutter" aria-hidden="true">${nums}</pre><pre class="src"><code>${hl(text, lang)}</code></pre><div class="minimap" aria-hidden="true">${mini}</div></div>`;
+}
+
+/* ===== Views ===== */
+function offerCard(o) {
+  return `<button class="offer${o.pick ? " pick" : ""}" data-open="${o.id}">
+    ${o.pick ? '<span class="tag-pick">Start here</span>' : ""}
+    <span class="file">services/${o.file}</span>
+    <span class="offer-title">${esc(o.name)}</span>
+    <span>${esc(o.short)}</span>
+    <span class="meta"><span>${esc(o.duration)}</span><b>${esc(o.price)}</b></span>
+  </button>`;
+}
+
+function offerDoc(o) {
+  return `<article class="md">
+    <p class="muted small" style="font-family:var(--mono)">services/${o.file}</p>
+    <h1>${esc(o.name)}</h1>
+    <p class="lede" style="margin-top:12px">${esc(o.short)}</p>
+    <dl class="kv">
+      <dt>for</dt><dd>${esc(o.who)}</dd>
+      <dt>duration</dt><dd>${esc(o.duration)}</dd>
+      <dt>price</dt><dd><strong>${esc(o.price)}</strong> <span class="muted">· ${esc(o.priceNote)}</span></dd>
+    </dl>
+    <h2>What you get</h2>
+    <ul>${o.gets.map(g => `<li>${esc(g)}</li>`).join("")}</ul>
+    <div class="fit">
+      <div class="yes"><h3>// good fit if</h3><ul>${o.fit.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div>
+      <div class="no"><h3>// not a fit if</h3><ul>${o.notFit.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div>
+    </div>
+    ${o.demo ? claudeDemo() : ""}
+    <h2>How it starts</h2>
+    <p>A free 20-minute call about fit. If it's a match, you get a short written proposal with scope, timeline and price. No hourly billing.</p>
+    <p class="small muted">Something else in mind? Send a short note anyway.</p>
+    <div class="callout"><p>Interested in the ${esc(o.name)}?</p><div class="cta-row" data-cta="row"></div></div>
+  </article>`;
+}
+
+function claudeDemo() {
+  return `<h2>What it looks like</h2>
+    <div class="demo" role="img" aria-label="Illustration: a question asked in Claude, answered from a certified metric">
+      <div class="dh"><span>Claude · connected to your semantic layer</span><span>example</span></div>
+      <div class="q">What was net revenue retention last quarter?</div>
+      <div class="a">
+        <p>Net revenue retention for Q3 was <strong>112%</strong>, the same number finance reports.</p>
+        <span class="cert">✓ certified metric · net_revenue_retention · owner: Finance</span>
+        <pre><span class="tk-com">-- verified query, from the golden question set</span>
+<span class="tk-kw">select</span> <span class="tk-fn">metric</span>(<span class="tk-str">'net_revenue_retention'</span>, grain => <span class="tk-str">'quarter'</span>)</pre>
+      </div>
+    </div>
+    <p class="small muted">Illustration with made-up numbers. Without agreed definitions, the same question can return three different answers.</p>`;
+}
+
+function sqlView() {
+  const rows = ROWS.map((r, i) => {
+    const link = r.id ? ` data-row="${r.id}" tabindex="0" role="link" aria-label="${r.you ? "Request a free call" : "Open case study: " + esc(r.co)}"` : "";
+    return `<tr${r.you ? ' class="you"' : ""}${link}>
+      <td>${i + 1}</td>
+      <td><span class="co">${r.logo ? `<img src="${IMG[r.logo]}" alt="">` : '<span class="blank"></span>'}${esc(r.co)}</span></td>
+      <td>${esc(r.role)}</td>
+      <td>${esc(r.years)}</td>
+      <td>${esc(r.result)}</td>
+      <td><span class="status${r.status === "Open" ? " open" : ""}">${esc(r.status)}<i></i></span></td>
+      <td>${r.id ? '<span class="go">open →</span>' : ""}</td>
+    </tr>`;
+  }).join("");
+  return codeBlock(SRC.projects, "sql").replace('class="code"', 'class="code" style="padding-bottom:16px"') + `
+    <div class="results-pane">
+      <div class="rp-head"><b>Query results</b><span>${ROWS.length} rows</span><span class="ok">✓ ran in 12 years</span></div>
+      <div class="grid-wrap"><table class="grid">
+        <thead><tr><th>#</th><th>company</th><th>role</th><th>years</th><th>result</th><th>status</th><th><span class="sr">case study</span></th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>`;
+}
+
+function welcomeView() {
+  return `<div class="welcome"><div>
+    <div class="big">michael-maggioli</div>
+    <dl>
+      <dt>Home</dt><dd><button data-open="readme">README.md</button></dd>
+      <dt>Who I help</dt><dd><button data-open="who">who-i-help.md</button></dd>
+      <dt>Get in touch</dt><dd><button data-action="primary">${esc(CTA_LABEL())}</button></dd>
+    </dl>
+  </div></div>`;
+}
+
+/* ===== State ===== */
+const state = { open: ["readme"], active: "readme", collapsed: {} };
+const main = $("#main"), view = $("#view"), panel = $("#panel");
+const briefDraft = {};
+
+function renderTree() {
+  const phone = isPhone();
+  const item = (id, depth) => {
+    const f = FILES[id];
+    const right = phone && f.desc ? `<span class="desc">${esc(f.desc)}</span>` : f.git ? `<span class="git ${f.git}">${f.git}</span>` : "";
+    return `<li><button data-open="${id}" class="${state.active === id ? "active" : ""}" style="--d:${depth}" ${state.active === id ? 'aria-current="page"' : ""}>
+      <span class="spc"></span>${fileIcon(id)}<span class="lbl ${f.git || ""}">${f.name}</span>${right}</button></li>`;
+  };
+  $("#tree").innerHTML = TREE.map(n => {
+    if (typeof n === "string") return item(n, 0);
+    const open = !state.collapsed[n.folder];
+    return `<li><button class="folder" data-folder="${n.folder}" aria-expanded="${open}" style="--d:0">
+      <svg class="chev"><use href="#i-chev"/></svg><span class="lbl">${n.folder}</span></button>
+      ${open ? `<ul class="tree" style="padding:0">${n.files.map(id => item(id, 1)).join("")}</ul>` : ""}</li>`;
+  }).join("");
+}
+
+function renderTabs() {
+  $("#tabs").innerHTML = state.open.map(id => {
+    const f = FILES[id], on = id === state.active;
+    const label = f.preview ? `<span class="pv">Preview</span> ${f.name}` : f.name;
+    const close = id === "readme" ? "" : `<button class="x" aria-label="Close ${f.name}" data-close="${id}"><svg class="i" style="width:14px;height:14px"><use href="#i-x"/></svg></button>`;
+    return `<div class="tab${on ? " on" : ""}" data-tab="${id}"><button class="tab-btn"${on ? ' aria-current="page"' : ""}>${fileIcon(id)}<span>${label}</span></button>${close}</div>`;
+  }).join("");
+  const on = $(".tab.on");
+  if (on) on.scrollIntoView({ block: "nearest", inline: "nearest" });
+}
+
+function renderCrumbs() {
+  const f = FILES[state.active];
+  if (!f) { $("#crumbs").innerHTML = ""; return; }
+  const parts = ["michael-maggioli", ...f.path.split("/")];
+  $("#crumbs").innerHTML = parts.map((p, i) => (i ? '<svg><use href="#i-right"/></svg>' : "") + `<span>${esc(p)}</span>`).join("");
+}
+
+function renderView() {
+  const id = state.active, f = FILES[id];
+  let html;
+  if (!f) html = welcomeView();
+  else if (f.kind === "tpl") html = $(`#tpl-${id}`).innerHTML;
+  else if (f.kind === "offer") html = offerDoc(OFFERS.find(o => o.id === id));
+  else if (f.kind === "code") html = codeBlock(SRC[f.src], f.syntax);
+  else if (f.kind === "sql") html = sqlView();
+  view.innerHTML = html;
+  hydrate(view);
+  view.scrollTop = 0;
+  view.setAttribute("aria-label", f ? f.name : "Welcome");
+  $("#sb-lang").textContent = f ? f.lang : "Plain Text";
+  $("#cmd-label").textContent = f ? (isPhone() ? f.name : `michael-maggioli · ${f.path}`) : "michael-maggioli";
+  document.title = !f || id === "readme" ? BASE_TITLE : `${f.name} · Michael Gold Maggioli`;
+}
+
+function hydrate(root) {
+  $$("img[data-img]", root).forEach(im => { im.src = IMG[im.dataset.img]; });
+  $$('[data-cta="row"]', root).forEach(el => el.innerHTML = ctaButtons());
+  const ro = $("#readme-offers", root);
+  if (ro) ro.innerHTML = OFFERS.filter(o => o.main).map(offerCard).join("");
+  const fp = $("#readme-fractional-price", root);
+  if (fp) fp.textContent = OFFERS.find(o => o.id === "fractional").price + " →";
+  const form = $("#brief", root);
+  if (form) setupBrief(root, form);
+}
+
+function setUrl(id, push) {
+  const url = id && id !== "readme" ? "#" + id : location.pathname + location.search;
+  try { history[push ? "pushState" : "replaceState"](null, "", url); } catch (_) { /* sandboxed previews */ }
+}
+
+function openFile(id, opts = {}) {
+  if (!FILES[id]) return;
+  if (id === state.active && view.firstElementChild && !opts.force) {
+    if (isPhone()) setLayout({ side: false, chat: false, term: false });
+    if (opts.focus !== false) view.focus({ preventScroll: true });
+    return;
+  }
+  if (!state.open.includes(id)) state.open.push(id);
+  state.active = id;
+  renderTabs(); renderTree(); renderCrumbs(); renderView();
+  if (!opts.keepHash) setUrl(id, true);
+  if (isPhone()) setLayout({ side: false, chat: false, term: false });
+  if (opts.focus !== false) view.focus({ preventScroll: true });
+}
+
+function closeFile(id) {
+  const i = state.open.indexOf(id);
+  if (i < 0 || id === "readme") return;
+  const wasActive = state.active === id;
+  state.open.splice(i, 1);
+  if (wasActive) state.active = state.open[Math.max(0, i - 1)] || null;
+  renderTabs(); renderTree();
+  if (wasActive) { renderCrumbs(); renderView(); setUrl(state.active, false); }
+  ($(".tab.on .tab-btn") || view).focus({ preventScroll: true });
+}
+
+/* ===== Layout toggles ===== */
+const layout = { side: true, chat: true, term: false };
+function setLayout(next) {
+  Object.assign(layout, next);
+  const phone = isPhone(), mid = isMid();
+  main.classList.toggle("no-side", !layout.side && !phone);
+  main.classList.toggle("side-open", layout.side && phone);
+  main.classList.toggle("no-chat", !layout.chat && !mid);
+  main.classList.toggle("chat-open", layout.chat && mid);
+  panel.classList.toggle("closed", !layout.term);
+  $("#scrim").hidden = !(phone && (layout.side || layout.chat || layout.term));
+  [["#tb-side", "side"], ["#ab-files", "side"], ["#tb-term", "term"], ["#tb-chat", "chat"], ["#ab-chat", "chat"], ["#dk-side", "side"], ["#dk-chat", "chat"], ["#dk-term", "term"]]
+    .forEach(([sel, k]) => { const el = $(sel); if (el) el.setAttribute("aria-pressed", String(!!layout[k])); });
+}
+function initialLayout() {
+  const tall = innerHeight >= 900;
+  if (isPhone()) setLayout({ side: false, chat: false, term: false });
+  else if (isMid()) setLayout({ side: true, chat: false, term: tall });
+  else setLayout({ side: true, chat: true, term: tall });
+}
+
+/* ===== Actions ===== */
+const actions = {
+  side: () => {
+    setLayout({ side: !layout.side, ...(isPhone() ? { chat: false, term: false } : {}) });
+    if (isPhone() && layout.side) setTimeout(() => ($(".tree button.active") || $(".tree button")).focus(), 0);
+  },
+  chat: () => {
+    setLayout({ chat: !layout.chat, ...(isPhone() ? { side: false, term: false } : {}) });
+    if (layout.chat) setTimeout(() => (isPhone() ? $(".chat .sug") || $("#ask") : $("#ask")).focus(), 0);
+  },
+  term: () => { setLayout({ term: !layout.term, ...(isPhone() ? { side: false, chat: false } : {}) }); if (layout.term) { showPanelTab("terminal"); focusTerm(); } },
+  problems: () => {
+    setLayout({ term: true, ...(isPhone() ? { side: false, chat: false } : {}) });
+    showPanelTab("problems");
+    setTimeout(() => { const b = $("#tq-list [data-tq]"); if (b) b.focus({ preventScroll: true }); }, 0);
+  },
+  check: () => actions.problems(),
+  run: () => { setLayout({ term: true, ...(isPhone() ? { side: false, chat: false } : {}) }); showPanelTab("terminal"); runCommand("dbt build --select career"); },
+  palette: () => openPalette(),
+  hire: () => openHire(),
+  "close-hire": () => closeHire(),
+  primary: () => primaryAction(),
+  start: () => {
+    closeHire();
+    openFile("start");
+    setTimeout(() => { const n = $("#f-name"); if (n && !n.value) n.focus(); }, 50);
+  },
+  "send-results": () => {
+    const found = trustFindings();
+    actions.start();
+    const text = "Metric Trust Check results:\n" + found.map(c => "- " + (c.a === "not sure" ? "Not sure: " + c.msg : c.msg)).join("\n") + "\n\n";
+    const msg = $("#f-msg"), need = $("#f-need");
+    if (msg) { msg.value = text + (briefDraft.message && !briefDraft.message.startsWith("Metric Trust Check") ? briefDraft.message : ""); briefDraft.message = msg.value; }
+    if (need) { need.value = "Data Trust Audit"; briefDraft.need = need.value; }
+  },
+  tree: () => {
+    const b = $("#tree-root"); const open = b.getAttribute("aria-expanded") !== "true";
+    b.setAttribute("aria-expanded", String(open)); $("#tree").hidden = !open;
+  },
+  skip: () => view.focus(),
+};
+
+document.addEventListener("click", e => {
+  const close = e.target.closest("[data-close]");
+  if (close) { e.stopPropagation(); closeFile(close.dataset.close); return; }
+  const tab = e.target.closest("[data-tab]");
+  if (tab) { openFile(tab.dataset.tab); return; }
+  const folder = e.target.closest("[data-folder]");
+  if (folder) {
+    const name = folder.dataset.folder;
+    state.collapsed[name] = !state.collapsed[name];
+    renderTree();
+    $(`[data-folder="${name}"]`).focus();
+    return;
+  }
+  const tq = e.target.closest("[data-tq]");
+  if (tq) {
+    const i = +tq.dataset.tq;
+    if (answers[i] === tq.dataset.v) delete answers[i]; else answers[i] = tq.dataset.v;
+    renderCheck();
+    const again = $(`[data-tq="${i}"][data-v="${tq.dataset.v}"]`); if (again) again.focus();
+    return;
+  }
+  const row = e.target.closest("[data-row]");
+  if (row) { e.preventDefault(); openFile(row.dataset.row); return; }
+  const op = e.target.closest("[data-open]");
+  if (op) { e.preventDefault(); closeHire(); closePalette(); openFile(op.dataset.open); return; }
+  const act = e.target.closest("[data-action]");
+  if (act && actions[act.dataset.action]) { e.preventDefault(); actions[act.dataset.action](); return; }
+  const ptab = e.target.closest("[data-ptab]");
+  if (ptab) { showPanelTab(ptab.dataset.ptab); return; }
+  if (e.target.closest("#term") && !getSelection().toString()) focusTerm();
+});
+$("#scrim").addEventListener("click", () => setLayout({ side: false, chat: false, term: false }));
+
+document.addEventListener("keydown", e => {
+  const mod = e.metaKey || e.ctrlKey;
+  const k = (e.key || "").toLowerCase();
+  const typing = e.target.closest && e.target.closest("input, textarea, select");
+  if (mod && k === "k") { e.preventDefault(); openPalette(); }
+  else if (mod && !typing && k === "l") { e.preventDefault(); closeHire(); if (!layout.chat) actions.chat(); else $("#ask").focus(); }
+  else if (mod && !typing && k === "j") { e.preventDefault(); closeHire(); actions.term(); }
+  else if (mod && !typing && k === "b") { e.preventDefault(); closeHire(); actions.side(); }
+  else if (e.key === "Escape") {
+    if (!palEl.hidden) closePalette();
+    else if (!hireEl.hidden) closeHire();
+    else if (isPhone() && (layout.side || layout.chat || layout.term)) {
+      const opener = layout.side ? "#dk-side" : layout.chat ? "#dk-chat" : "#dk-term";
+      setLayout({ side: false, chat: false, term: false });
+      $(opener).focus();
+    }
+  }
+  else if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("[data-row]")) { e.preventDefault(); e.target.click(); }
+});
+
+/* ===== Command palette ===== */
+const palEl = $("#palette"), palInput = $("#pal-input"), palList = $("#pal-list");
+let palItems = [], palIndex = 0, palReturn = null;
+const COMMANDS = [
+  { label: () => CTA_LABEL(), desc: "free, no obligation", run: () => primaryAction() },
+  { label: () => "Hire Michael", desc: "contact details", run: () => openHire() },
+  { label: () => "Ask about Michael", desc: "⌘L", run: () => { if (!layout.chat) actions.chat(); else $("#ask").focus(); } },
+  { label: () => "Run the Metric Trust Check", desc: "6 questions", run: () => actions.check() },
+  { label: () => "Run career build", desc: "terminal", run: () => actions.run() },
+  { label: () => "Open LinkedIn", desc: "new tab", run: () => window.open(CONFIG.linkedin, "_blank", "noopener") },
+  { label: () => "Toggle terminal", desc: "⌘J", run: () => actions.term() },
+  { label: () => "Toggle file explorer", desc: "⌘B", run: () => actions.side() },
+];
+function openPalette() {
+  closeHire();
+  palReturn = document.activeElement;
+  palEl.hidden = false; palInput.value = ""; renderPalette(); palInput.focus();
+}
+function closePalette() {
+  if (palEl.hidden) return;
+  palEl.hidden = true;
+  if (palReturn && document.contains(palReturn)) palReturn.focus({ preventScroll: true });
+}
+function runPal(it) {
+  const prev = palReturn; palReturn = null; palEl.hidden = true;
+  if (prev && document.contains(prev)) prev.focus({ preventScroll: true });
+  if (it) it.run();
+}
+function renderPalette() {
+  const q = palInput.value.trim().toLowerCase();
+  const cmdMode = q.startsWith(">");
+  const term = cmdMode ? q.slice(1).trim() : q;
+  const files = cmdMode ? [] : Object.entries(FILES).filter(([, f]) => (f.path + " " + (f.desc || "")).toLowerCase().includes(term))
+    .map(([id, f]) => ({ label: f.name, desc: f.desc || (f.path.includes("/") ? f.path.split("/")[0] : ""), icon: fileIcon(id), run: () => openFile(id) }));
+  const cmds = COMMANDS.map(c => ({ ...c, label: c.label() })).filter(c => c.label.toLowerCase().includes(term))
+    .map(c => ({ ...c, icon: '<span class="fi" style="color:var(--fg-mute)" aria-hidden="true">›</span>' }));
+  palItems = cmdMode ? cmds : [...files, ...cmds];
+  palIndex = 0;
+  let html = "";
+  if (!cmdMode && files.length) html += `<li class="pal-sep" role="presentation">Pages</li>`;
+  palItems.forEach((it, i) => {
+    if (!cmdMode && i === files.length && cmds.length) html += `<li class="pal-sep" role="presentation">Commands</li>`;
+    html += `<li class="pal-item${i === 0 ? " on" : ""}" role="option" id="pal-opt-${i}" data-i="${i}" aria-selected="${i === 0}">${it.icon || ""}<span>${esc(it.label)}</span><span class="d">${esc(it.desc || "")}</span></li>`;
+  });
+  palList.innerHTML = html || `<li class="pal-sep" role="presentation">No matches</li>`;
+  palInput.setAttribute("aria-activedescendant", palItems.length ? "pal-opt-0" : "");
+}
+function movePal(d) {
+  if (!palItems.length) return;
+  palIndex = (palIndex + d + palItems.length) % palItems.length;
+  $$(".pal-item", palList).forEach(el => { const on = +el.dataset.i === palIndex; el.classList.toggle("on", on); el.setAttribute("aria-selected", on); if (on) el.scrollIntoView({ block: "nearest" }); });
+  palInput.setAttribute("aria-activedescendant", `pal-opt-${palIndex}`);
+}
+palInput.addEventListener("input", renderPalette);
+palInput.addEventListener("keydown", e => {
+  if (e.key === "ArrowDown") { e.preventDefault(); movePal(1); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); movePal(-1); }
+  else if (e.key === "Tab") e.preventDefault();
+  else if (e.key === "Enter") { e.preventDefault(); const it = palItems[palIndex]; if (it) runPal(it); }
+});
+palList.addEventListener("click", e => { const li = e.target.closest(".pal-item"); if (li) runPal(palItems[+li.dataset.i]); });
+palEl.addEventListener("click", e => { if (e.target === palEl) closePalette(); });
+
+/* ===== Hire panel ===== */
+const hireEl = $("#hire");
+let hireReturn = null;
+function openHire() {
+  if (!palEl.hidden) { palEl.hidden = true; palReturn = null; }
+  hireReturn = document.activeElement;
+  const c = [];
+  if (CONFIG.bookingUrl) c.push(`<a class="h-row" href="${esc(CONFIG.bookingUrl)}" target="_blank" rel="noopener"><span>Book a free 20-min call</span><span>pick a time ↗</span></a>`);
+  c.push(`<button class="h-row" data-action="start"><span>${CONFIG.bookingUrl ? "Send a project brief" : "Request a free 20-min call"}</span><span>2-minute form →</span></button>`);
+  if (CONFIG.email) c.push(`<a class="h-row" href="mailto:${esc(CONFIG.email)}"><span>Email</span><span>${esc(CONFIG.email)}</span></a>`);
+  c.push(`<a class="h-row" href="${esc(CONFIG.linkedin)}" target="_blank" rel="noopener"><span>Worked together before?</span><span>LinkedIn ↗</span></a>`);
+  $("#hire-contact").innerHTML = c.join("");
+  $("#hire-offers").innerHTML = OFFERS.map(o => `<button class="h-row" data-open="${o.id}"><span>${esc(o.name)} · ${esc(o.duration)}</span><span>${esc(o.price)} →</span></button>`).join("");
+  $("#hire-cta").textContent = CTA_LABEL();
+  hireEl.hidden = false;
+  $("#hire-cta").focus();
+}
+function closeHire() {
+  if (hireEl.hidden) return;
+  hireEl.hidden = true;
+  if (hireReturn && document.contains(hireReturn)) hireReturn.focus({ preventScroll: true });
+  hireReturn = null;
+}
+hireEl.addEventListener("click", e => { if (e.target === hireEl) closeHire(); });
+hireEl.addEventListener("keydown", e => {
+  if (e.key !== "Tab") return;
+  const f = $$("a, button", hireEl); const first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
+
+/* ===== Request form ===== */
+function setupBrief(root, form) {
+  if (!CONFIG.bookingUrl) $("#brief-h", root).textContent = "Request a free 20-min call";
+  else {
+    $("#brief-h", root).textContent = "Start a project";
+    const b = $("#brief-book", root);
+    b.hidden = false;
+    b.innerHTML = `Prefer to pick a time? <a href="${esc(CONFIG.bookingUrl)}" target="_blank" rel="noopener">Book a free 20-min call ↗</a>`;
+  }
+  if (!CONFIG.email) {
+    $("#brief-intro", root).textContent = "Tell me a little about what's going on. When you press the button, your note is copied so you can paste it into a LinkedIn message to Michael.";
+    $("#brief-send", root).textContent = "Copy my note";
+    $("#f-email-label", root).textContent = "Your email (optional, so Michael can reply by email)";
+  } else {
+    $("#f-email-label", root).textContent = "Your email";
+  }
+  [...form.elements].forEach(el => {
+    if (!el.name) return;
+    if (el.name in briefDraft) el.value = briefDraft[el.name];
+    el.addEventListener("input", () => { briefDraft[el.name] = el.value; el.removeAttribute("aria-invalid"); });
+  });
+  form.addEventListener("submit", sendBrief);
+}
+
+function sendBrief(e) {
+  e.preventDefault();
+  const v = id => ($("#" + id).value || "").trim();
+  const status = $("#brief-status");
+  const required = ["f-name", "f-msg", ...(CONFIG.email ? ["f-email"] : [])];
+  const missing = required.filter(id => !v(id));
+  if (v("f-email") && !$("#f-email").checkValidity()) missing.push("f-email");
+  ["f-name", "f-email", "f-msg"].forEach(id => $("#" + id).toggleAttribute("aria-invalid", missing.includes(id)));
+  if (missing.length) {
+    status.className = "form-status err";
+    status.textContent = "Please add your name and a sentence about your data" + (CONFIG.email ? ", and a valid email." : ". If you add an email, check it's valid.");
+    $("#" + missing[0]).focus();
+    return;
+  }
+  const body = `Hi Michael,\n\n${v("f-msg")}\n\nWhat I need: ${v("f-need")}\nTimeline: ${v("f-when")}${v("f-stack") ? "\nStack: " + v("f-stack") : ""}\n\n${v("f-name")}${v("f-company") ? ", " + v("f-company") : ""}${v("f-email") ? "\n" + v("f-email") : ""}`;
+  const subject = `Project inquiry${v("f-company") ? " from " + v("f-company") : ""}`;
+  if (CONFIG.email) {
+    location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    status.className = "form-status ok";
+    status.textContent = "Your email app should open with the message ready to send. If it doesn't, email " + CONFIG.email + ".";
+    return;
+  }
+  const link = `<a href="${esc(CONFIG.linkedin)}" target="_blank" rel="noopener">open Michael's LinkedIn ↗</a>`;
+  const done = copied => {
+    status.className = "form-status ok";
+    status.innerHTML = copied
+      ? `Note copied. Now ${link} and paste it into a message. Not connected yet? Choose Connect → Add a note and paste the first lines.`
+      : `Copy the note below, then ${link} and paste it into a message.<pre>${esc(body)}</pre>`;
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(body).then(() => done(true), () => done(false));
+  else done(false);
+}
+
+/* ===== Metric Trust Check ===== */
+const CHECKS = [
+  { q: "Do two teams ever report different numbers for the same metric?", bad: "yes", sev: "e", msg: "A metric is defined more than one way" },
+  { q: "Does each key metric have a named owner?", bad: "no", sev: "w", msg: "Key metrics have no owner" },
+  { q: "Are your important tables tested automatically?", bad: "no", sev: "w", msg: "No automated data tests" },
+  { q: "Could Claude answer “what was revenue last month?” and match finance?", bad: "no", sev: "e", msg: "AI answers can't be trusted yet" },
+  { q: "Is your warehouse bill growing faster than your usage?", bad: "yes", sev: "w", msg: "Warehouse costs are drifting" },
+  { q: "Does someone rebuild the same report by hand every week or month?", bad: "yes", sev: "w", msg: "Manual reporting work" },
+];
+const answers = {};
+function trustFindings() {
+  return CHECKS.map((c, i) => ({ ...c, i, a: answers[i] })).filter(c => c.a && (c.a === c.bad || c.a === "not sure"));
+}
+function renderCheck() {
+  $("#tq-list").innerHTML = CHECKS.map((c, i) => `<div class="tq"><span>${esc(c.q)}</span><span class="opts" role="group" aria-label="${esc(c.q)}">
+    ${["yes", "no", "not sure"].map(v => `<button data-tq="${i}" data-v="${v}" aria-pressed="${answers[i] === v}">${v[0].toUpperCase() + v.slice(1)}</button>`).join("")}</span></div>`).join("");
+  const found = trustFindings();
+  const errs = found.filter(c => c.sev === "e" && c.a === c.bad).length;
+  const warns = found.length - errs;
+  const answered = Object.keys(answers).length;
+  $("#plist").innerHTML = !answered ? `<li><span class="ok">ℹ</span>Answer the questions to see your results.</li>`
+    : found.length ? found.map(c => { const sev = c.a === "not sure" ? "w" : c.sev; return `<li><span class="${sev}" aria-hidden="true">${sev === "e" ? "⊗" : "⚠"}</span><span class="sr">${sev === "e" ? "Error:" : "Warning:"}</span>${esc(c.a === "not sure" ? "Not sure: " + c.msg : c.msg)}<small>trust-check [${c.i + 1}]</small></li>`; }).join("")
+    : `<li><span class="ok">✓</span>No problems found${answered < CHECKS.length ? " so far" : ""}.</li>`;
+  $("#trust-cta").innerHTML = !answered ? "" : found.length
+    ? `<button class="btn btn-primary" data-action="send-results">Send these results to Michael</button><button class="btn btn-ghost" data-open="audit">What the audit covers</button>`
+    : answered === CHECKS.length ? `<p class="small" style="margin:0">Clean. If you'd like a second opinion anyway, <a href="#start" data-open="start">request a free call</a>.</p>` : "";
+  $("#pt-count").textContent = found.length;
+  $("#sb-problems").innerHTML = `⊗ ${errs} &nbsp;⚠ ${warns}`;
+  $("#sb-problems").setAttribute("aria-label", answered ? `Metric Trust Check: ${errs} errors, ${warns} warnings` : "Metric Trust Check: not run yet");
+}
+
+/* ===== Terminal ===== */
+const term = $("#term");
+let termInput;
+const PROMPT = '<span class="t-p">michael@portfolio</span> <span class="t-c">~</span> %';
+function tline(html) { const d = document.createElement("div"); d.className = "ln"; d.innerHTML = html; term.insertBefore(d, term.lastElementChild); }
+function careerBuild() {
+  return [
+    `${PROMPT} dbt build --select career`,
+    `<span class="t-dim">Found 6 models, 12 years of history</span>`,
+    `1 of 6 <span class="t-ok">OK</span> stg_owneriq ............... <span class="t-y">[$2M+ saved · 2014–15]</span>`,
+    `2 of 6 <span class="t-ok">OK</span> stg_fresenius ............. <span class="t-y">[BI analyst · 2015–16]</span>`,
+    `3 of 6 <span class="t-ok">OK</span> int_enel_green_power ...... <span class="t-y">[team ~7 → 60 · 2016–19]</span>`,
+    `4 of 6 <span class="t-ok">OK</span> stg_flipside_crypto ....... <span class="t-y">[pipelines · 2020]</span>`,
+    `5 of 6 <span class="t-ok">OK</span> stg_peoples_united ........ <span class="t-y">[lead analytics eng · 2020–21]</span>`,
+    `6 of 6 <span class="t-ok">OK</span> fct_athenahealth .......... <span class="t-y">[5 yrs of Snowflake · 2021–26]</span>`,
+    `<span class="t-ok">Completed successfully.</span> PASS=6 WARN=0 ERROR=0`,
+    `<span class="t-dim">next:</span> your_company .............. <span class="t-ok">[AVAILABLE]</span>  type <span class="t-c">book-call</span> or <span class="t-c">help</span>`,
+  ];
+}
+function initTerm() {
+  term.innerHTML = `<div class="prompt">${PROMPT}<input id="term-in" aria-label="Terminal command" autocomplete="off" autocapitalize="off" spellcheck="false"></div>`;
+  termInput = $("#term-in");
+  careerBuild().forEach(tline);
+  termInput.addEventListener("keydown", e => {
+    if (e.key !== "Enter") return;
+    const cmd = termInput.value.trim(); termInput.value = "";
+    runCommand(cmd);
+  });
+}
+function focusTerm() { if (termInput && !isPhone()) termInput.focus({ preventScroll: true }); }
+function showPanelTab(t) {
+  $$(".pt").forEach(b => { const on = b.dataset.ptab === t; b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); });
+  $("#term").hidden = t !== "terminal"; $("#problems").hidden = t !== "problems";
+  panel.classList.toggle("tall", t === "problems");
+}
+function findFile(arg) {
+  const a = arg.toLowerCase().replace(/^\.\//, "");
+  return Object.keys(FILES).find(id => FILES[id].path.toLowerCase() === a || FILES[id].name.toLowerCase() === a)
+      || Object.keys(FILES).find(id => FILES[id].path.toLowerCase().includes(a));
+}
+function runCommand(raw) {
+  if (raw === "dbt build --select career") { careerBuild().forEach(tline); term.scrollTop = term.scrollHeight; return; }
+  tline(`${PROMPT} ${esc(raw)}`);
+  const [cmd, ...rest] = raw.split(/\s+/); const arg = rest.join(" ");
+  const c = (cmd || "").toLowerCase();
+  const out = [];
+  if (!c) { /* empty line */ }
+  else if (c === "help") out.push(`commands: <span class="t-c">book-call</span> · <span class="t-c">hire</span> · <span class="t-c">services</span> · <span class="t-c">check</span> · <span class="t-c">refer</span> · <span class="t-c">ls</span> · <span class="t-c">open &lt;file&gt;</span> · <span class="t-c">contact</span> · <span class="t-c">whoami</span> · <span class="t-c">dbt build</span> · <span class="t-c">clear</span>`);
+  else if (c === "book-call" || c === "book") { out.push(`<span class="t-ok">✔</span> ${CONFIG.bookingUrl ? "opening the booking page…" : "opening start-a-project.md…"}`); setTimeout(primaryAction, 200); }
+  else if (c === "check") { out.push(`<span class="t-dim">opening the Metric Trust Check…</span>`); setTimeout(() => actions.check(), 150); }
+  else if (c === "refer") out.push(`Know a team with messy data? Send them this page, or introduce them to Michael on <a href="${esc(CONFIG.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>. Agencies: he's open to white-label and overflow work.`);
+  else if (c === "ls") out.push(Object.values(FILES).map(f => f.path).join("   "));
+  else if (c === "open" || c === "cat" || c === "code") {
+    const id = arg && findFile(arg);
+    if (id) { out.push(`<span class="t-dim">opening ${FILES[id].path}</span>`); openFile(id, { focus: false }); }
+    else out.push(`<span class="t-r">no such file:</span> ${esc(arg || "(none)")} · try <span class="t-c">ls</span>`);
+  }
+  else if (c === "whoami") out.push("Michael Gold Maggioli · freelance data engineer · Greater Boston");
+  else if (c === "services") OFFERS.forEach(o => out.push(`<span class="t-ok">●</span> ${esc(o.name)} · ${esc(o.duration)} · ${esc(o.price)}  <span class="t-dim">open services/${o.file}</span>`));
+  else if (c === "contact" || c === "email" || c === "linkedin") {
+    if (CONFIG.email) out.push(`email     ${esc(CONFIG.email)}`);
+    if (CONFIG.bookingUrl) out.push(`book      <a href="${esc(CONFIG.bookingUrl)}" target="_blank" rel="noopener">${esc(CONFIG.bookingUrl)}</a>`);
+    out.push(`linkedin  <a href="${esc(CONFIG.linkedin)}" target="_blank" rel="noopener">${esc(CONFIG.linkedin)}</a>`);
+    out.push(`request   type <span class="t-c">book-call</span>`);
+  }
+  else if (c === "hire" || (c === "sudo" && /hire/.test(arg))) { out.push(`<span class="t-ok">✔</span> ${c === "sudo" ? "Permission granted. " : ""}Opening the hire panel…`); setTimeout(openHire, 250); }
+  else if (c === "dbt") careerBuild().slice(1).forEach(tline);
+  else if (c === "clear") $$(".ln", term).forEach(n => n.remove());
+  else if (c === "sudo") out.push('Nice try. Try <span class="t-c">sudo hire michael</span>.');
+  else out.push(`zsh: command not found: ${esc(cmd)} · type <span class="t-c">help</span>`);
+  out.forEach(tline);
+  term.scrollTop = term.scrollHeight;
+}
+
+/* ===== Chat (pre-written answers) ===== */
+const ANSWERS = [
+  { q: "What does Michael do?", keys: ["who", "background", "bio", "yourself", "tell me about"],
+    a: "Michael is a freelance data engineer in Boston with 12 years of experience and a master's in actuarial science.\n\nHe gets a company's data into Snowflake, settles what each metric means so every team gets the same number, and makes the data ready for AI tools like Claude. He works with Snowflake, dbt, SQL, Python and AWS.",
+    acts: [{ open: "readme", label: "README.md" }, { open: "who", label: "who-i-help.md" }] },
+  { q: "What could he do for my company?", keys: ["company", "need", "service", "services", "offer", "offers", "audit", "build", "package", "packages", "help with", "options"],
+    a: () => `Three fixed-price packages:\n\n${OFFERS.filter(o => o.main).map(o => `• ${o.name} (${o.duration}): ${o.short}`).join("\n")}\n\nMost teams start with the Data Trust Audit. Its fee counts toward a build.`,
+    acts: [{ open: "audit", label: "data-trust-audit.md" }, { open: "build", label: "source-of-truth-build.md" }, { open: "claude", label: "claude-ready-analytics.md" }] },
+  { q: "What has he built?", keys: ["built", "projects", "experience", "results", "portfolio", "case", "proof", "references", "clients", "examples"],
+    a: "Highlights from his full-time roles:\n\n• OwnerIQ: found errors in the pricing models and fixed the algorithms. Over $2M saved.\n• Enel Green Power: helped build the Energy Management database, which became the source of truth as the team grew from about 7 to 60.\n• athenahealth: five years of pipelines bringing multiple teams' data into Snowflake.",
+    acts: [{ open: "projects", label: "projects.sql" }, { open: "enel", label: "enel-green-power.md" }] },
+  { q: "What does it cost?", keys: ["cost", "costs", "price", "prices", "pricing", "rate", "rates", "charge", "budget", "much", "$", "hourly", "fee", "fees", "quote", "expensive"],
+    a: () => `Starting prices:\n\n${OFFERS.map(o => `• ${o.name}: ${o.price}`).join("\n")}\n\nProjects are fixed price, and the Fractional Data Lead is a monthly retainer. No hourly billing. After a free 20-minute call you get a written proposal.`,
+    acts: [{ action: "primary", label: CTA_LABEL() }] },
+  { q: "Can he get our data ready for AI?", keys: ["ai", "claude", "llm", "llms", "gpt", "chatgpt", "agent", "agents", "cursor", "mcp", "semantic", "copilot"],
+    a: "Yes. AI tools give confident answers either way. They're only right when the data and definitions underneath are right.\n\nThe Claude-Ready Analytics package connects Claude to your agreed metrics with read-only access, and checks its answers against questions with known answers. Michael also uses Cursor, Claude Code and v0 every day (1,000+ hours).",
+    acts: [{ open: "claude", label: "claude-ready-analytics.md" }] },
+  { q: "Is he available?", keys: ["available", "availability", "when can", "timeline", "remote", "boston", "onsite", "on-site", "location", "based", "soon"],
+    a: "Yes. He's taking new projects now.\n\nHe's based in Greater Boston and works remote, hybrid or on-site.",
+    acts: [{ action: "primary", label: CTA_LABEL() }] },
+  { q: "How do I hire him?", keys: ["hire", "contact", "email", "reach", "call", "book", "talk", "linkedin", "message", "start a project", "get started", "brief", "phone"],
+    a: CONFIG.bookingUrl
+      ? "Book a free 20-minute call directly, or send a short brief with the project form."
+      : "Fill in the short request form (it takes two minutes), or message him on LinkedIn. The first 20-minute call is free.",
+    acts: [{ action: "primary", label: CTA_LABEL() }, { href: CONFIG.linkedin, label: "LinkedIn ↗" }] },
+  { q: "Does he work in my industry?", keys: ["industry", "industries", "healthcare", "healthtech", "health", "fintech", "bank", "banking", "startup", "startups", "pe", "equity", "energy", "sector"],
+    a: "His packages are set up for Series A–C startups, private-equity portfolio companies, and Boston healthcare and financial-services teams.\n\nHis own background, as an employee: five years at athenahealth (healthcare tech), Lead Analytics Engineer at People's United Bank, data engineer for Enel Green Power's Energy Management and Global Trading group, about a year at Fresenius Medical Care, and business data analyst at OwnerIQ (ad tech).",
+    acts: [{ open: "who", label: "who-i-help.md" }] },
+];
+const msgs = $("#msgs");
+function botMsg(text, acts = [], sugs = null) {
+  const m = document.createElement("div");
+  m.className = "msg bot";
+  m.innerHTML = `<div class="who"><img src="${IMG.me}" alt="">michael-bot</div><div class="txt"></div>`;
+  msgs.appendChild(m);
+  const txt = $(".txt", m);
+  const finish = () => {
+    txt.textContent = text;
+    if (acts.length) {
+      const a = document.createElement("div"); a.className = "acts";
+      a.innerHTML = acts.map(x => x.open ? `<button class="btn btn-ghost" data-open="${x.open}">${esc(x.label)}</button>`
+        : x.action ? `<button class="btn btn-primary" data-action="${x.action}">${esc(x.label)}</button>`
+        : `<a class="btn btn-ghost" href="${esc(x.href)}" target="_blank" rel="noopener">${esc(x.label)}</a>`).join("");
+      m.appendChild(a);
+    }
+    if (sugs && sugs.length) m.appendChild(sugChips(sugs));
+    $("#chat-live").textContent = text;
+    msgs.scrollTop = msgs.scrollHeight;
+  };
+  if (reduceMotion) return finish();
+  let i = 0;
+  const step = () => { i += 3; txt.textContent = text.slice(0, i); msgs.scrollTop = msgs.scrollHeight; if (i < text.length) setTimeout(step, 12); else finish(); };
+  step();
+}
+function sugChips(list) {
+  const d = document.createElement("div"); d.className = "sugs"; d.style.marginTop = "10px";
+  d.innerHTML = list.map(a => `<button class="sug" data-q="${esc(a.q)}">${esc(a.q)}</button>`).join("");
+  return d;
+}
+function ask(q) {
+  const u = document.createElement("div"); u.className = "msg user"; u.textContent = q; msgs.appendChild(u);
+  const ql = q.toLowerCase();
+  const words = ql.replace(/[^a-z0-9$\- ]/g, " ").split(/\s+/);
+  let best = ANSWERS.find(a => a.q.toLowerCase() === ql), score = 0;
+  if (!best) ANSWERS.forEach(a => {
+    const s = a.keys.filter(k => (k.includes(" ") || k === "$") ? ql.includes(k) : words.includes(k)).length;
+    if (s > score) { score = s; best = a; }
+  });
+  const rest = [ANSWERS[6], ANSWERS[3], ANSWERS[1], ANSWERS[5]].filter(a => a !== best).slice(0, 3);
+  setTimeout(() => {
+    if (best) botMsg(typeof best.a === "function" ? best.a() : best.a, best.acts, rest);
+    else botMsg("These are pre-written answers, so I can't answer that one. Michael can, though. Send him a short note and he'll get back to you.", [{ action: "primary", label: CTA_LABEL() }], [ANSWERS[1], ANSWERS[3], ANSWERS[6]]);
+  }, 250);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+msgs.addEventListener("click", e => { const s = e.target.closest(".sug"); if (s) ask(s.dataset.q); });
+$("#composer").addEventListener("submit", e => { e.preventDefault(); const t = $("#ask"); const q = t.value.trim(); if (q) { t.value = ""; ask(q); } });
+$("#ask").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("#composer").requestSubmit(); } });
+function initChat() {
+  const m = document.createElement("div");
+  m.className = "msg bot";
+  m.innerHTML = `<div class="who"><img src="${IMG.me}" alt="">michael-bot</div><div class="txt">Hi! I can answer common questions about Michael's work. Pick one or type your own.</div>`;
+  m.appendChild(sugChips([ANSWERS[1], ANSWERS[3], ANSWERS[4], ANSWERS[7], ANSWERS[6]]));
+  msgs.appendChild(m);
+}
+
+/* ===== Boot ===== */
+function boot() {
+  const b = $("#boot");
+  let seen = false;
+  try { seen = sessionStorage.getItem("booted") === "1"; sessionStorage.setItem("booted", "1"); } catch (_) { /* storage blocked */ }
+  if (b) { if (seen) b.remove(); else setTimeout(() => b.remove(), 900); }
+  hydrate(document.querySelector(".activity"));
+  $("#sb-avail").textContent = `Available now · ${CTA_LABEL()}`;
+  renderCheck();
+  initTerm();
+  initChat();
+  initialLayout();
+  const start = location.hash.slice(1);
+  if (FILES[start] && start !== "readme") { state.open.push(start); state.active = start; }
+  renderTabs(); renderTree(); renderCrumbs(); renderView();
+  let wasPhone = isPhone(), wasMid = isMid();
+  addEventListener("resize", () => {
+    if (isPhone() !== wasPhone || isMid() !== wasMid) { wasPhone = isPhone(); wasMid = isMid(); initialLayout(); renderTree(); }
+  });
+  addEventListener("popstate", () => {
+    const h = location.hash.slice(1) || "readme";
+    if (FILES[h] && h !== state.active) openFile(h, { keepHash: true, focus: false });
+  });
+}
+boot();
+</script>
+
+<noscript><style>#boot{display:none}</style><p style="position:fixed;left:0;right:0;bottom:0;z-index:300;margin:0;padding:10px 16px;background:#2F6BF5;color:#FFF;font:14px/1.5 sans-serif">Turn on JavaScript for the full site, or <a style="color:#FFF" href="https://www.linkedin.com/in/michael-maggioli/">contact Michael on LinkedIn</a>.</p></noscript>
+</body>
+</html>

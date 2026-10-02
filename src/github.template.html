@@ -1,0 +1,1565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Michael Gold Maggioli · Freelance Data Engineer, Boston</title>
+<meta name="description" content="Michael Gold Maggioli is a freelance data engineer in Boston with 12 years of experience. Snowflake, dbt and CDC pipelines, agreed metric definitions, and data that Claude answers correctly. Fixed scope, fixed price.">
+<meta property="og:title" content="Michael Gold Maggioli · Freelance Data Engineer, Boston">
+<meta property="og:description" content="Numbers your team agrees on, and your AI gets right. Snowflake, dbt, AWS. Greater Boston, remote or on-site.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://nicomaggioli.github.io/mike/">
+<meta property="og:image" content="https://nicomaggioli.github.io/mike/images/michael-v2.jpg">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://nicomaggioli.github.io/mike/">
+<meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#010409" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231f2328'/%3E%3Cpath d='M9 22V10l7 7 7-7v12' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Michael Gold Maggioli, Freelance Data Engineer",
+  "description": "Freelance data engineering in Boston: Data Trust Audits, Snowflake and dbt source-of-truth builds, Claude-ready analytics, and fractional data lead support.",
+  "areaServed": ["Boston", "Cambridge", "Greater Boston", "Massachusetts", "United States (remote)"],
+  "address": { "@type": "PostalAddress", "addressRegion": "MA", "addressCountry": "US" },
+  "founder": {
+    "@type": "Person",
+    "name": "Michael Gold Maggioli",
+    "jobTitle": "Data Engineer",
+    "alumniOf": "University of Connecticut",
+    "sameAs": ["https://www.linkedin.com/in/michael-maggioli/"],
+    "knowsAbout": ["Snowflake", "dbt", "SQL", "Python", "AWS", "Airflow", "Terraform", "Tableau", "Looker", "Data engineering", "Analytics engineering"]
+  }
+}
+</script>
+<script>
+  // Apply a saved theme before first paint (falls back to the system setting).
+  try { const t = localStorage.getItem("mgm-theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (_) {}
+</script>
+<style>
+  /* Layout: a code-hosting profile page. Sticky header + tab bar, a 296px profile sidebar beside the main column; other tabs use the full width. */
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --bg-subtle: #f6f8fa;
+    --bg-header: #f6f8fa;
+    --bg-inset: #f6f8fa;
+    --fg: #1f2328;
+    --fg-muted: #59636e;
+    --border: #d1d9e0;
+    --border-muted: #dfe5ea;
+    --accent: #0969da;
+    --accent-subtle: #ddf4ff;
+    --accent-emph: #0969da;
+    --tab-line: #d4553d;
+    --success: #1a7f37;
+    --success-emph: #1f883d;
+    --success-hover: #1c8139;
+    --success-subtle: #dafbe1;
+    --danger: #d1242f;
+    --danger-subtle: #ffebe9;
+    --attention: #9a6700;
+    --attention-subtle: #fff8c5;
+    --done: #8250df;
+    --done-subtle: #fbefff;
+    --btn-bg: #f6f8fa;
+    --btn-hover: #eff2f5;
+    --overlay-shadow: 0 1px 3px rgba(31,35,40,.12), 0 8px 24px rgba(66,74,83,.12);
+    --h0: #eff2f5; --h1: #aceebb; --h2: #4ac26b; --h3: #2da44e; --h4: #116329;
+    --diff-del: #ffebe9; --diff-add: #dafbe1; --diff-del-fg: #82071e; --diff-add-fg: #116329;
+
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0d1117; --bg-subtle: #151b23; --bg-header: #010409; --bg-inset: #010409;
+      --fg: #f0f6fc; --fg-muted: #9198a1; --border: #3d444d; --border-muted: #2a313c;
+      --accent: #4493f8; --accent-subtle: rgba(56,139,253,.15);
+      --success: #3fb950; --success-emph: #238636; --success-hover: #1f7a32; --success-subtle: rgba(46,160,67,.15); --accent-emph: #1f6feb; --tab-line: #fd8c73;
+      --danger: #f85149; --danger-subtle: rgba(248,81,73,.1);
+      --attention: #d29922; --attention-subtle: rgba(187,128,9,.15);
+      --done: #ab7df8; --done-subtle: rgba(171,125,248,.15);
+      --btn-bg: #212830; --btn-hover: #262c36;
+      --overlay-shadow: 0 0 0 1px #3d444d, 0 8px 24px rgba(1,4,9,.8);
+      --h0: #151b23; --h1: #033a16; --h2: #196c2e; --h3: #2ea043; --h4: #56d364;
+      --diff-del: rgba(248,81,73,.15); --diff-add: rgba(46,160,67,.15); --diff-del-fg: #ffa198; --diff-add-fg: #7ee787;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0d1117; --bg-subtle: #151b23; --bg-header: #010409; --bg-inset: #010409;
+    --fg: #f0f6fc; --fg-muted: #9198a1; --border: #3d444d; --border-muted: #2a313c;
+    --accent: #4493f8; --accent-subtle: rgba(56,139,253,.15);
+    --success: #3fb950; --success-emph: #238636; --success-hover: #1f7a32; --success-subtle: rgba(46,160,67,.15); --accent-emph: #1f6feb; --tab-line: #fd8c73;
+    --danger: #f85149; --danger-subtle: rgba(248,81,73,.1);
+    --attention: #d29922; --attention-subtle: rgba(187,128,9,.15);
+    --done: #ab7df8; --done-subtle: rgba(171,125,248,.15);
+    --btn-bg: #212830; --btn-hover: #262c36;
+    --overlay-shadow: 0 0 0 1px #3d444d, 0 8px 24px rgba(1,4,9,.8);
+    --h0: #151b23; --h1: #033a16; --h2: #196c2e; --h3: #2ea043; --h4: #56d364;
+    --diff-del: rgba(248,81,73,.15); --diff-add: rgba(46,160,67,.15); --diff-del-fg: #ffa198; --diff-add-fg: #7ee787;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: 120px; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 6px; }
+  #content:focus { outline: none; }
+  .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  [hidden] { display: none !important; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .muted { color: var(--fg-muted); }
+  .mono { font-family: var(--mono); }
+  svg.o { width: 16px; height: 16px; flex: none; vertical-align: text-bottom; }
+  .skip { position: fixed; left: 8px; top: -48px; z-index: 200; padding: 8px 12px; background: var(--accent-emph); color: #FFF; border: 0; border-radius: 6px; font-weight: 600; cursor: pointer; }
+  .skip:focus { top: 8px; }
+  .skip:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding-inline: max(32px, env(safe-area-inset-left, 0px)) max(32px, env(safe-area-inset-right, 0px)); }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding: 0 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--btn-bg); color: var(--fg); font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer; text-decoration: none; }
+  .btn:hover { background: var(--btn-hover); text-decoration: none; }
+  .btn-primary { background: var(--success-emph); border-color: rgba(31,35,40,.15); color: #FFF; }
+  .btn-primary:hover { background: var(--success-hover); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .btn-primary:disabled:hover { background: var(--success-emph); }
+  .btn-sm { height: 28px; padding: 0 10px; font-size: 12px; }
+  .btn-lg { height: 40px; padding: 0 16px; font-size: 16px; }
+  .btn-block { width: 100%; }
+  .btn-icon { width: 32px; padding: 0; }
+  .label { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border: 1px solid var(--border); border-radius: 2em; font-size: 12px; font-weight: 500; color: var(--fg-muted); line-height: 1; white-space: nowrap; }
+  .label.green { color: var(--success); border-color: var(--success); }
+  .label.purple { color: var(--done); border-color: var(--done); }
+  .topic { display: inline-flex; align-items: center; height: 22px; padding: 0 10px; border-radius: 2em; background: var(--accent-subtle); color: var(--accent); font-size: 12px; font-weight: 500; }
+  .Box { border: 1px solid var(--border); border-radius: 6px; background: var(--bg); }
+  .Box-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 16px; border-bottom: 1px solid var(--border); background: var(--bg-subtle); border-radius: 6px 6px 0 0; font-size: 14px; }
+  .lang { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--fg-muted); }
+  .lang i { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(31,35,40,.1); }
+
+  /* Header */
+  .gh-header { position: sticky; top: 0; z-index: 30; background: var(--bg-header); border-bottom: 1px solid var(--border); padding-top: env(safe-area-inset-top, 0px); }
+  .gh-top { display: flex; align-items: center; gap: 12px; height: 64px; }
+  .mark { width: 32px; height: 32px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--fg); color: var(--bg); }
+  .mark svg { width: 18px; height: 18px; }
+  .ctx { font-weight: 600; font-size: 14px; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ctx:hover { text-decoration: none; background: var(--btn-hover); }
+  .ctx { padding: 4px 8px; border-radius: 6px; }
+  .gh-top .push { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .search { display: flex; align-items: center; gap: 8px; height: 32px; width: 280px; padding: 0 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--fg-muted); font-size: 14px; cursor: pointer; text-align: left; }
+  .search:hover { border-color: var(--fg-muted); }
+  .search span { flex: 1; }
+  kbd { display: inline-block; padding: 0 5px; font: 11px/16px var(--mono); color: var(--fg-muted); border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; background: var(--bg-subtle); }
+  .avatar-sm { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); object-fit: cover; }
+
+  .tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 8px; color: var(--fg); font-size: 14px; white-space: nowrap; text-decoration: none; }
+  .tab:hover { text-decoration: none; }
+  .tab:hover::before { content: ""; position: absolute; inset: 8px 0; border-radius: 6px; background: var(--btn-hover); z-index: -1; }
+  .tab { isolation: isolate; }
+  .tab svg { color: var(--fg-muted); }
+  .tab[aria-current="page"] { font-weight: 600; }
+  .tab[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 6px; background: var(--tab-line); }
+  .counter { display: inline-block; min-width: 20px; padding: 0 6px; border-radius: 2em; background: rgba(129,139,152,.2); font-size: 12px; font-weight: 500; line-height: 18px; text-align: center; color: var(--fg); }
+
+  /* Page layouts */
+  .page { padding-block: 24px 64px; }
+  .profile { display: grid; grid-template-columns: 296px minmax(0, 1fr); gap: 24px; }
+  .side { min-width: 0; }
+  .side .photo { width: 100%; max-width: 296px; height: auto; aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--border); object-fit: cover; display: block; }
+  .status { position: relative; margin-top: -44px; margin-left: 8px; display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 12px; border: 1px solid var(--border); border-radius: 2em; background: var(--bg); box-shadow: var(--overlay-shadow); font-size: 12px; color: var(--fg); }
+  .status i { width: 10px; height: 10px; border-radius: 50%; background: var(--success); }
+  .names { margin: 16px 0; }
+  .names h1 { margin: 0; font-size: 24px; line-height: 1.25; font-weight: 600; }
+  .names .login { display: block; font-size: 20px; font-weight: 300; line-height: 24px; color: var(--fg-muted); }
+  .bio { font-size: 16px; margin: 0 0 16px; }
+  .side-actions { display: grid; gap: 8px; margin-bottom: 16px; }
+  .vcard { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 6px; }
+  .vcard li { display: flex; gap: 8px; align-items: flex-start; }
+  .vcard svg { color: var(--fg-muted); margin-top: 2px; }
+  .side-sec { padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--border); }
+  .side-sec h2 { margin: 0 0 8px; font-size: 16px; font-weight: 600; }
+  .ach { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ach button { width: 64px; height: 64px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; position: relative; display: grid; place-items: center; font: 700 18px/1 var(--sans); color: #FFF; box-shadow: inset 0 0 0 3px rgba(255,255,255,.35), 0 1px 2px rgba(0,0,0,.2); }
+  .ach .a1 { background: linear-gradient(135deg, #2da44e, #116329); }
+  .ach .a2 { background: linear-gradient(135deg, #0969da, #0a3069); }
+  .ach .a3 { background: linear-gradient(135deg, #bf8700, #7d4e00); }
+  .ach .a4 { background: linear-gradient(135deg, #8250df, #512a97); }
+  .ach .a5 { background: linear-gradient(135deg, #cf222e, #82071e); }
+  .ach-note { margin: 8px 0 0; font-size: 12px; min-height: 18px; }
+  .orgs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .orgs img { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--border); background: #FFF; object-fit: contain; padding: 2px; }
+
+  .main-col { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-content: start; }
+  .sec-title { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 0 0 8px; font-size: 16px; font-weight: 400; }
+
+  /* Markdown body */
+  .markdown-body { padding: 24px 32px 32px; font-size: 16px; line-height: 1.5; word-wrap: break-word; }
+  .markdown-body > *:first-child { margin-top: 0 !important; }
+  .markdown-body h1, .markdown-body h2, .markdown-body h3 { margin: 24px 0 16px; font-weight: 600; line-height: 1.25; }
+  .markdown-body h1 { font-size: 2em; padding-bottom: .3em; border-bottom: 1px solid var(--border-muted); text-wrap: balance; }
+  .markdown-body h2 { font-size: 1.5em; padding-bottom: .3em; border-bottom: 1px solid var(--border-muted); }
+  .markdown-body h3 { font-size: 1.25em; }
+  .markdown-body p, .markdown-body ul, .markdown-body ol, .markdown-body table, .markdown-body blockquote, .markdown-body pre { margin: 0 0 16px; }
+  .markdown-body ul, .markdown-body ol { padding-left: 2em; }
+  .markdown-body li + li { margin-top: .25em; }
+  .markdown-body code { padding: .2em .4em; font: 85% var(--mono); background: rgba(129,139,152,.15); border-radius: 6px; }
+  .markdown-body pre { padding: 16px; overflow: auto; font: 85%/1.45 var(--mono); background: var(--bg-subtle); border-radius: 6px; }
+  .markdown-body pre code { padding: 0; background: none; font-size: 100%; }
+  .markdown-body table { display: block; width: max-content; max-width: 100%; overflow: auto; border-collapse: collapse; }
+  .markdown-body th, .markdown-body td { padding: 6px 13px; border: 1px solid var(--border); }
+  .markdown-body th { font-weight: 600; }
+  .markdown-body tr:nth-child(2n) td { background: var(--bg-subtle); }
+  .markdown-body blockquote { padding: 0 1em; color: var(--fg-muted); border-left: .25em solid var(--border); }
+  .markdown-body hr { height: .25em; margin: 24px 0; background: var(--border-muted); border: 0; }
+  .markdown-body .lead { font-size: 1.15em; }
+  .md-alert { padding: 8px 16px; margin: 0 0 16px; border-left: .25em solid var(--accent); }
+  .md-alert .t { display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--accent); margin-bottom: 4px; }
+  .md-alert.tip { border-color: var(--success); }
+  .md-alert.tip .t { color: var(--success); }
+  .md-alert.important { border-color: var(--done); }
+  .md-alert.important .t { color: var(--done); }
+  .md-alert p { margin: 0; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+  .diff { font: 13px/1.6 var(--mono); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin: 0 0 16px; }
+  .diff .dh { padding: 6px 12px; background: var(--bg-subtle); border-bottom: 1px solid var(--border); color: var(--fg-muted); font-size: 12px; }
+  .diff .l { padding: 2px 12px 2px 32px; position: relative; white-space: pre-wrap; }
+  .diff .l::before { position: absolute; left: 12px; }
+  .diff .del { background: var(--diff-del); color: var(--diff-del-fg); }
+  .diff .del::before { content: "−"; }
+  .diff .add { background: var(--diff-add); color: var(--diff-add-fg); }
+  .diff .add::before { content: "+"; }
+  .badges { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 16px; }
+  .shield { display: inline-flex; font: 11px/1 var(--sans); border-radius: 3px; overflow: hidden; }
+  .shield span { padding: 4px 6px; color: #FFF; }
+  .shield span:first-child { background: #555; }
+  .s-green span:last-child { background: #1a7f37; }
+  .s-blue span:last-child { background: #0969da; }
+  .s-purple span:last-child { background: #8250df; }
+  .s-orange span:last-child { background: #bc4c00; }
+  .quote-card { padding: 16px; border: 1px solid var(--border); border-radius: 6px; margin: 0 0 16px; }
+  .quote-card p { margin: 0 0 8px; }
+  .quote-card footer { font-size: 14px; color: var(--fg-muted); }
+
+  /* Pinned */
+  .pinned { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 0; padding: 0; }
+  .pin { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 16px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); text-align: left; cursor: pointer; width: 100%; font-size: 14px; }
+  .pin { color: var(--fg); text-decoration: none; }
+  .pin:hover { border-color: var(--fg-muted); text-decoration: none; }
+  .pin .d b { color: var(--fg); font-weight: 600; }
+  .pin .nm { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .pin .nm b { color: var(--accent); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pin:hover .nm b { text-decoration: underline; }
+  .pin .nm svg { color: var(--fg-muted); }
+  .pin .d { font-size: 12px; color: var(--fg-muted); flex: 1; }
+  .pin .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 12px; color: var(--fg-muted); }
+  .pin .meta b { color: var(--fg); font-weight: 600; }
+
+  /* Heatmap */
+  .heat-box { padding: 16px; }
+  .heat-scroll { overflow-x: auto; padding-bottom: 4px; }
+  .heat { display: grid; grid-template-columns: 76px repeat(51, 11px); grid-auto-rows: 11px; gap: 3px; width: max-content; font-size: 12px; color: var(--fg); }
+  .heat .yr { grid-row: 1; font-size: 12px; line-height: 11px; white-space: nowrap; color: var(--fg); }
+  .heat .rl { grid-column: 1; font-size: 11px; line-height: 11px; color: var(--fg); padding-right: 8px; white-space: nowrap; }
+  .heat .c { width: 11px; height: 11px; border-radius: 2px; background: var(--h0); outline: 1px solid rgba(27,31,35,.06); outline-offset: -1px; }
+  .heat .c[data-l="1"] { background: var(--h1); } .heat .c[data-l="2"] { background: var(--h2); } .heat .c[data-l="3"] { background: var(--h3); } .heat .c[data-l="4"] { background: var(--h4); }
+  .heat-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; font-size: 12px; color: var(--fg-muted); }
+  .legend { display: flex; align-items: center; gap: 3px; }
+  .legend .c { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
+  .heat-tip { min-height: 18px; font-size: 12px; color: var(--fg); margin-top: 6px; }
+  .legend .lg { display: inline-flex; align-items: center; gap: 4px; margin-left: 8px; }
+
+  /* Timeline */
+  .tl-year { display: flex; align-items: center; gap: 8px; margin: 16px 0 8px; font-size: 12px; font-weight: 600; }
+  .tl-year::after { content: ""; flex: 1; height: 1px; background: var(--border-muted); }
+  .tl { list-style: none; margin: 0; padding: 0 0 0 16px; border-left: 2px solid var(--border-muted); margin-left: 15px; }
+  .tl li { position: relative; padding: 8px 0 16px 20px; }
+  .tl li::before { content: ""; position: absolute; left: -26px; top: 6px; width: 30px; height: 30px; border-radius: 50%; background: var(--bg-subtle); border: 2px solid var(--bg); }
+  .tl .ic { position: absolute; left: -19px; top: 13px; color: var(--fg-muted); }
+  .tl h3 { margin: 0 0 4px; font-size: 16px; font-weight: 400; }
+  .tl h3 b { font-weight: 600; }
+  .tl p { margin: 0; color: var(--fg-muted); }
+  .tl .co-logo { width: 20px; height: 20px; border-radius: 4px; background: #FFF; border: 1px solid var(--border); object-fit: contain; vertical-align: middle; margin-right: 4px; }
+
+  /* Repositories list */
+  .repo-filter { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .repo-filter input { flex: 1; min-width: 200px; height: 32px; padding: 0 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--fg); font-size: 14px; }
+  .repo-list { list-style: none; margin: 0; padding: 0; }
+  .repo-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+  .repo-list h3 { margin: 0 0 4px; font-size: 20px; font-weight: 600; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .repo-list p { margin: 0 0 8px; color: var(--fg-muted); max-width: 70ch; }
+  .repo-list .meta { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--fg-muted); }
+  .repo-list .topics { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+
+  /* Repo page */
+  .repo-head { padding-block: 16px 0; }
+  .repo-title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 20px; }
+  .repo-title svg { color: var(--fg-muted); }
+  .repo-title b { font-weight: 600; }
+  .repo-title .push { margin-left: auto; display: flex; gap: 8px; }
+  .repo-tabs { margin-top: 8px; }
+  .repo-grid { display: grid; grid-template-columns: minmax(0, 1fr) 296px; gap: 24px; padding-top: 24px; }
+  .files { margin-bottom: 16px; }
+  .files .commit { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: var(--bg-subtle); border-bottom: 1px solid var(--border); border-radius: 6px 6px 0 0; font-size: 14px; }
+  .files .commit img { width: 20px; height: 20px; border-radius: 50%; }
+  .files .commit .msg { color: var(--fg-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .files table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .files td { padding: 8px 16px; border-top: 1px solid var(--border-muted); }
+  .files tr:first-child td { border-top: 0; }
+  .files td:first-child { width: 40%; white-space: nowrap; }
+  .files td:first-child svg { color: var(--fg-muted); margin-right: 8px; }
+  .files td:last-child { color: var(--fg-muted); }
+  .about h2 { margin: 0 0 16px; font-size: 16px; font-weight: 600; }
+  .about p { margin: 0 0 16px; font-size: 16px; }
+  .about .topics { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .about ul { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 8px; color: var(--fg-muted); }
+  .about ul li { display: flex; gap: 8px; }
+  .about .sec { padding-block: 16px; border-top: 1px solid var(--border-muted); }
+
+  /* Pricing */
+  .pricing-head { text-align: center; padding: 32px 0 24px; }
+  .pricing-head h1 { margin: 0 0 8px; font-size: 40px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; text-wrap: balance; }
+  .pricing-head p { margin: 0 auto; max-width: 60ch; font-size: 18px; color: var(--fg-muted); }
+  .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+  .plan { display: flex; flex-direction: column; gap: 16px; padding: 24px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); }
+  .plan.featured { border: 2px solid var(--done); box-shadow: 0 0 0 4px var(--done-subtle); }
+  .plan h2 { margin: 0; font-size: 20px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .plan .price { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+  .plan .price small { display: block; font-size: 14px; font-weight: 400; color: var(--fg-muted); letter-spacing: 0; margin-top: 4px; }
+  .plan p { margin: 0; color: var(--fg-muted); }
+  .plan ul { list-style: none; margin: 0; padding: 16px 0 0; border-top: 1px solid var(--border-muted); display: grid; gap: 10px; }
+  .plan li { display: flex; gap: 8px; }
+  .plan li svg { color: var(--success); margin-top: 3px; }
+  .retainer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; padding: 20px 24px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-subtle); }
+  .retainer h2 { margin: 0 0 4px; font-size: 18px; }
+  .retainer p { margin: 0; color: var(--fg-muted); }
+  .faq { max-width: 760px; margin: 48px auto 0; }
+  .faq h2 { font-size: 24px; text-align: center; margin: 0 0 16px; }
+  .faq details { border-bottom: 1px solid var(--border); }
+  .faq summary { padding: 16px 0; font-size: 16px; font-weight: 600; cursor: pointer; list-style-position: outside; }
+  .faq details p { margin: 0 0 16px; color: var(--fg-muted); font-size: 16px; }
+
+  /* Actions */
+  .actions-grid { display: grid; grid-template-columns: 256px minmax(0, 1fr); gap: 24px; }
+  .wf-nav .wf-title { margin: 0 0 12px; font-size: 20px; font-weight: 600; }
+  .wf-nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .wf-nav button { display: flex; align-items: center; gap: 8px; width: 100%; padding: 6px 8px; border: 0; border-radius: 6px; background: none; cursor: pointer; text-align: left; font-size: 14px; }
+  .wf-nav button:hover { background: var(--btn-hover); }
+  .wf-nav button[aria-current="true"] { background: var(--btn-hover); font-weight: 600; box-shadow: inset 2px 0 0 var(--tab-line); }
+  .wf-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 16px; }
+  .wf-head h1 { margin: 0; font-size: 24px; font-weight: 400; }
+  .wf-head h1 small { display: block; font: 12px var(--mono); color: var(--fg-muted); }
+  .dispatch { padding: 16px; margin-bottom: 16px; }
+  .dispatch .q { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 16px; padding: 10px 0; border-top: 1px solid var(--border-muted); }
+  .dispatch .q:first-of-type { border-top: 0; }
+  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .seg button { height: 28px; padding: 0 12px; border: 0; border-left: 1px solid var(--border); background: var(--btn-bg); font-size: 12px; font-weight: 500; cursor: pointer; }
+  .seg button:first-child { border-left: 0; }
+  .seg button[aria-pressed="true"] { background: var(--accent-emph); color: #FFF; }
+  .seg button:focus-visible { outline: 2px solid var(--fg); outline-offset: -4px; }
+  .seg button[aria-pressed="true"]:focus-visible { outline-color: #FFF; }
+  .run { overflow: hidden; }
+  .run-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--bg-subtle); }
+  .run-head b { font-weight: 600; }
+  .steps { list-style: none; margin: 0; padding: 8px 0; }
+  .steps li { display: flex; align-items: flex-start; gap: 8px; padding: 6px 16px; font-size: 14px; }
+  .steps li .t { flex: 1; }
+  .steps li small { color: var(--fg-muted); font-family: var(--mono); }
+  .ok-c { color: var(--success); } .bad-c { color: var(--danger); } .warn-c { color: var(--attention); } .wait-c { color: var(--attention); }
+  .annot { padding: 12px 16px; border-top: 1px solid var(--border); }
+  .annot h3 { margin: 0 0 8px; font-size: 14px; }
+  .annot ul { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 6px; }
+  .annot li { display: flex; gap: 8px; padding: 8px 12px; border-radius: 6px; }
+  .annot li.e { background: var(--danger-subtle); }
+  .annot li.w { background: var(--attention-subtle); }
+  .env-wait { margin: 0 16px 16px; padding: 12px 16px; border: 1px solid var(--attention); border-radius: 6px; background: var(--attention-subtle); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+
+  /* Discussions */
+  .disc { max-width: 900px; }
+  .disc h1 { margin: 0 0 8px; font-size: 32px; font-weight: 400; }
+  .disc h1 span { color: var(--fg-muted); font-weight: 300; }
+  .disc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--border); color: var(--fg-muted); }
+  .comment { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; margin-bottom: 16px; }
+  .comment .av { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; color: #FFF; object-fit: cover; }
+  .comment .Box-header { background: var(--bg-subtle); }
+  .comment .body { padding: 16px; font-size: 16px; }
+  .comment .body p { margin: 0; }
+
+  /* New issue form */
+  .issue-grid { display: grid; grid-template-columns: minmax(0, 1fr) 256px; gap: 24px; }
+  .issue-form { padding: 16px; display: grid; gap: 16px; }
+  .field { display: grid; gap: 6px; }
+  .field label, .field .lbl { font-weight: 600; font-size: 14px; }
+  .field .hint { font-size: 12px; color: var(--fg-muted); font-weight: 400; }
+  .field input, .field select, .field textarea { width: 100%; padding: 5px 12px; min-height: 32px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-inset); color: var(--fg); font: 14px/20px var(--sans); }
+  .field textarea { min-height: 140px; resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); background: var(--bg); }
+  .field [aria-invalid="true"] { border-color: var(--danger); }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .write-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: -1px; }
+  .write-tabs span { padding: 8px 16px; font-size: 14px; border: 1px solid var(--border); border-bottom-color: var(--bg); border-radius: 6px 6px 0 0; background: var(--bg); }
+  .form-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+  .form-status { font-size: 14px; }
+  .form-status.ok { color: var(--success); }
+  .form-status.err { color: var(--danger); }
+  .form-status pre { white-space: pre-wrap; font: 12px/1.5 var(--mono); color: var(--fg); background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin: 8px 0 0; }
+  .issue-side .sec { padding: 12px 0; border-bottom: 1px solid var(--border-muted); font-size: 12px; }
+  .issue-side .sec h2 { margin: 0 0 8px; font-size: 12px; color: var(--fg-muted); font-weight: 600; }
+  .issue-side .who { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+  .issue-side .who img { width: 20px; height: 20px; border-radius: 50%; }
+  .ilabel { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 2em; font-size: 12px; font-weight: 500; margin: 0 4px 4px 0; }
+  .ilabel.l1 { background: var(--success-subtle); color: var(--success); border: 1px solid var(--success); }
+  .ilabel.l2 { background: var(--accent-subtle); color: var(--accent); border: 1px solid var(--accent); }
+
+  /* Assistant (chat) */
+  .fab { position: fixed; right: calc(24px + env(safe-area-inset-right, 0px)); bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 40; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border: 1px solid var(--border); border-radius: 2em; background: var(--bg); box-shadow: var(--overlay-shadow); font-weight: 600; cursor: pointer; }
+  .fab:hover { background: var(--btn-hover); }
+  .chat { position: fixed; right: calc(24px + env(safe-area-inset-right, 0px)); bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 41; width: min(400px, calc(100vw - 32px)); height: min(560px, calc(100vh - 120px)); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); box-shadow: var(--overlay-shadow); overflow: hidden; }
+  .chat-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 8px 8px 16px; border-bottom: 1px solid var(--border); font-weight: 600; }
+  .chat-h span { display: flex; align-items: center; gap: 8px; }
+  .msgs { overflow: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .msg { font-size: 14px; line-height: 1.5; }
+  .msg.user { align-self: flex-end; max-width: 85%; padding: 8px 12px; border-radius: 12px; background: var(--accent-subtle); }
+  .msg.bot .who { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 12px; font-weight: 600; color: var(--fg-muted); }
+  .msg.bot .who img { width: 20px; height: 20px; border-radius: 50%; }
+  .msg.bot .txt { white-space: pre-wrap; }
+  .msg .acts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .sugs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .sug { padding: 4px 10px; border: 1px solid var(--border); border-radius: 2em; background: var(--bg); font-size: 12px; cursor: pointer; text-align: left; }
+  .sug:hover { border-color: var(--accent); color: var(--accent); }
+  .composer { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--border); }
+  .composer input { flex: 1; min-width: 0; height: 32px; padding: 0 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-inset); color: var(--fg); font-size: 14px; }
+  .chat-note { padding: 0 12px 10px; font-size: 11px; color: var(--fg-muted); }
+
+  /* Command palette */
+  .overlay { position: fixed; inset: 0; z-index: 60; display: flex; justify-content: center; align-items: flex-start; padding: 72px 16px 16px; background: rgba(1,4,9,.4); }
+  .palette { width: min(640px, 100%); border: 1px solid var(--border); border-radius: 12px; background: var(--bg); box-shadow: var(--overlay-shadow); overflow: hidden; }
+  .palette input { width: 100%; height: 48px; padding: 0 16px; border: 0; border-bottom: 1px solid var(--border); background: var(--bg); color: var(--fg); font-size: 16px; outline: none; }
+  .pal-list { list-style: none; margin: 0; padding: 8px; max-height: 360px; max-height: min(360px, 60vh); overflow: auto; }
+  .pal-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 6px; cursor: pointer; }
+  .pal-item svg { color: var(--fg-muted); }
+  .pal-item .d { margin-left: auto; font-size: 12px; color: var(--fg-muted); white-space: nowrap; }
+  .pal-item:hover { background: var(--btn-hover); }
+  .pal-item.on { background: var(--btn-hover); }
+  .pal-sep { padding: 8px 10px 4px; font-size: 12px; font-weight: 600; color: var(--fg-muted); }
+
+  footer.site { border-top: 1px solid var(--border); padding-block: 32px 96px; color: var(--fg-muted); font-size: 12px; }
+  footer.site .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; }
+  footer.site .mark { width: 24px; height: 24px; }
+  footer.site .mark svg { width: 13px; height: 13px; }
+
+  .only-sm { display: none; }
+
+  @media (max-width: 1011px) {
+    .search { width: 200px; }
+    .profile { grid-template-columns: 220px minmax(0, 1fr); }
+    .repo-grid, .issue-grid { grid-template-columns: minmax(0, 1fr); }
+    .plans { grid-template-columns: minmax(0, 1fr); max-width: 560px; margin: 0 auto; }
+    .retainer { max-width: 560px; margin-inline: auto; }
+    .actions-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 767px) {
+    .wrap { padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
+    .gh-top { height: 56px; gap: 8px; }
+    .search { display: none; }
+    .only-sm { display: inline-flex; }
+    .hide-sm { display: none !important; }
+    .profile { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .side-top { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 16px; align-items: center; }
+    .side .photo { width: 72px; }
+    .status { margin: 8px 0 0; height: 32px; box-shadow: none; }
+    .names { margin: 0; }
+    .names h1 { font-size: 20px; }
+    .names .login { font-size: 16px; }
+    .bio { margin-top: 12px; }
+    .pinned { grid-template-columns: minmax(0, 1fr); }
+    .markdown-body { padding: 16px; }
+    .markdown-body h1 { font-size: 1.6em; }
+    .pricing-head h1 { font-size: 30px; }
+    .two { grid-template-columns: minmax(0, 1fr); }
+    .field input, .field select, .field textarea, .composer input, .palette input, .repo-filter input { font-size: 16px; }
+    .dispatch .q { grid-template-columns: minmax(0, 1fr); }
+    .dispatch .q .seg { justify-self: start; }
+    .side .vcard, .side .side-sec { display: none; }
+    .fab { right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+    .fab .lbl { display: none; }
+    .fab { width: 48px; padding: 0; justify-content: center; }
+    .chat { right: calc(8px + env(safe-area-inset-right, 0px)); left: calc(8px + env(safe-area-inset-left, 0px)); width: auto; bottom: calc(8px + env(safe-area-inset-bottom, 0px)); height: min(78vh, 640px); }
+    .repo-list li { grid-template-columns: minmax(0, 1fr); }
+    .repo-title .push { margin-left: 0; width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="o-m" viewBox="0 0 24 24"><path d="M5 18V6l7 7 7-7v12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="o-menu" viewBox="0 0 16 16"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="o-book" viewBox="0 0 16 16"><path d="M8 3.5C6.5 2.5 4 2.3 1.75 2.75v9.5C4 11.8 6.5 12 8 13c1.5-1 4-1.2 6.25-.75v-9.5C12 2.3 9.5 2.5 8 3.5Zm0 0V13" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+    <symbol id="o-repo" viewBox="0 0 16 16"><path d="M3.25 13.5H5m3 0h4.75V1.75H4.5A1.75 1.75 0 0 0 2.75 3.5v8.25A1.75 1.75 0 0 1 4.5 10h8.25M5.5 12v3l1.25-.9L8 15v-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+    <symbol id="o-tag" viewBox="0 0 16 16"><path d="M1.75 2.5v4.6l7 7 5-5-7-7H2.5a.75.75 0 0 0-.75.4Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="5" cy="5.25" r="1.1" fill="currentColor"/></symbol>
+    <symbol id="o-play" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 5.5v5l4-2.5-4-2.5Z" fill="currentColor"/></symbol>
+    <symbol id="o-comment" viewBox="0 0 16 16"><path d="M1.75 2.5h8.5v6h-5l-2.5 2.25V8.5h-1Zm10 2.5h2.5v6h-1v2.25l-2.5-2.25h-4.5V9" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+    <symbol id="o-issue" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/></symbol>
+    <symbol id="o-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.75" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="m10.5 10.5 3.75 3.75" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+    <symbol id="o-spark" viewBox="0 0 16 16"><path d="M8 1.5l1.2 3.3L12.5 6 9.2 7.2 8 10.5 6.8 7.2 3.5 6l3.3-1.2Zm4.75 7.25.6 1.65 1.65.6-1.65.6-.6 1.65-.6-1.65-1.65-.6 1.65-.6Z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+    <symbol id="o-sun" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3 3l1 1M12 12l1 1M3 13l1-1M12 4l1-1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+    <symbol id="o-moon" viewBox="0 0 16 16"><path d="M13.5 9.5A5.75 5.75 0 0 1 6.5 2.5a5.75 5.75 0 1 0 7 7Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+    <symbol id="o-pin" viewBox="0 0 16 16"><path d="M8 14.5s4.75-4.2 4.75-8A4.75 4.75 0 0 0 3.25 6.5c0 3.8 4.75 8 4.75 8Z" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="6.5" r="1.6" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+    <symbol id="o-clock" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.5V8l2.25 1.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+    <symbol id="o-link" viewBox="0 0 16 16"><path d="M6.75 9.25a2.5 2.5 0 0 0 3.5 0l2.5-2.5a2.5 2.5 0 0 0-3.5-3.5l-.75.75M9.25 6.75a2.5 2.5 0 0 0-3.5 0l-2.5 2.5a2.5 2.5 0 0 0 3.5 3.5l.75-.75" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+    <symbol id="o-mail" viewBox="0 0 16 16"><rect x="1.75" y="3.25" width="12.5" height="9.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="m2.25 4 5.75 4.5L13.75 4" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+    <symbol id="o-brief" viewBox="0 0 16 16"><rect x="1.75" y="4.5" width="12.5" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5.75 4.5V3A1 1 0 0 1 6.75 2h2.5a1 1 0 0 1 1 1v1.5M1.75 8.5h12.5" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+    <symbol id="o-mortar" viewBox="0 0 16 16"><path d="m8 2.5 6.5 3L8 8.5 1.5 5.5Zm-4 4.4v3.6c0 .9 1.8 2 4 2s4-1.1 4-2V6.9" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+    <symbol id="o-check" viewBox="0 0 16 16"><path d="m3 8.5 3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="o-check-c" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="m4.75 8.25 2.25 2.25 4.25-4.5" fill="none" stroke="var(--bg)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="o-x-c" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="m5.5 5.5 5 5m0-5-5 5" stroke="var(--bg)" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="o-alert" viewBox="0 0 16 16"><path d="M8 1.75 14.75 13.75H1.25Z" fill="currentColor"/><path d="M8 6v3.5" stroke="var(--bg)" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.6" r=".9" fill="var(--bg)"/></symbol>
+    <symbol id="o-dot" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.5" fill="currentColor"/></symbol>
+    <symbol id="o-file" viewBox="0 0 16 16"><path d="M3.75 1.75h5.5l3 3v9.5h-8.5Zm5.5 0v3h3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+    <symbol id="o-folder" viewBox="0 0 16 16"><path d="M1.75 3.25h4.5l1.5 1.5h6.5v8H1.75Z" fill="currentColor" opacity=".55"/></symbol>
+    <symbol id="o-x" viewBox="0 0 16 16"><path d="m4 4 8 8m0-8-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="o-in" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></symbol>
+    <symbol id="o-commit" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2.75" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M1 8h4.25M10.75 8H15" stroke="currentColor" stroke-width="1.3"/></symbol>
+    <symbol id="o-people" viewBox="0 0 16 16"><circle cx="5.5" cy="5.5" r="2.25" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 13.5c0-2.2 1.8-3.75 4-3.75s4 1.55 4 3.75M10.5 3.5a2.25 2.25 0 1 1 0 4.5M11.5 9.9c1.75.3 3 1.75 3 3.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<button class="skip" data-action="skip">Skip to content</button>
+
+<header class="gh-header">
+  <div class="wrap">
+    <div class="gh-top">
+      <button class="btn btn-icon" data-action="menu" aria-label="Open navigation"><svg class="o"><use href="#o-menu"/></svg></button>
+      <a class="ctx" href="#overview" data-go="overview">michael-maggioli</a>
+      <div class="push">
+        <button class="search" data-action="palette" aria-label="Type / to search pages and commands" aria-keyshortcuts="/ Control+K Meta+K"><svg class="o"><use href="#o-search"/></svg><span>Type <kbd>/</kbd> to search</span></button>
+        <button class="btn btn-icon only-sm" data-action="palette" aria-label="Search"><svg class="o"><use href="#o-search"/></svg></button>
+        <button class="btn btn-icon hide-sm" data-action="chat" aria-label="Ask about Michael" aria-controls="chat" aria-expanded="false"><svg class="o"><use href="#o-spark"/></svg></button>
+        <button class="btn btn-icon" data-action="theme" aria-label="Switch theme" id="theme-btn"><svg class="o"><use href="#o-moon"/></svg></button>
+        <button class="btn btn-primary" data-action="primary" id="hdr-cta"><span class="hide-sm">Request a free call</span><span class="only-sm">Free call</span></button>
+        <img class="avatar-sm hide-sm" data-img="me" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Profile">
+      <a class="tab" href="#overview" data-go="overview"><svg class="o"><use href="#o-book"/></svg>Overview</a>
+      <a class="tab" href="#repositories" data-go="repositories"><svg class="o"><use href="#o-repo"/></svg>Repositories <span class="counter" id="repo-count">7</span></a>
+      <a class="tab" href="#pricing" data-go="pricing"><svg class="o"><use href="#o-tag"/></svg>Pricing</a>
+      <a class="tab" href="#actions" data-go="actions"><svg class="o"><use href="#o-play"/></svg>Trust Check</a>
+      <a class="tab" href="#discussions" data-go="discussions"><svg class="o"><use href="#o-comment"/></svg>Recommendations <span class="counter">2</span></a>
+      <a class="tab" href="#new-issue" data-go="new-issue"><svg class="o"><use href="#o-issue"/></svg>Hire</a>
+    </nav>
+  </div>
+</header>
+
+<main id="content" tabindex="-1">
+  <div class="wrap page">
+    <h1>Numbers your team agrees on, and your AI gets right.</h1>
+    <p>Michael Gold Maggioli is a freelance data engineer in Boston with 12 years of experience. He gets company data into one place, settles what every number means, and connects it to Claude so its answers match finance's. Fixed scope, fixed price.</p>
+    <p><a href="https://www.linkedin.com/in/michael-maggioli/">Contact Michael on LinkedIn</a></p>
+  </div>
+</main>
+<div class="sr" id="run-live" role="status"></div>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© 2026 Michael Gold Maggioli · Freelance data engineer · Greater Boston</span>
+    <a href="#pricing" data-go="pricing">Pricing</a>
+    <a href="#new-issue" data-go="new-issue">Contact</a>
+    <a href="https://www.linkedin.com/in/michael-maggioli/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+<button class="fab" data-action="chat" id="fab" aria-label="Ask about Michael" aria-controls="chat" aria-expanded="false"><svg class="o"><use href="#o-spark"/></svg><span class="lbl">Ask about Michael</span></button>
+
+<section class="chat" id="chat" hidden role="dialog" aria-modal="false" aria-label="Ask about Michael">
+  <div class="chat-h"><span><svg class="o"><use href="#o-spark"/></svg>Ask about Michael</span><button class="btn btn-icon btn-sm" data-action="chat" aria-label="Close chat"><svg class="o"><use href="#o-x"/></svg></button></div>
+  <div class="msgs" id="msgs"></div>
+  <div class="sr" id="chat-live" aria-live="polite"></div>
+  <form class="composer" id="composer">
+    <label class="sr" for="ask">Ask a question about Michael</label>
+    <input id="ask" placeholder="Ask about Michael…" autocomplete="off">
+    <button class="btn btn-primary" type="submit">Ask</button>
+  </form>
+  <div class="chat-note">Pre-written answers. No AI calls.</div>
+</section>
+
+<div class="overlay" id="palette" hidden>
+  <div class="palette" role="dialog" aria-modal="true" aria-label="Search">
+    <input id="pal-input" type="text" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-controls="pal-list" placeholder="Search pages, repositories and commands" autocomplete="off" aria-label="Search pages, repositories and commands">
+    <ul class="pal-list" id="pal-list" role="listbox" aria-label="Results"></ul>
+  </div>
+</div>
+
+<script>
+/* ===== Edit these to update the site ===== */
+const CONFIG = {
+  name: "Michael Gold Maggioli",
+  login: "michael-maggioli",
+  email: "michaelgmaggioli@gmail.com", // e.g. "michael@example.com"  (adds an Email link and makes the hire form send an email)
+  bookingUrl: "",       // e.g. a Cal.com or Calendly link  (turns every main button into "Book a free 20-min call")
+  linkedin: "https://www.linkedin.com/in/michael-maggioli/",
+};
+
+// Starting prices are suggestions based on 2026 market research. Change them here.
+// from: true shows "from $X"; false shows the exact price.
+const OFFERS = [
+  {
+    id: "audit", repo: "data-trust-audit", name: "Data Trust Audit", featured: true,
+    short: "Find out why your numbers don't match, and what to fix first.",
+    who: "Teams whose dashboards disagree, who inherited a messy Snowflake or dbt setup, or who are about to put AI on their data.",
+    duration: "2 weeks", price: "$7,500", from: false, priceNote: "fixed price · credited in full toward a build booked within 30 days",
+    lang: ["SQL", "#e38c00"], topics: ["data-quality", "dbt", "snowflake", "metrics"],
+    gets: [
+      "A read-only review of your warehouse, data models and pipelines (Snowflake, dbt)",
+      "Your top 10–15 business metrics checked: where each one is calculated more than one way, and why",
+      "A ranked list of what to fix, with rough effort and impact",
+      "Where your warehouse bill is leaking, and what to fix before you add AI",
+      "A 90-day plan and a 60-minute walkthrough with your team",
+    ],
+    fit: ["Two teams report different numbers for the same metric", "You're planning to let people ask Claude about your data", "Nobody is sure which tables to trust"],
+    notFit: ["You don't have a warehouse yet (start with the build)", "You need dashboards built by Friday"],
+  },
+  {
+    id: "build", repo: "source-of-truth-build", name: "Source-of-Truth Build",
+    short: "Get your core data into Snowflake and agree on what every number means.",
+    who: "Companies with no data team or a single analyst, PE-backed companies that need a board KPI pack, and teams where finance, sales and product report different numbers.",
+    duration: "4–6 weeks", price: "$20,000", from: true, priceNote: "fixed price · up to about 5 sources and 15 metrics",
+    lang: ["SQL", "#e38c00"], topics: ["snowflake", "dbt", "cdc", "terraform", "semantic-layer"],
+    gets: [
+      "Your 3–5 core systems copied into Snowflake automatically (managed connectors or CDC)",
+      "Tested data models your team can maintain (dbt, GitHub, Terraform)",
+      "A metric dictionary: an owner, formula and edge cases for each metric, agreed with your team",
+      "Those definitions built into the data, so every dashboard and AI tool gets the same number (semantic layer)",
+      "One certified dashboard, data-quality alerts, and handover docs",
+    ],
+    fit: ["Finance, sales and product each have their own 'revenue'", "You need a KPI pack the board will trust", "You're not ready for a full-time data hire"],
+    notFit: ["You need a 24/7 on-call platform team", "You want hourly staff augmentation"],
+  },
+  {
+    id: "claude", repo: "claude-ready-analytics", name: "Claude-Ready Analytics",
+    short: "Let your team ask Claude about your data, and get the right number back.",
+    who: "Companies on Snowflake or dbt whose leadership wants to ask data questions in Claude or Slack without made-up numbers.",
+    duration: "3–4 weeks", price: "$15,000", from: true, priceNote: "fixed price per business area · needs agreed metrics first (the Source-of-Truth Build gets you there; the audit shows how close you are)",
+    lang: ["YAML", "#cb171e"], topics: ["claude", "mcp", "semantic-layer", "ai-ready-data"],
+    gets: [
+      "One business area (e.g. sales or finance) set up so Claude reads your agreed metric definitions, not raw tables",
+      "25–40 real questions from your team, with answers checked against finance's numbers",
+      "Claude connected with read-only access and your company sign-in (MCP + OAuth)",
+      "Spending limits so AI questions don't run up your Snowflake bill",
+      "A 90-minute training for your team",
+    ],
+    fit: ["Leadership wants to 'just ask the data'", "You tried an AI tool and it made up numbers", "Your metrics already live in dbt or Snowflake"],
+    notFit: ["Your core metrics aren't agreed yet (start with the audit to see the gap, or go straight to the build)", "You want a chatbot for your customers"],
+  },
+  {
+    id: "fractional", repo: "fractional-data-lead", name: "Fractional Data Lead",
+    short: "Senior help after the build, about a day a week.",
+    who: "Teams that finished a build and want someone senior to keep definitions, models and AI answers correct.",
+    duration: "monthly", price: "$6,000 / mo", from: true, priceNote: "monthly retainer · 3-month minimum",
+    lang: ["Markdown", "#083fa1"], topics: ["retainer", "analytics-engineering"],
+    gets: [
+      "Keep metric definitions and data models up to date",
+      "Add new data sources as you need them",
+      "Review the SQL and dbt code your team writes with AI tools",
+      "A monthly report on which numbers you can trust",
+    ],
+    fit: ["You finished a build and want it to stay correct", "Your team writes SQL with AI tools and needs a reviewer"],
+    notFit: ["You need full-time capacity"],
+  },
+];
+/* ========================================= */
+
+const IMG = {
+  athena: "{{IMG:logo-athenahealth.png}}",
+  enel: "{{IMG:logo-enel.png}}",
+  owneriq: "{{IMG:logo-owneriq-inmar.png}}",
+  peoples: "{{IMG:logo-peoples-united.png}}",
+  flipside: "{{IMG:logo-flipside.png}}",
+  fresenius: "{{IMG:logo-fresenius.png}}",
+  uconn: "{{IMG:logo-uconn.png}}",
+  me: "{{IMG:michael-v2.jpg}}",
+};
+
+/* Past roles (all as a full-time employee) */
+const CASES = [
+  {
+    id: "owneriq", repo: "owneriq-pricing-fix", logo: "owneriq", co: "OwnerIQ", note: "now part of Inmar",
+    role: "Business Data Analyst", dates: "Feb 2014 – Aug 2015", place: "Boston",
+    short: "Found errors in the pricing models. Over $2,000,000 saved.", big: "$2M+",
+    lang: null, topics: ["pricing-models", "automation", "ad-tech"],
+    del: ["errors in the pricing models", "billing data put together by hand"],
+    add: ["algorithms fixed: $2,000,000+ saved", "billing automated: 2 days a month back for accounting"],
+    situation: "",
+    did: [
+      "Identified errors in the company's pricing models and changed the algorithms.",
+      "Replaced existing data-acquisition processes with improved custom tools.",
+      "Automated the billing data, which saved the accounting team two days every month.",
+    ],
+    result: "A cumulative <strong>$2,000,000+</strong> saved, two days a month back for accounting, and a reputation as the company's efficiency expert.",
+    stack: [],
+  },
+  {
+    id: "enel", repo: "enel-energy-database", logo: "enel", co: "Enel Green Power", note: "",
+    role: "Global Digital Solutions Data Engineer", dates: "Jul 2016 – Dec 2019", place: "Andover, MA",
+    short: "Helped build the database an energy trading group ran on.", big: "~7 → 60",
+    lang: ["SQL", "#e38c00"], topics: ["energy-trading", "database", "tableau", "definitions"],
+    del: ["inconsistent calculations, no common definitions"],
+    add: ["one Energy Management database with agreed definitions", "the source of truth as the team grew from ~7 to 60"],
+    situation: "The Energy Management and Global Trading group needed a critical database. Calculations were inconsistent, and there were no common definitions.",
+    did: [
+      "Helped build the Energy Management database from the ground up, working as developer, analyst and DBA.",
+      "Worked with the team to find inconsistent calculations and agree on common definitions.",
+      "Built Tableau dashboards and tools for modeling and analytics.",
+      "Ran statistical simulations with the traders to help generate revenue.",
+      "Managed database security, and scheduled processes that freed up other departments' time.",
+    ],
+    result: "It became the source of truth as the team grew from about <strong>7 to 60 people</strong>.",
+    stack: ["SQL", "Python", "SAS", "Excel", "Tableau"],
+    quote: ["His ability to handle multiple projects and prioritize has made a dramatic increase in our [department's] productivity.", "Olivia Steinke, worked with Michael at Enel"],
+  },
+  {
+    id: "athena", repo: "athenahealth-cdc-pipelines", logo: "athena", co: "athenahealth", note: "",
+    role: "Data Engineer", dates: "Jun 2021 – Aug 2026", place: "Boston",
+    short: "Five years helping multiple source teams get their data into Snowflake, and keeping it reliable.", big: "5 yrs",
+    lang: ["SQL", "#e38c00"], topics: ["snowflake", "cdc", "postgres", "aws", "terraform", "healthcare"],
+    del: ["each source team's data in its own systems"],
+    add: ["CDC pipelines and Postgres → S3 → Snowflake, one warehouse", "kept reliable for 5 years, with a lot of DevOps work"],
+    situation: "athenahealth is a healthcare technology company. Multiple source teams each owned their own data. The business needed it in one warehouse it could rely on.",
+    did: [
+      "Helped multiple source teams get their data into Snowflake.",
+      "Used change data capture (CDC) pipelines, which copy changes from source databases as they happen.",
+      "Moved data from Postgres through Amazon S3 into Snowflake.",
+      "Kept everything reliable, which involved a lot of DevOps work with AWS, Terraform and GitHub.",
+    ],
+    result: "Data from multiple source teams landing in Snowflake, maintained for <strong>five years</strong>.",
+    stack: ["Snowflake", "Postgres", "AWS S3", "CDC", "dbt", "Terraform", "GitHub"],
+  },
+];
+
+/* Career, for the timeline and the stack-activity graph.
+   Skill weights: 1 = tagged on the LinkedIn role, 2 = also named in the role's description or in his LinkedIn About. */
+const ROLES = [
+  { co: "athenahealth", logo: "athena", title: "Data Engineer", from: [2021, 6], to: [2026, 8], text: "Helped multiple source teams get data into Snowflake with CDC pipelines and Postgres through S3.", caseId: "athena",
+    skills: { analytics: 1, sql: 1, pipelines: 2, dbt: 1, aws: 2, snowflake: 2 } },
+  { co: "People's United Bank", logo: "peoples", title: "Lead Analytics Engineer", from: [2020, 10], to: [2021, 5], text: "Data pipelines, ETL and Looker. The bank is now part of M&T.",
+    skills: { analytics: 1, sql: 1, pipelines: 1, dashboards: 1 } },
+  { co: "Flipside Crypto", logo: "flipside", title: "Data Engineer", from: [2020, 1], to: [2020, 3], text: "Data pipelines with Airflow on AWS.",
+    skills: { analytics: 1, sql: 1, pipelines: 1, aws: 1 } },
+  { co: "Enel Green Power", logo: "enel", title: "Global Digital Solutions Data Engineer", from: [2016, 7], to: [2019, 12], text: "Helped build the Energy Management database, which became the source of truth as the team grew from about 7 to 60.", caseId: "enel",
+    skills: { analytics: 2, sql: 2, pipelines: 1, dashboards: 2, dbt: 1 } },
+  { co: "Fresenius Medical Care", logo: "fresenius", title: "Business Intelligence Solutions Analyst", from: [2015, 9], to: [2016, 7], text: "Business analysis and performance metrics.",
+    skills: { analytics: 1 } },
+  { co: "OwnerIQ", logo: "owneriq", title: "Business Data Analyst", from: [2014, 2], to: [2015, 8], text: "Found pricing-model errors and changed the algorithms: over $2M saved.", caseId: "owneriq",
+    skills: { analytics: 1 } },
+];
+const SKILLS = [["analytics", "Analytics"], ["sql", "SQL"], ["pipelines", "Pipelines"], ["dashboards", "Dashboards"], ["dbt", "dbt"], ["aws", "AWS"], ["snowflake", "Snowflake"]];
+const QUOTE = ["His ability to handle multiple projects and prioritize has made a dramatic increase in our [department's] productivity.", "Olivia Steinke, worked with Michael at Enel Green Power (LinkedIn recommendation, 2019)"];
+
+/* ===== Helpers ===== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isPhone = () => matchMedia("(max-width: 767px)").matches;
+const BASE_TITLE = document.title;
+const CTA_LABEL = () => CONFIG.bookingUrl ? "Book a free 20-min call" : "Request a free 20-min call";
+const icon = (id, cls = "o") => `<svg class="${cls}" aria-hidden="true"><use href="#o-${id}"/></svg>`;
+const priceLabel = o => (o.from ? "from " : "") + o.price;
+const offer = id => OFFERS.find(o => o.id === id);
+const content = $("#content");
+
+function ctaButtons(extra = "") {
+  const out = [];
+  if (CONFIG.bookingUrl) out.push(`<a class="btn btn-primary ${extra}" href="${esc(CONFIG.bookingUrl)}" target="_blank" rel="noopener">Book a free 20-min call</a>`);
+  else out.push(`<a class="btn btn-primary ${extra}" href="#new-issue" data-go="new-issue">Request a free 20-min call</a>`);
+  if (CONFIG.email) out.push(`<a class="btn ${extra}" href="mailto:${esc(CONFIG.email)}">${icon("mail")}Email</a>`);
+  else if (!CONFIG.bookingUrl) out.push(`<a class="btn ${extra}" href="${esc(CONFIG.linkedin)}" target="_blank" rel="noopener">${icon("in")}LinkedIn</a>`);
+  return out.join("");
+}
+function primaryButton(extra = "") { return ctaButtons(extra).split("</a>")[0] + "</a>"; }
+function primaryAction() {
+  if (CONFIG.bookingUrl) window.open(CONFIG.bookingUrl, "_blank", "noopener");
+  else go("new-issue");
+}
+function repoOf(name) {
+  const o = OFFERS.find(x => x.repo === name);
+  if (o) return { kind: "offer", data: o };
+  const c = CASES.find(x => x.repo === name);
+  if (c) return { kind: "case", data: c };
+  return null;
+}
+const ALL_REPOS = () => [
+  ...OFFERS.map(o => ({ name: o.repo, title: o.name, desc: `${o.short} ${o.duration} · ${priceLabel(o)}.`, lang: o.lang, topics: o.topics, label: "Service", metric: priceLabel(o) })),
+  ...CASES.map(c => ({ name: c.repo, title: `${c.co} · as an employee`, desc: c.short, lang: c.lang, topics: c.topics, label: "Past role", metric: c.big })),
+];
+
+/* ===== Sidebar ===== */
+function sidebar() {
+  const orgs = [["athena", "athenahealth"], ["enel", "Enel Green Power"], ["peoples", "People's United Bank (now M&T)"], ["fresenius", "Fresenius Medical Care"], ["flipside", "Flipside Crypto"], ["owneriq", "OwnerIQ (now Inmar)"], ["uconn", "University of Connecticut"]];
+  return `<aside class="side" aria-label="Profile">
+    <div class="side-top">
+      <img class="photo" src="${IMG.me}" alt="Michael Gold Maggioli" width="296" height="296">
+      <div>
+        <div class="names"><h1>Michael Gold Maggioli</h1><span class="login">${CONFIG.login}</span></div>
+      </div>
+    </div>
+    <p class="bio">Freelance data engineer in Boston, 12 years in. I help startups and PE-backed companies get numbers their team agrees on, and their AI gets right.</p>
+    <div class="side-actions">${ctaButtons("btn-block")}</div>
+    <ul class="vcard">
+      <li>${icon("brief")}<span>12 years in data · freelance since 2026</span></li>
+      <li>${icon("pin")}<span>Greater Boston, MA · remote, hybrid or on-site</span></li>
+      <li>${icon("clock")}<span id="local-time">Eastern Time</span></li>
+      <li>${icon("mortar")}<span>M.S. Actuarial Science, UConn</span></li>
+      ${CONFIG.email ? `<li>${icon("mail")}<a href="mailto:${esc(CONFIG.email)}">${esc(CONFIG.email)}</a></li>` : ""}
+      <li>${icon("link")}<a href="${esc(CONFIG.linkedin)}" target="_blank" rel="noopener">linkedin.com/in/michael-maggioli</a></li>
+    </ul>
+    <div class="side-sec">
+      <h2>Achievements</h2>
+      <div class="ach" role="group" aria-label="Achievements">
+        <button class="a1" data-ach="$2M+ saved by fixing pricing-model errors at OwnerIQ" aria-label="$2M saver">$</button>
+        <button class="a2" data-ach="Source of truth for a team that grew from ~7 to 60 at Enel" aria-label="Source of truth">≡</button>
+        <button class="a3" data-ach="5 years of multi-team pipelines into Snowflake at athenahealth" aria-label="Five-year pipeline">5y</button>
+        <button class="a4" data-ach="M.S. and B.A. in Actuarial Science, UConn" aria-label="Actuary">Σ</button>
+        <button class="a5" data-ach="1,000+ hours in Cursor, Claude Code and v0" aria-label="AI tools power user">✦</button>
+      </div>
+      <p class="ach-note muted" id="ach-note" aria-live="polite">Tap a badge to see what it's for.</p>
+    </div>
+    <div class="side-sec">
+      <h2>Previously at</h2>
+      <div class="orgs">${orgs.map(([k, n]) => `<img src="${IMG[k]}" alt="${esc(n)}" title="${esc(n)}">`).join("")}</div>
+      <p class="muted" style="font-size:12px;margin:8px 0 0">Employers since 2014, plus UConn (B.A., M.S.). Not client endorsements.</p>
+    </div>
+  </aside>`;
+}
+
+/* ===== Views ===== */
+function viewOverview() {
+  const pins = [...ALL_REPOS().filter(r => r.label === "Service").slice(0, 3), ...ALL_REPOS().filter(r => r.label === "Past role")];
+  return `<div class="wrap page"><div class="profile">${sidebar()}<div class="main-col">
+    <article class="Box">
+      <div class="Box-header"><span class="mono" style="font-size:12px">${CONFIG.login} / README.md</span></div>
+      <div class="markdown-body">
+        <div class="badges" role="group" aria-label="Summary">
+          <span class="shield s-green"><span>status</span><span>taking projects</span></span>
+          <span class="shield s-blue"><span>experience</span><span>12 years</span></span>
+          <span class="shield s-purple"><span>stack</span><span>Snowflake · dbt · AWS</span></span>
+        </div>
+        <h2 style="border:0;font-size:2em;margin-top:0">Numbers your team agrees on, and your AI gets right.</h2>
+        <p class="lead">For startups and PE-backed companies that have data, but no one whose job is to make it trustworthy. I get your data into one place, settle what every number means, and connect it to Claude so its answers match finance's. Fixed scope, fixed price.</p>
+        <div class="cta-row">${ctaButtons()}</div>
+        <h2>Highlights from my full-time roles</h2>
+        <table>
+          <thead><tr><th>Highlight</th><th>What happened</th><th>Where (as an employee)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>$2M+</strong></td><td>saved by finding and fixing errors in pricing models</td><td><a href="#repo-owneriq-pricing-fix" data-go="repo-owneriq-pricing-fix">OwnerIQ</a></td></tr>
+            <tr><td><strong>~7 → 60</strong></td><td>the Energy Management database became the source of truth as the team grew from about 7 to 60</td><td><a href="#repo-enel-energy-database" data-go="repo-enel-energy-database">Enel Green Power</a></td></tr>
+            <tr><td><strong>5 yrs</strong></td><td>of pipelines bringing multiple teams' data into Snowflake</td><td><a href="#repo-athenahealth-cdc-pipelines" data-go="repo-athenahealth-cdc-pipelines">athenahealth</a></td></tr>
+          </tbody>
+        </table>
+        <blockquote><p>“${esc(QUOTE[0])}”</p><p>— ${esc(QUOTE[1])}</p></blockquote>
+        <h2>How I can help</h2>
+        <ul>${OFFERS.map(o => `<li><a href="#repo-${o.repo}" data-go="repo-${o.repo}"><strong>${esc(o.name)}</strong></a> · ${esc(o.duration)} · ${esc(priceLabel(o))}. ${esc(o.short)}</li>`).join("")}</ul>
+        <h2 id="who-i-help">Who I help</h2>
+        <ul>
+          <li><strong>Startups, Series A to C</strong> with data, a few dashboards, and maybe one analyst.</li>
+          <li><strong>Private equity portfolio companies</strong> that need a board KPI pack everyone agrees on.</li>
+          <li><strong>Boston healthcare and financial-services teams</strong>. As an employee I spent five years at athenahealth and about a year at Fresenius Medical Care, and was Lead Analytics Engineer at People's United Bank.</li>
+          <li><strong>Teams rolling out AI on their data</strong> who need Claude's answers to match finance's numbers.</li>
+        </ul>
+        <h2>How it works</h2>
+        <ol>
+          <li><strong>Free 20-minute call.</strong> What's broken, and whether I'm the right person.</li>
+          <li><strong>A fixed-price start.</strong> Usually the Data Trust Audit. You get a written plan, and the fee counts toward a build.</li>
+          <li><strong>The work.</strong> Short weekly updates, and everything documented so your team can run it after I'm done.</li>
+        </ol>
+        <p>Not sure where your data stands? <a href="#actions" data-go="actions">Take the Trust Check</a>, six yes/no questions.</p>
+      </div>
+    </article>
+
+    <section aria-labelledby="pinned-h">
+      <h2 class="sec-title" id="pinned-h">Pinned <a href="#repositories" data-go="repositories" style="font-size:12px">All repositories</a></h2>
+      <ul class="pinned">${pins.map(pinCard).join("")}</ul>
+    </section>
+
+    <section aria-labelledby="heat-h">
+      <h2 class="sec-title" id="heat-h">Stack activity, 2014–2026</h2>
+      <div class="Box heat-box">${heatmap()}</div>
+    </section>
+
+    <section aria-labelledby="tl-h">
+      <h2 class="sec-title" id="tl-h">Career activity</h2>
+      ${timeline()}
+    </section>
+  </div></div></div>`;
+}
+
+function pinCard(r) {
+  return `<li><a class="pin" href="#repo-${r.name}" data-go="repo-${r.name}">
+    <span class="nm">${icon("repo")}<b>${esc(r.name)}</b><span class="label">${esc(r.label)}</span></span>
+    <span class="d"><b>${esc(r.title)}</b> · ${esc(r.label === "Service" ? r.desc.replace(/ ·[^·]*\.$/, ".") : r.desc)}</span>
+    <span class="meta">${r.lang ? `<span class="lang"><i style="background:${r.lang[1]}"></i>${esc(r.lang[0])}</span>` : ""}<span><b>${esc(r.metric)}</b></span></span>
+  </a></li>`;
+}
+
+function heatmap() {
+  const START = 2014, END_Q = (2026 - START) * 4 + 2; // through Q3 2026
+  const qOf = (y, m) => (y - START) * 4 + Math.floor((m - 1) / 3);
+  const cols = END_Q + 1;
+  const summary = SKILLS.map(([k, l]) => {
+    const rs = ROLES.filter(r => r.skills[k]);
+    return `${l} ${Math.min(...rs.map(r => r.from[0]))}–${Math.max(...rs.map(r => r.to[0]))}`;
+  }).join("; ");
+  let html = `<div class="heat-scroll"><div class="heat" role="img" aria-label="Skills used per quarter, from LinkedIn roles: ${esc(summary)}">`;
+  html += `<span class="yr" style="grid-column:1"></span>`;
+  for (let q = 0; q < cols; q++) {
+    const y = START + Math.floor(q / 4);
+    html += q % 4 === 0 && (y - START) % 2 === 0 ? `<span class="yr" style="grid-column:${q + 2} / span 6">${y}</span>` : "";
+  }
+  SKILLS.forEach(([key, label], r) => {
+    html += `<span class="rl" style="grid-row:${r + 2}">${label}</span>`;
+    for (let q = 0; q < cols; q++) {
+      let best = 0; const who = [];
+      ROLES.forEach(role => {
+        const a = qOf(role.from[0], role.from[1]), b = qOf(role.to[0], role.to[1]);
+        if (q >= a && q <= b && role.skills[key]) { best = Math.max(best, role.skills[key]); who.push(role.co); }
+      });
+      const level = best === 2 ? 4 : best === 1 ? 2 : 0;
+      const y = START + Math.floor(q / 4), qq = (q % 4) + 1;
+      html += `<span class="c" style="grid-row:${r + 2};grid-column:${q + 2}" data-l="${level}" data-tip="${y} Q${qq} · ${label}${who.length ? " · " + esc(who.join(", ")) : " · no role"}"></span>`;
+    }
+  });
+  html += `</div></div>
+    <div class="heat-tip" id="heat-tip"></div>
+    <div class="heat-foot"><span>Each square is a quarter, from his LinkedIn roles.</span>
+      <span class="legend"><span class="lg"><span class="c" style="background:var(--h0)"></span>Not on role</span><span class="lg"><span class="c" style="background:var(--h2)"></span>Tagged on role</span><span class="lg"><span class="c" style="background:var(--h4)"></span>Named in description</span></span></div>`;
+  return html;
+}
+
+function timeline() {
+  const groups = ROLES.map(r => {
+    const span = r.from[0] === r.to[0] ? `${r.from[0]}` : `${r.from[0]} – ${r.to[0]}`;
+    const c = r.caseId ? CASES.find(x => x.id === r.caseId) : null;
+    const link = c ? ` <a href="#repo-${c.repo}" data-go="repo-${c.repo}">Read more</a>` : "";
+    return `<div class="tl-year">${span}</div><ul class="tl"><li>${icon("commit", "o ic")}
+      <h3><img class="co-logo" src="${IMG[r.logo]}" alt=""><b>${esc(r.title)}</b> at ${esc(r.co)}</h3>
+      <p>${esc(r.text)}${link}</p></li></ul>`;
+  }).join("");
+  return groups + `<div class="tl-year">2006 – 2013</div><ul class="tl"><li>${icon("mortar", "o ic")}<h3><img class="co-logo" src="${IMG.uconn}" alt=""><b>B.A. and M.S. in Actuarial Science</b> at the University of Connecticut</h3><p>Plus an actuarial internship at Towers Watson and a semester teaching Mathematics for Business and Economics.</p></li></ul>`;
+}
+
+function viewRepositories() {
+  const repos = ALL_REPOS();
+  return `<div class="wrap page"><div class="profile">${sidebar()}<div class="main-col">
+    <h2 class="sr">Repositories</h2>
+    <div class="repo-filter"><label class="sr" for="repo-q">Search services and past roles</label><input id="repo-q" placeholder="Search services and past roles…" autocomplete="off">
+      <a class="btn" href="#pricing" data-go="pricing">${icon("tag")}Compare pricing</a></div>
+    <ul class="repo-list" id="repo-list">${repos.map(r => `<li data-name="${esc(r.name + " " + r.title + " " + r.desc + " " + r.topics.join(" ") + " " + r.label)}">
+      <div>
+        <h3><a href="#repo-${r.name}" data-go="repo-${r.name}">${esc(r.name)}</a><span class="label${r.label === "Service" ? " green" : ""}">${r.label}</span></h3>
+        <p><strong style="color:var(--fg)">${esc(r.title)}</strong> · ${esc(r.desc)}</p>
+        <div class="topics">${r.topics.map(t => `<span class="topic">${esc(t)}</span>`).join("")}</div>
+        <div class="meta">${r.lang ? `<span class="lang"><i style="background:${r.lang[1]}"></i>${esc(r.lang[0])}</span>` : ""}</div>
+      </div>
+      <div><a class="btn btn-sm" href="#repo-${r.name}" data-go="repo-${r.name}">Open</a></div>
+    </li>`).join("")}</ul>
+    <p class="muted" id="repo-empty" hidden>Nothing matches that search.</p>
+  </div></div></div>`;
+}
+
+function repoShell(kind, name, desc, topics, readme, aboutExtra = "") {
+  const files = kind === "case" ? [["file", "README.md", "Write-up"]] : [["folder", ".github", "Add project request template"], ["file", "README.md", "Update README"], ["file", "LICENSE", "Initial commit"]];
+  return `<div class="wrap">
+    <div class="repo-head">
+      <div class="repo-title">${icon("repo")}<a href="#overview" data-go="overview">${CONFIG.login}</a><span class="muted">/</span><b>${esc(name)}</b>${kind === "case" ? '<span class="label">Past role</span>' : '<span class="label">Public</span>'}
+        <span class="push">${ctaButtons("btn-sm")}</span></div>
+      <nav class="tabs repo-tabs" aria-label="Repository">
+        <a class="tab" aria-current="page" href="#repo-${name}" data-go="repo-${name}">${icon("file")}README</a>
+        <a class="tab" href="#new-issue" data-go="new-issue">${icon("issue")}Hire</a>
+        <a class="tab" href="#actions" data-go="actions">${icon("play")}Trust Check</a>
+        <a class="tab" href="#pricing" data-go="pricing">${icon("tag")}Pricing</a>
+      </nav>
+    </div>
+    <div class="repo-grid page" style="padding-top:24px">
+      <div style="min-width:0">
+        <div class="Box files">
+          <div class="commit"><img src="${IMG.me}" alt=""><b>${CONFIG.login}</b><span class="msg">${kind === "case" ? "Write-up" : "Update README"}</span></div>
+          <table aria-label="Files">${files.map(([t, n, m]) => `<tr><td>${icon(t)}${esc(n)}</td><td>${esc(m)}</td></tr>`).join("")}</table>
+        </div>
+        <article class="Box">
+          <div class="Box-header"><span style="display:flex;gap:8px;align-items:center;font-weight:600">${icon("book")}README</span></div>
+          <div class="markdown-body">${readme}</div>
+        </article>
+      </div>
+      <aside class="about" aria-label="About this repository">
+        <h2>About</h2>
+        <p>${esc(desc)}</p>
+        <div class="topics">${topics.map(t => `<span class="topic">${esc(t)}</span>`).join("")}</div>
+        ${aboutExtra}
+        <div class="sec">${primaryButton("btn-block")}</div>
+      </aside>
+    </div>
+  </div>`;
+}
+
+function viewOfferRepo(o) {
+  const readme = `
+    <h1>${esc(o.name)}</h1>
+    <p class="lead">${esc(o.short)}</p>
+    <table><tbody>
+      <tr><th>For</th><td>${esc(o.who)}</td></tr>
+      <tr><th>Duration</th><td>${esc(o.duration)}</td></tr>
+      <tr><th>Price</th><td><strong>${esc(priceLabel(o))}</strong> · ${esc(o.priceNote)}</td></tr>
+    </tbody></table>
+    <h2>What you get</h2>
+    <ul>${o.gets.map(g => `<li>${esc(g)}</li>`).join("")}</ul>
+    <div class="md-alert tip"><div class="t">${icon("check")}Good fit if</div><ul style="margin:0">${o.fit.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div>
+    <div class="md-alert important"><div class="t">${icon("issue")}Not a fit if</div><ul style="margin:0">${o.notFit.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div>
+    ${o.id === "claude" ? claudeDemo() : ""}
+    <h2>How it starts</h2>
+    <p>A free 20-minute call about fit. If it's a match, you get a short written proposal with scope, timeline and price. No hourly billing.</p>
+    <div class="cta-row">${ctaButtons()}</div>`;
+  const extra = `<ul><li>${icon("clock")}${esc(o.duration)}</li><li>${icon("tag")}${esc(priceLabel(o))}</li></ul>`;
+  return repoShell("offer", o.repo, o.short, o.topics, readme, extra);
+}
+
+function claudeDemo() {
+  return `<h2>What it looks like</h2>
+    <p class="muted">An illustration with made-up numbers.</p>
+    <pre><code><span style="color:var(--fg-muted)"># You ask Claude:</span>
+What was net revenue retention last quarter?
+
+<span style="color:var(--fg-muted)"># Claude answers from your agreed definition:</span>
+Net revenue retention for Q3 was 112%, the same number finance reports.
+✓ certified metric · net_revenue_retention · owner: Finance</code></pre>
+    <p>Without agreed definitions, the same question can return three different answers.</p>`;
+}
+
+function viewCaseRepo(c) {
+  const readme = `
+    <p style="display:flex;align-items:center;gap:12px"><img src="${IMG[c.logo]}" alt="${esc(c.co)} logo" style="width:48px;height:48px;border-radius:8px;background:#FFF;border:1px solid var(--border);object-fit:contain;padding:3px">
+      <span><strong style="font-size:1.25em">${esc(c.co)}</strong>${c.note ? ` <span class="muted">(${esc(c.note)})</span>` : ""}<br><span class="muted" style="font-size:14px">${esc(c.role)} · ${esc(c.dates)} · ${esc(c.place)}</span></span></p>
+    <div class="md-alert"><div class="t">${icon("issue")}Note</div><p>This is work I did as a full-time employee at ${esc(c.co)}, not as a freelancer.</p></div>
+    <h1>${esc(c.short)}</h1>
+    <div class="diff" role="group" aria-label="Before and after"><div class="dh">before → after</div>
+      ${c.del.map(l => `<div class="l del"><span class="sr">Before: </span>${esc(l)}</div>`).join("")}${c.add.map(l => `<div class="l add"><span class="sr">After: </span>${esc(l)}</div>`).join("")}
+    </div>
+    ${c.situation ? `<h2>The situation</h2><p>${esc(c.situation)}</p>` : ""}
+    <h2>What I did</h2>
+    <ul>${c.did.map(d => `<li>${esc(d)}</li>`).join("")}</ul>
+    <h2>Result</h2>
+    <p>${c.result}</p>
+    ${c.quote ? `<blockquote><p>“${esc(c.quote[0])}”</p><p>— ${esc(c.quote[1])}</p></blockquote>` : ""}
+    <div class="cta-row">${ctaButtons()}</div>`;
+  const extra = c.stack.length ? `<ul>${c.stack.map(s => `<li>${icon("check")}${esc(s)}</li>`).join("")}</ul>` : "";
+  return repoShell("case", c.repo, `${c.short} (${c.co}, as an employee)`, c.topics, readme, extra);
+}
+
+function viewPricing() {
+  const main = OFFERS.slice(0, 3), ret = offer("fractional");
+  return `<div class="wrap page">
+    <div class="pricing-head"><h1>Fixed scope. Fixed price.</h1><p>Most teams start with the Data Trust Audit. Its fee counts toward a build if you go ahead within 30 days. No hourly billing.</p></div>
+    <div class="plans">${main.map(o => `<section class="plan${o.featured ? " featured" : ""}" aria-labelledby="plan-${o.id}">
+      <h2 id="plan-${o.id}">${esc(o.name)}${o.featured ? '<span class="label purple">Start here</span>' : ""}</h2>
+      <p>${esc(o.short)}</p>
+      <div class="price">${esc(priceLabel(o))}<small>${esc(o.duration)} · ${esc(o.priceNote)}</small></div>
+      ${o.featured ? primaryButton("btn-lg btn-block") : `<a class="btn btn-lg btn-block" href="#repo-${o.repo}" data-go="repo-${o.repo}">See what's included</a>`}
+      <ul>${o.gets.map(g => `<li>${icon("check")}<span>${esc(g)}</span></li>`).join("")}</ul>
+    </section>`).join("")}</div>
+    <div class="retainer"><div><h2>${esc(ret.name)} · ${esc(priceLabel(ret))}</h2><p>${esc(ret.short)} Monthly retainer, 3-month minimum.</p></div><a class="btn" href="#repo-${ret.repo}" data-go="repo-${ret.repo}">Details</a></div>
+    <div class="markdown-body" style="max-width:760px;margin:40px auto 0;padding:0"><blockquote><p>“${esc(QUOTE[0])}”</p><p>— ${esc(QUOTE[1])}</p></blockquote></div>
+    <section class="faq" aria-labelledby="faq-h">
+      <h2 id="faq-h">Questions</h2>
+      <details><summary>Why fixed prices instead of hourly?</summary><p>You know the cost before work starts, and you're paying for the result, not the hours. Scope and price go into a short written proposal after the first call.</p></details>
+      <details><summary>Does the audit fee count toward a build?</summary><p>Yes. The full Data Trust Audit fee is credited toward a Source-of-Truth Build or Claude-Ready Analytics project booked within 30 days.</p></details>
+      <details><summary>Do you work on-site?</summary><p>Yes, around Greater Boston. Remote and hybrid work well too.</p></details>
+      <details><summary>What happens on the free call?</summary><p>20 minutes about fit: what's broken, what you've tried, and whether I'm the right person. No obligation.</p></details>
+    </section>
+    <div class="cta-row" style="justify-content:center;margin-top:32px">${ctaButtons("btn-lg")}</div>
+  </div>`;
+}
+
+/* ===== Trust Check ===== */
+const CHECKS = [
+  { q: "Do two teams ever report different numbers for the same metric?", bad: "yes", sev: "e", msg: "A metric is defined more than one way" },
+  { q: "Does each key metric have a named owner?", bad: "no", sev: "w", msg: "Key metrics have no owner" },
+  { q: "Are your important tables tested automatically?", bad: "no", sev: "w", msg: "No automated data tests" },
+  { q: "Could Claude answer “what was revenue last month?” and match finance?", bad: "no", sev: "e", msg: "AI answers can't be trusted yet" },
+  { q: "Is your warehouse bill growing faster than your usage?", bad: "yes", sev: "w", msg: "Warehouse costs are drifting" },
+  { q: "Does someone rebuild the same report by hand every week or month?", bad: "yes", sev: "w", msg: "Manual reporting work" },
+];
+const answers = {};
+let runNumber = 0, lastRun = null, actionsTab = "trust";
+function trustFindings(src) { return CHECKS.map((c, i) => ({ ...c, i, a: src[i] })).filter(c => c.a && (c.a === c.bad || c.a === "not sure")); }
+const findingText = c => c.a === "not sure" ? "Not sure: " + c.msg : c.msg;
+
+function viewActions() {
+  return `<div class="wrap page"><div class="actions-grid">
+    <nav class="wf-nav" aria-label="Checks"><p class="wf-title">Trust Check</p><ul>
+      <li><button data-wf="trust" aria-current="${actionsTab === "trust"}">${icon("play")}Metric Trust Check</button></li>
+      <li><button data-wf="career" aria-current="${actionsTab === "career"}">${icon("play")}Career build</button></li>
+    </ul></nav>
+    <div id="wf-main" style="min-width:0">${actionsTab === "trust" ? trustView() : careerView()}</div>
+  </div></div>`;
+}
+function trustView() {
+  const answered = Object.keys(answers).length;
+  const stale = lastRun && JSON.stringify(answers) !== JSON.stringify(lastRun);
+  return `<div class="wf-head"><h1>Metric Trust Check<small class="hide-sm">.github/workflows/metric-trust-check.yml</small></h1></div>
+    <div class="Box dispatch">
+      <p style="margin:0 0 8px"><strong>Six yes/no questions, about a minute.</strong> <span class="muted">Your answers stay in your browser.</span></p>
+      ${CHECKS.map((c, i) => `<div class="q"><span>${esc(c.q)}</span><span class="seg" role="group" aria-label="${esc(c.q)}">${["yes", "no", "not sure"].map(v => `<button data-tq="${i}" data-v="${v}" aria-pressed="${answers[i] === v}">${v[0].toUpperCase() + v.slice(1)}</button>`).join("")}</span></div>`).join("")}
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px">
+        <button class="btn btn-primary" data-action="run-check"${answered ? "" : " disabled"}>See my results</button>
+        <span class="muted" style="font-size:12px">${answered}/${CHECKS.length} answered${stale ? ` · answers changed since run #${runNumber}, run again to update` : ""}</span>
+      </div>
+    </div>
+    <div id="run-out">${lastRun ? runView() : ""}</div>`;
+}
+function runView() {
+  const src = lastRun, found = trustFindings(src);
+  const errs = found.filter(c => c.sev === "e" && c.a === c.bad).length, warns = found.length - errs;
+  const skipped = CHECKS.length - Object.keys(src).length;
+  const headIcon = errs ? "x-c" : (warns || skipped) ? "alert" : "check-c";
+  const headCls = errs ? "bad-c" : (warns || skipped) ? "warn-c" : "ok-c";
+  const summary = found.length ? `${errs} problem${errs === 1 ? "" : "s"} · ${warns} to check` : skipped ? `No problems so far · ${skipped} skipped` : "No problems found";
+  const step = i => {
+    const a = src[i], c = CHECKS[i];
+    if (!a) return `<span class="muted">${icon("dot")}</span><span class="sr">Skipped: </span>`;
+    if (a === "not sure") return `<span class="warn-c">${icon("alert")}</span><span class="sr">To check: </span>`;
+    if (a === c.bad) return `<span class="${c.sev === "e" ? "bad-c" : "warn-c"}">${icon(c.sev === "e" ? "x-c" : "alert")}</span><span class="sr">${c.sev === "e" ? "Problem" : "To check"}: </span>`;
+    return `<span class="ok-c">${icon("check-c")}</span><span class="sr">Fine: </span>`;
+  };
+  return `<div class="Box run">
+    <div class="run-head"><span class="${headCls}">${icon(headIcon)}</span><b>Metric Trust Check #${runNumber}</b><span class="muted">${summary}</span></div>
+    <ul class="steps">${CHECKS.map((c, i) => `<li>${step(i)}<span class="t">${esc(c.q)}</span><small>${src[i] ? esc(src[i]) : "skipped"}</small></li>`).join("")}</ul>
+    <div class="annot"><h3>What to look at</h3>
+      ${found.length ? `<ul>${found.map(c => { const sev = c.a === "not sure" ? "w" : c.sev; return `<li class="${sev}"><span class="${sev === "e" ? "bad-c" : "warn-c"}">${icon(sev === "e" ? "x-c" : "alert")}</span><span><span class="sr">${sev === "e" ? "Problem:" : "To check:"}</span>${esc(findingText(c))}</span></li>`; }).join("")}</ul>
+      <div class="cta-row" style="margin:0"><button class="btn btn-primary" data-action="send-results">Send these results to Michael</button><a class="btn" href="#repo-data-trust-audit" data-go="repo-data-trust-audit">What the audit covers</a></div>`
+      : `<p style="margin:0">${skipped ? "Answer the rest for a full picture." : "No problems found."} If you'd like a second opinion, <a href="#new-issue" data-go="new-issue">request a free call</a>.</p>`}
+    </div></div>`;
+}
+function careerView() {
+  const steps = [...ROLES].reverse().map(r => `<li><span class="ok-c">${icon("check-c")}</span><span class="t">${esc(r.co)} · ${esc(r.title)}</span><small>${r.from[0]}${r.to[0] !== r.from[0] ? "–" + r.to[0] : ""}</small></li>`).join("");
+  return `<div class="wf-head"><h1>Career build<small class="hide-sm">.github/workflows/career.yml</small></h1></div>
+    <div class="Box run">
+      <div class="run-head"><span class="wait-c">${icon("dot")}</span><b>Career build #12</b><span class="muted">7 steps passed · waiting for review</span></div>
+      <ul class="steps"><li><span class="ok-c">${icon("check-c")}</span><span class="t">M.S. Actuarial Science, UConn</span><small>2013</small></li>${steps}</ul>
+      <div class="env-wait"><span><strong>Next: your company.</strong> Waiting for your approval.</span>${primaryButton("btn-sm")}</div>
+    </div>`;
+}
+
+/* ===== Recommendations ===== */
+function viewDiscussions() {
+  const c = (initials, color, name, date, text, sub) => `<div class="comment"><span class="av" style="background:${color}" aria-hidden="true">${initials}</span>
+    <div class="Box"><div class="Box-header"><span><b>${esc(name)}</b> <span class="muted">${esc(sub)} · ${esc(date)}</span></span><span class="label">Recommendation</span></div><div class="body"><p>${text}</p></div></div></div>`;
+  return `<div class="wrap page"><div class="disc">
+    <h1>Recommendations <span>(2)</span></h1>
+    <div class="disc-meta"><span>From LinkedIn. Both worked with Michael at Enel Green Power.</span></div>
+    ${c("OS", "#0969da", "Olivia Steinke", "July 2019", "“Michael is a talented critical thinker and developer. I have had the pleasure to work on numerous projects with Michael at Enel. He approaches every project with ambition, curiosity and diligence. His ability to handle multiple projects and prioritize has made a dramatic increase in our [department's] productivity.”", "Renewable energy & commodity trading")}
+    ${c("SI", "#8250df", "Shingo Ikeda", "June 2019", "“[Michael] is a very experienced database administrator and application developer. … His curiosity and approach toward applying new techniques has helped to provide solutions to his team many times.”", "Senior software engineer & computational scientist")}
+    <p><a href="https://www.linkedin.com/in/michael-maggioli/details/recommendations/" target="_blank" rel="noopener">Read them in full on LinkedIn ↗</a></p>
+    <div class="cta-row">${ctaButtons()}</div>
+  </div></div>`;
+}
+
+/* ===== Hire form ===== */
+const draft = {};
+function viewNewIssue() {
+  const emailNote = CONFIG.email ? "" : ` <span class="hint">(optional, so Michael can reply by email)</span>`;
+  const intro = CONFIG.email
+    ? "Tell Michael a little about what's going on. He'll reply with a time for a free 20-minute call."
+    : "Tell Michael a little about what's going on. When you press the button, your note is copied so you can paste it into a LinkedIn message.";
+  const audit = offer("audit");
+  return `<div class="wrap page">
+    <h1 style="font-size:24px;font-weight:400;margin:0 0 4px">${CONFIG.bookingUrl ? "Start a project" : "Request a free 20-min call"}</h1>
+    <p class="muted" style="margin:0 0 16px">${esc(intro)}${CONFIG.bookingUrl ? ` Prefer to pick a time? <a href="${esc(CONFIG.bookingUrl)}" target="_blank" rel="noopener">Book a free 20-min call ↗</a>` : ""}</p>
+    <div class="issue-grid">
+      <form class="Box issue-form" id="brief" novalidate>
+        <div class="field"><label for="f-title">Title <span class="hint">(optional)</span></label><input id="f-title" name="title" placeholder="Project request: our revenue numbers don't match"></div>
+        <div class="two">
+          <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization"></div>
+        </div>
+        <div class="field"><label for="f-email">Your email${emailNote}</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
+        <div class="field"><span class="lbl" id="f-msg-l">What's going on with your data?</span>
+          <div class="write-tabs" aria-hidden="true"><span>Write</span></div>
+          <textarea id="f-msg" name="message" aria-labelledby="f-msg-l" placeholder="e.g. Our revenue dashboard and finance's spreadsheet never match. We use Snowflake and dbt." required></textarea></div>
+        <div class="two">
+          <div class="field"><label for="f-need">What do you need?</label><select id="f-need" name="need"><option>Not sure yet</option>${OFFERS.map(o => `<option>${esc(o.name)}</option>`).join("")}</select></div>
+          <div class="field"><label for="f-when">Timeline</label><select id="f-when" name="when"><option>As soon as possible</option><option>This month</option><option>This quarter</option><option>Just exploring</option></select></div>
+        </div>
+        <div class="field"><label for="f-stack">Stack <span class="hint">(optional)</span></label><input id="f-stack" name="stack" placeholder="e.g. Snowflake, dbt, Looker"></div>
+        <div class="form-foot"><span class="muted" style="font-size:12px">The first call is free, with no obligation.</span><button class="btn btn-primary" type="submit" id="brief-send">${CONFIG.email ? "Submit request" : "Copy my note"}</button></div>
+        <div class="form-status" id="brief-status" role="status"></div>
+      </form>
+      <aside class="issue-side" aria-label="Request details">
+        <div class="sec"><h2>Who you'll talk to</h2><span class="who"><img src="${IMG.me}" alt="">Michael Gold Maggioli</span></div>
+        <div class="sec"><h2>What happens next</h2><p style="margin:0;font-size:14px">A free 20-minute call about fit. No obligation.</p></div>
+        <div class="sec"><h2>Pricing</h2><p style="margin:0;font-size:14px">Fixed-price projects from ${esc(audit.price)}. <a href="#pricing" data-go="pricing">See pricing</a></p></div>
+        <div class="sec"><h2>Worked together before?</h2><p style="margin:0;font-size:14px"><a href="${esc(CONFIG.linkedin)}" target="_blank" rel="noopener">Say hi on LinkedIn ↗</a></p></div>
+      </aside>
+    </div>
+  </div>`;
+}
+function setupBrief() {
+  const form = $("#brief"); if (!form) return;
+  [...form.elements].forEach(el => {
+    if (!el.name) return;
+    if (el.name in draft) el.value = draft[el.name];
+    el.addEventListener("input", () => { draft[el.name] = el.value; el.removeAttribute("aria-invalid"); });
+  });
+  form.addEventListener("submit", sendBrief);
+}
+function sendBrief(e) {
+  e.preventDefault();
+  const v = id => ($("#" + id).value || "").trim();
+  const status = $("#brief-status");
+  const missing = ["f-name", "f-msg", ...(CONFIG.email ? ["f-email"] : [])].filter(id => !v(id));
+  const badEmail = v("f-email") && !$("#f-email").checkValidity();
+  if (badEmail && !missing.includes("f-email")) missing.push("f-email");
+  ["f-name", "f-email", "f-msg"].forEach(id => {
+    const el = $("#" + id);
+    if (missing.includes(id)) { el.setAttribute("aria-invalid", "true"); el.setAttribute("aria-describedby", "brief-status"); }
+    else { el.removeAttribute("aria-invalid"); el.removeAttribute("aria-describedby"); }
+  });
+  if (missing.length) {
+    const parts = [];
+    if (missing.includes("f-name")) parts.push("your name");
+    if (missing.includes("f-msg")) parts.push("a sentence about your data");
+    if (missing.includes("f-email") && !badEmail) parts.push("your email");
+    status.className = "form-status err";
+    status.textContent = (parts.length ? "Please add " + parts.join(" and ") + "." : "") + (badEmail ? (parts.length ? " " : "") + "That email doesn't look right." : "");
+    $("#" + missing[0]).focus();
+    return;
+  }
+  const title = v("f-title") || `Project request${v("f-company") ? " from " + v("f-company") : ""}`;
+  const body = `Hi Michael,\n\n${v("f-msg")}\n\nWhat I need: ${v("f-need")}\nTimeline: ${v("f-when")}${v("f-stack") ? "\nStack: " + v("f-stack") : ""}\n\n${v("f-name")}${v("f-company") ? ", " + v("f-company") : ""}${v("f-email") ? "\n" + v("f-email") : ""}`;
+  if (CONFIG.email) {
+    location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+    status.className = "form-status ok";
+    status.textContent = "Your email app should open with the message ready to send. If it doesn't, email " + CONFIG.email + ".";
+    return;
+  }
+  const note = `${title}\n\n${body}`;
+  const link = `<a href="${esc(CONFIG.linkedin)}" target="_blank" rel="noopener">open Michael's LinkedIn ↗</a>`;
+  const done = copied => {
+    status.className = "form-status ok";
+    status.innerHTML = copied
+      ? `Note copied. Now ${link} and paste it into a message. Not connected yet? Choose Connect → Add a note and paste the first lines.`
+      : `Copy the note below, then ${link} and paste it into a message.<pre>${esc(note)}</pre>`;
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(note).then(() => done(true), () => done(false));
+  else done(false);
+}
+
+/* ===== Router ===== */
+const TAB_OF = { overview: "overview", repositories: "repositories", pricing: "pricing", actions: "actions", discussions: "discussions", "new-issue": "new-issue" };
+let current = null;
+function routeFromHash() { return (location.hash.slice(1) || "overview"); }
+function render(route) {
+  let html, title = BASE_TITLE, tab = TAB_OF[route] || null;
+  if (route === "overview") html = viewOverview();
+  else if (route === "repositories") { html = viewRepositories(); title = `Repositories · ${CONFIG.name}`; }
+  else if (route === "pricing") { html = viewPricing(); title = `Pricing · ${CONFIG.name}`; }
+  else if (route === "actions") { actionsTab = "trust"; html = viewActions(); title = `Metric Trust Check · ${CONFIG.name}`; }
+  else if (route === "discussions") { html = viewDiscussions(); title = `Recommendations · ${CONFIG.name}`; }
+  else if (route === "new-issue") { html = viewNewIssue(); title = `${CTA_LABEL()} · ${CONFIG.name}`; }
+  else if (route.startsWith("repo-")) {
+    const r = repoOf(route.slice(5));
+    if (!r) return render("overview");
+    html = r.kind === "offer" ? viewOfferRepo(r.data) : viewCaseRepo(r.data);
+    title = `${r.kind === "offer" ? r.data.name : r.data.co} · ${CONFIG.name}`;
+    tab = "repositories";
+  } else return render("overview");
+  current = route;
+  content.innerHTML = html;
+  document.title = title;
+  $$(".gh-header .tabs .tab").forEach(a => { if (a.dataset.go === tab) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  const nav = $(".gh-header .tabs"), at = nav && $(".tab[aria-current]", nav);
+  if (nav) nav.scrollLeft = at ? Math.max(0, at.offsetLeft - nav.offsetLeft - 16) : 0;
+  hydrate();
+}
+function hydrate() {
+  $$("img[data-img]").forEach(im => { im.src = IMG[im.dataset.img]; });
+  setupBrief();
+  tickTime();
+  const hs = $(".heat-scroll"); if (hs) hs.scrollLeft = hs.scrollWidth;
+  const q = $("#repo-q");
+  if (q) q.addEventListener("input", () => {
+    const t = q.value.toLowerCase();
+    $$("#repo-list li").forEach(li => li.hidden = !li.dataset.name.toLowerCase().includes(t));
+    $("#repo-empty").hidden = $$("#repo-list li").some(li => !li.hidden);
+  });
+}
+function go(route, opts = {}) {
+  const same = route === current;
+  if (!same || opts.force) render(route);
+  if (!opts.noPush && !same) { try { history.pushState(null, "", route === "overview" ? location.pathname + location.search : "#" + route); } catch (_) {} }
+  if (opts.scroll !== false) window.scrollTo(0, 0);
+  if (opts.focus !== false) content.focus({ preventScroll: true });
+}
+addEventListener("popstate", () => { const r = routeFromHash(); if (r !== current) { render(r); window.scrollTo(0, 0); content.focus({ preventScroll: true }); } });
+
+/* ===== Interactions ===== */
+const actions = {
+  primary: () => primaryAction(),
+  palette: () => openPalette(),
+  menu: () => openPalette({ list: isPhone() }),
+  chat: () => toggleChat(),
+  theme: () => toggleTheme(),
+  skip: () => content.focus(),
+  "run-check": () => {
+    runNumber++; lastRun = { ...answers };
+    $("#wf-main").innerHTML = trustView();
+    const f = trustFindings(lastRun);
+    $("#run-live").textContent = `Metric Trust Check #${runNumber}: ${f.length ? f.length + " to look at" : "no problems found"}.`;
+    $("#run-out").scrollIntoView({ block: "nearest", behavior: reduceMotion ? "auto" : "smooth" });
+  },
+  "send-results": () => {
+    const found = trustFindings(lastRun || answers);
+    draft.title = "Project request: Metric Trust Check results";
+    draft.message = "Metric Trust Check results:\n" + found.map(c => "- " + findingText(c)).join("\n") + "\n\n";
+    draft.need = offer("audit").name;
+    go("new-issue", { force: true });
+    setTimeout(() => { const n = $("#f-name"); if (n) n.focus(); }, 0);
+  },
+};
+document.addEventListener("click", e => {
+  const fromChat = e.target.closest("#chat") && isPhone();
+  const g = e.target.closest("[data-go]");
+  if (g && !e.metaKey && !e.ctrlKey && !e.shiftKey) {
+    e.preventDefault(); closePalette(); if (fromChat) toggleChat(false, true);
+    if (g.dataset.go === "actions" && current === "actions" && actionsTab !== "trust") go("actions", { force: true }); else go(g.dataset.go);
+    return;
+  }
+  const a = e.target.closest("[data-action]");
+  if (a && actions[a.dataset.action]) { e.preventDefault(); if (fromChat && a.dataset.action !== "chat") toggleChat(false, true); actions[a.dataset.action](); return; }
+  const tq = e.target.closest("[data-tq]");
+  if (tq) {
+    const i = +tq.dataset.tq, val = tq.dataset.v;
+    if (answers[i] === val) delete answers[i]; else answers[i] = val;
+    $("#wf-main").innerHTML = trustView();
+    const again = $(`[data-tq="${i}"][data-v="${val}"]`); if (again) again.focus();
+    return;
+  }
+  const wf = e.target.closest("[data-wf]");
+  if (wf) {
+    actionsTab = wf.dataset.wf;
+    content.innerHTML = viewActions();
+    document.title = `${actionsTab === "trust" ? "Metric Trust Check" : "Career build"} · ${CONFIG.name}`;
+    $(`[data-wf="${actionsTab}"]`).focus();
+    return;
+  }
+  const ach = e.target.closest("[data-ach]");
+  if (ach) { $("#ach-note").textContent = ach.dataset.ach; return; }
+});
+document.addEventListener("pointerover", e => {
+  const c = e.target.closest && e.target.closest(".heat .c");
+  const tip = $("#heat-tip");
+  if (c && tip) tip.textContent = c.dataset.tip;
+});
+document.addEventListener("keydown", e => {
+  const k = (e.key || "");
+  const typing = e.target.closest && e.target.closest("input, textarea, select");
+  if (((e.metaKey || e.ctrlKey) && k.toLowerCase() === "k") || (k === "/" && !typing)) { e.preventDefault(); openPalette(); }
+  else if (k === "Escape") {
+    if (!palEl.hidden) closePalette();
+    else if (!chatEl.hidden) toggleChat(false);
+  }
+});
+
+/* Local time in Boston */
+function tickTime() {
+  const el = $("#local-time"); if (!el) return;
+  try { el.textContent = new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York", timeZoneName: "short" }).format(new Date()) + " in Boston"; } catch (_) {}
+}
+setInterval(tickTime, 30000);
+
+/* Theme */
+function effectiveTheme() {
+  const t = document.documentElement.getAttribute("data-theme");
+  return t || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+}
+function syncThemeIcon() {
+  const dark = effectiveTheme() === "dark";
+  $("#theme-btn").innerHTML = icon(dark ? "sun" : "moon");
+  $("#theme-btn").setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+  if (document.documentElement.hasAttribute("data-theme")) $$('meta[name="theme-color"]').forEach(m => { m.removeAttribute("media"); m.content = dark ? "#010409" : "#f6f8fa"; });
+}
+function toggleTheme() {
+  const next = effectiveTheme() === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  try { localStorage.setItem("mgm-theme", next); } catch (_) {}
+  syncThemeIcon();
+}
+
+/* ===== Command palette ===== */
+const palEl = $("#palette"), palInput = $("#pal-input"), palList = $("#pal-list");
+let palItems = [], palIndex = 0, palReturn = null;
+function palSource() {
+  return [
+    { label: "Overview", desc: "Home", ic: "book", keys: "home profile readme about", run: () => go("overview") },
+    { label: "Pricing", desc: "Packages and prices", ic: "tag", keys: "cost price rates plans", run: () => go("pricing") },
+    { label: CTA_LABEL(), desc: "Free, no obligation", ic: "issue", keys: "hire contact book call email start", run: () => primaryAction() },
+    { label: "Repositories", desc: "Services and past roles", ic: "repo", keys: "services work case studies projects", run: () => go("repositories") },
+    { label: "Trust Check", desc: "6 yes/no questions", ic: "play", keys: "actions workflow quiz test check", run: () => go("actions", { force: current === "actions" }) },
+    { label: "Recommendations", desc: "From LinkedIn", ic: "comment", keys: "discussions reviews testimonials references", run: () => go("discussions") },
+    ...ALL_REPOS().map(r => ({ label: r.title, desc: r.name, ic: "repo", keys: r.label, run: () => go("repo-" + r.name) })),
+    { label: "Ask about Michael", desc: "Pre-written answers", ic: "spark", keys: "chat question", run: () => toggleChat(true) },
+    { label: "Switch theme", desc: "Light or dark", ic: "moon", keys: "dark light mode", run: () => toggleTheme() },
+    { label: "Open LinkedIn", desc: "New tab", ic: "link", keys: "linkedin profile", run: () => window.open(CONFIG.linkedin, "_blank", "noopener") },
+  ];
+}
+function openPalette(opts = {}) {
+  if (!palEl.hidden) { palInput.focus(); return; }
+  palReturn = document.activeElement;
+  palEl.hidden = false; palInput.value = ""; renderPalette();
+  if (opts.list) { palList.setAttribute("tabindex", "-1"); palList.focus(); } else palInput.focus();
+}
+function closePalette() {
+  if (palEl.hidden) return;
+  palEl.hidden = true;
+  if (palReturn && document.contains(palReturn)) palReturn.focus({ preventScroll: true });
+  palReturn = null;
+}
+function runPal(it) {
+  const ret = palReturn; palReturn = null; palEl.hidden = true;
+  if (ret && document.contains(ret)) ret.focus({ preventScroll: true });
+  if (it) it.run();
+}
+function renderPalette() {
+  const q = palInput.value.trim().toLowerCase();
+  palItems = palSource().filter(it => (it.label + " " + it.desc + " " + (it.keys || "")).toLowerCase().includes(q));
+  palIndex = 0;
+  palList.innerHTML = palItems.length ? palItems.map((it, i) => `<li class="pal-item${i === 0 ? " on" : ""}" role="option" id="pal-opt-${i}" data-i="${i}" aria-selected="${i === 0}">${icon(it.ic)}<span>${esc(it.label)}</span><span class="d">${esc(it.desc)}</span></li>`).join("") : `<li class="pal-sep" role="presentation">No matches</li>`;
+  if (palItems.length) palInput.setAttribute("aria-activedescendant", "pal-opt-0"); else palInput.removeAttribute("aria-activedescendant");
+}
+function movePal(d) {
+  if (!palItems.length) return;
+  palIndex = (palIndex + d + palItems.length) % palItems.length;
+  $$(".pal-item", palList).forEach(el => { const on = +el.dataset.i === palIndex; el.classList.toggle("on", on); el.setAttribute("aria-selected", on); if (on) el.scrollIntoView({ block: "nearest" }); });
+  palInput.setAttribute("aria-activedescendant", `pal-opt-${palIndex}`);
+}
+palInput.addEventListener("input", renderPalette);
+palInput.addEventListener("keydown", e => {
+  if (e.key === "ArrowDown") { e.preventDefault(); movePal(1); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); movePal(-1); }
+  else if (e.key === "Tab") e.preventDefault();
+  else if (e.key === "Enter") { e.preventDefault(); const it = palItems[palIndex]; if (it) runPal(it); }
+});
+palList.addEventListener("click", e => { const li = e.target.closest(".pal-item"); if (li) runPal(palItems[+li.dataset.i]); });
+palEl.addEventListener("click", e => { if (e.target === palEl) closePalette(); });
+
+/* ===== Assistant (pre-written answers) ===== */
+const ANSWERS = [
+  { q: "What does Michael do?", keys: ["who", "background", "bio", "yourself", "tell me about", "snowflake", "dbt", "sql", "python", "aws", "airflow", "terraform", "tableau", "looker", "postgres", "stack", "tools", "skills", "tech"],
+    a: "Michael is a freelance data engineer in Boston with 12 years of experience and a master's in actuarial science.\n\nHe gets a company's data into Snowflake, settles what each metric means so every team gets the same number, and makes the data ready for AI tools like Claude. He works with Snowflake, dbt, SQL, Python and AWS, and has used Airflow, Terraform, Tableau and Looker.",
+    acts: [{ go: "overview", label: "Overview" }] },
+  { q: "What could he do for my company?", keys: ["company", "need", "service", "services", "offer", "offers", "audit", "build", "package", "packages", "help with", "options"],
+    a: () => `Three fixed-price packages:\n\n${OFFERS.slice(0, 3).map(o => `• ${o.name} (${o.duration}): ${o.short}`).join("\n")}\n\nMost teams start with the Data Trust Audit. Its fee counts toward a build.`,
+    acts: [{ go: "pricing", label: "Pricing" }, { go: "repo-data-trust-audit", label: "Data Trust Audit" }] },
+  { q: "What has he built?", keys: ["built", "projects", "experience", "results", "portfolio", "case", "proof", "references", "clients", "examples"],
+    a: "Highlights from his full-time roles, as an employee:\n\n• OwnerIQ: found errors in the pricing models and fixed the algorithms. Over $2M saved.\n• Enel Green Power: helped build the Energy Management database, which became the source of truth as the team grew from about 7 to 60.\n• athenahealth: five years of pipelines bringing multiple teams' data into Snowflake.",
+    acts: [{ go: "repositories", label: "Past roles" }] },
+  { q: "What does it cost?", keys: ["cost", "costs", "price", "prices", "pricing", "rate", "rates", "charge", "budget", "much", "$", "hourly", "fee", "fees", "quote", "expensive"],
+    a: () => `Starting prices:\n\n${OFFERS.map(o => `• ${o.name}: ${priceLabel(o)}`).join("\n")}\n\nProjects are fixed price, and the Fractional Data Lead is a monthly retainer. No hourly billing. After a free 20-minute call you get a written proposal.`,
+    acts: [{ go: "pricing", label: "Pricing" }, { action: "primary", label: CTA_LABEL() }] },
+  { q: "Can he get our data ready for AI?", keys: ["ai", "claude", "llm", "llms", "gpt", "chatgpt", "agent", "agents", "cursor", "mcp", "semantic", "copilot"],
+    a: "Yes. AI tools give confident answers either way. They're only right when the data and definitions underneath are right.\n\nThe Claude-Ready Analytics package connects Claude to your agreed metrics with read-only access, and checks its answers against questions with known answers. Michael also uses Cursor, Claude Code and v0 every day (1,000+ hours).",
+    acts: [{ go: "repo-claude-ready-analytics", label: "Claude-Ready Analytics" }] },
+  { q: "Is he available?", keys: ["available", "availability", "when can", "timeline", "remote", "boston", "onsite", "on-site", "location", "based", "soon"],
+    a: "Yes. He's taking new projects now.\n\nHe's based in Greater Boston and works remote, hybrid or on-site.",
+    acts: [{ action: "primary", label: CTA_LABEL() }] },
+  { q: "How do I hire him?", keys: ["hire", "contact", "email", "reach", "call", "book", "talk", "linkedin", "message", "start a project", "get started", "brief", "phone"],
+    a: CONFIG.bookingUrl ? "Book a free 20-minute call directly, or send a short request with the form." : "Fill in the short request form (it takes two minutes), or message him on LinkedIn. The first 20-minute call is free.",
+    acts: [{ action: "primary", label: CTA_LABEL() }, { href: CONFIG.linkedin, label: "LinkedIn ↗" }] },
+  { q: "Does he work in my industry?", keys: ["industry", "industries", "healthcare", "healthtech", "health", "fintech", "bank", "banking", "startup", "startups", "pe", "equity", "energy", "sector", "fit"],
+    a: "His packages are set up for Series A–C startups, private-equity portfolio companies, and Boston healthcare and financial-services teams.\n\nHis own background, as an employee: five years at athenahealth (healthcare tech), Lead Analytics Engineer at People's United Bank, data engineer for Enel Green Power's Energy Management and Global Trading group, about a year at Fresenius Medical Care, and business data analyst at OwnerIQ (ad tech).",
+    acts: [{ go: "overview", label: "Overview" }] },
+];
+const PRIORITY = [3, 7, 4, 6, 5, 2, 0, 1];
+const chatEl = $("#chat"), msgs = $("#msgs"), fab = $("#fab");
+let chatStarted = false;
+function toggleChat(force, keepFocus) {
+  const open = typeof force === "boolean" ? force : chatEl.hidden;
+  chatEl.hidden = !open; fab.hidden = open;
+  $$('[aria-controls="chat"]').forEach(b => b.setAttribute("aria-expanded", String(open)));
+  if (open) {
+    if (!chatStarted) { chatStarted = true; initChat(); }
+    setTimeout(() => (isPhone() ? $(".sug", chatEl) || $("#ask") : $("#ask")).focus(), 0);
+  } else if (!keepFocus) fab.focus();
+}
+function botMsg(text, acts = [], sugs = null) {
+  const m = document.createElement("div");
+  m.className = "msg bot";
+  m.innerHTML = `<div class="who"><img src="${IMG.me}" alt="">michael-bot</div><div class="txt"></div>`;
+  msgs.appendChild(m);
+  const txt = $(".txt", m);
+  const finish = () => {
+    txt.textContent = text;
+    if (acts.length) {
+      const a = document.createElement("div"); a.className = "acts";
+      a.innerHTML = acts.map(x => x.go ? `<a class="btn btn-sm" href="#${x.go}" data-go="${x.go}">${esc(x.label)}</a>`
+        : x.action ? `<button class="btn btn-sm btn-primary" data-action="${x.action}">${esc(x.label)}</button>`
+        : `<a class="btn btn-sm" href="${esc(x.href)}" target="_blank" rel="noopener">${esc(x.label)}</a>`).join("");
+      m.appendChild(a);
+    }
+    if (sugs && sugs.length) m.appendChild(sugChips(sugs));
+    $("#chat-live").textContent = text;
+    msgs.scrollTop = msgs.scrollHeight;
+  };
+  if (reduceMotion) return finish();
+  let i = 0;
+  const step = () => { i += 3; txt.textContent = text.slice(0, i); msgs.scrollTop = msgs.scrollHeight; if (i < text.length) setTimeout(step, 12); else finish(); };
+  step();
+}
+function sugChips(list) {
+  const d = document.createElement("div"); d.className = "sugs";
+  d.innerHTML = list.map(a => `<button class="sug" data-q="${esc(a.q)}">${esc(a.q)}</button>`).join("");
+  return d;
+}
+function ask(q) {
+  const u = document.createElement("div"); u.className = "msg user"; u.textContent = q; msgs.appendChild(u);
+  const ql = q.toLowerCase();
+  const words = ql.replace(/[^a-z0-9$\- ]/g, " ").split(/\s+/);
+  let best = ANSWERS.find(a => a.q.toLowerCase() === ql), score = 0;
+  if (!best) PRIORITY.forEach(ix => {
+    const a = ANSWERS[ix];
+    const s = a.keys.filter(k => (k.includes(" ") || k === "$") ? ql.includes(k) : words.includes(k)).length;
+    if (s > score) { score = s; best = a; }
+  });
+  const rest = [ANSWERS[6], ANSWERS[3], ANSWERS[1], ANSWERS[5]].filter(a => a !== best).slice(0, 3);
+  setTimeout(() => {
+    if (best) botMsg(typeof best.a === "function" ? best.a() : best.a, best.acts, rest);
+    else botMsg("These are pre-written answers, so I can't answer that one. Michael can, though. Send him a short note and he'll get back to you.", [{ action: "primary", label: CTA_LABEL() }], [ANSWERS[1], ANSWERS[3], ANSWERS[6]]);
+  }, 250);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+msgs.addEventListener("click", e => { const s = e.target.closest(".sug"); if (s) ask(s.dataset.q); });
+$("#composer").addEventListener("submit", e => { e.preventDefault(); const t = $("#ask"); const q = t.value.trim(); if (q) { t.value = ""; ask(q); } });
+function initChat() {
+  const m = document.createElement("div");
+  m.className = "msg bot";
+  m.innerHTML = `<div class="who"><img src="${IMG.me}" alt="">michael-bot</div><div class="txt">Hi! I can answer common questions about Michael's work. Pick one or type your own.</div>`;
+  m.appendChild(sugChips([ANSWERS[1], ANSWERS[3], ANSWERS[4], ANSWERS[7], ANSWERS[6]]));
+  msgs.appendChild(m);
+}
+
+/* ===== Boot ===== */
+$("#hdr-cta").querySelector(".hide-sm").textContent = CONFIG.bookingUrl ? "Book a free call" : "Request a free call";
+$("#repo-count").textContent = ALL_REPOS().length;
+syncThemeIcon();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", syncThemeIcon);
+render(routeFromHash());
+</script>
+</body>
+</html>
